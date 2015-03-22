@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:weightSum="1">
+
+    <ListView
+        android:id="@+id/filepicker_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:choiceMode="singleChoice"
+        android:background="@color/window_background"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:padding="5dp"
+
+        android:background="@color/window_background"
+        android:weightSum="1"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|center_horizontal">
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:text="@string/btn_cancel"
+            android:id="@+id/filepicker_btn_cancel"
+            android:layout_gravity="center"
+            android:background="@drawable/button_custom"
+            android:singleLine="true"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</LinearLayout>

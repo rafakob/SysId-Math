@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="toolbar_primary">#424242</color>
+    <color name="toolbar_text">#ffffff</color>
+    <color name="window_background">#e5e5e5</color>
+
+    <color name="text_header_primary">#616161</color>
+    <color name="text_small_primary">#616161</color>
+    <color name="button_background">#616161</color>
+    <color name="button_background_pressed">#6b6b6b</color>
+
+</resources>
