@@ -3,8 +3,11 @@ package rafakob.multiedip;
 
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,16 +104,16 @@ public class DashboardFragment extends Fragment {
 
         /** Create content boxes: **/
         ContentBox box1 = new ContentBox(view, R.id.box_datasource);
-        box1.setTitle(R.string.datasource);
-        box1.setButtonText(R.string.load);
+        box1.setTitle(R.string.box_datasource);
+        box1.setButtonText(R.string.box_load);
 
         ContentBox box2 = new ContentBox(view, R.id.box_preprocessing);
-        box2.setTitle(R.string.preprocessing);
-        box2.setButtonText(R.string.settings_box);
+        box2.setTitle(R.string.box_preprocessing);
+        box2.setButtonText(R.string.box_settings);
 
         ContentBox box3 = new ContentBox(view, R.id.box_identification);
-        box3.setTitle(R.string.identification);
-        box3.setButtonText(R.string.settings_box);
+        box3.setTitle(R.string.box_identification);
+        box3.setButtonText(R.string.box_settings);
 
         /** Setup their listeners: **/
         box1.setOnClickListener(new View.OnClickListener() {
@@ -158,11 +161,15 @@ public class DashboardFragment extends Fragment {
     }
 
     public void onPreprocessingsClick() {
-        Toast.makeText(mContext, "Preprocessing", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), ProjectPrefsActivity.class);
+        startActivity(intent);
     }
 
     public void onIdentificationClick() {
-        Toast.makeText(mContext, "Identification", Toast.LENGTH_SHORT).show();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+// then you use
+
+        Toast.makeText(mContext, prefs.getString("spinnervalue", "lol"), Toast.LENGTH_SHORT).show();
 
     }
 

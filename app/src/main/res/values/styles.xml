@@ -16,17 +16,11 @@
 
     </style>
 
-    <!--<style name="MyToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">-->
+    <style name="PreferenceScreen" parent="AppTheme">
+        <item name="android:textColor">@drawable/preftext_color</item>
 
-        <!--&lt;!&ndash; Used to for the title of the Toolbar when parent is Theme.AppCompat.Light &ndash;&gt;-->
-        <!--<item name="android:textColorPrimaryInverse">#fff</item>-->
-        <!--&lt;!&ndash; Used to color the text of the action menu icons &ndash;&gt;-->
-        <!--<item name="android:textColorSecondary">#fff</item>-->
-        <!--&lt;!&ndash; Used to color the overflow menu icon &ndash;&gt;-->
-        <!--<item name="actionMenuTextColor">#fff</item>-->
-        <!--&lt;!&ndash; Color of the Toolbar &ndash;&gt;-->
-        <!--<item name="android:background">#455a64</item>-->
-    <!--</style>-->
+    </style>
+
 
 
 

@@ -9,4 +9,10 @@
     <color name="button_background">#616161</color>
     <color name="button_background_pressed">#6b6b6b</color>
 
+    <color name="prefs_text_enabled">#000000</color>
+    <color name="prefs_text_disabled">#ffbababa</color>
+
+
+
+
 </resources>
