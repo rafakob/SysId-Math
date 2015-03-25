@@ -3,8 +3,9 @@
     <string name="app_name">MultiEdip</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_project_prefs">ProjectPrefsActivity</string>
+    <string name="hello_world">Hello world!</string>
 
     <!-- Navigation drawer -->
     <string name="title_drawer_opened">Navigation</string>
@@ -22,27 +23,44 @@
     <string name="tab_result">Result</string>
 
 
-    <string name="action_settings">Settings</string>
-    <string name="error_root_browse">Root browse not allowed!</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="chb_normalization">Normalization</string>
-    <string name="chb_scaling">Scaling</string>
+    <!-- Filebrowser -->
     <string name="btn_select_source_file">Select source file...</string>
+    <string name="error_root_browse">Root browse not allowed!</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- Project tab -->
     <string name="lbl_filename">Filename:</string>
     <string name="lbl_path">Path:</string>
     <string name="lbl_data_type">Data type:</string>
     <string name="lbl_length_source">Length:</string>
-    <string name="btn_cancel">Cancel</string>
-    <string name="btn_run">RUN</string>
-    <string name="lbl_success">Finished in</string>
 
-    <!-- Main window - boxes -->
-    <string name="datasource">DATASOURCE</string>
-    <string name="preprocessing">PREPROCESSING</string>
-    <string name="identification">IDENTIFICATION</string>
-    <string name="load">LOAD</string>
-    <string name="settings_box">SETTINGS</string>
+    <string name="box_datasource">DATASOURCE</string>
+    <string name="box_preprocessing">PREPROCESSING</string>
+    <string name="box_identification">IDENTIFICATION</string>
+    <string name="box_load">LOAD</string>
+    <string name="box_settings">SETTINGS</string>
+
+
+
+    <!-- Preprocessing preferences -->
+    <string name="pref_start">Start</string>
+    <string name="pref_end">End</string>
+    <string name="pref_edit">Edit</string>
+    <string name="pref_datarange_title">Data range</string>
+    <string name="pref_datarange_summary">Select only fragment of datasource</string>
+    <string name="pref_datarange_select_title">\tSet start and end</string>
+    <string name="pref_filter">Filtering</string>
+    <string name="pref_filter_freq_summary">Filtering in frequency domain</string>
+    <string name="pref_filter_freq_title">Frequency filter</string>
+    <string name="pref_filter_freq_type">\tFilter type</string>
+    <string name="pref_filter_freq_values">\tFrequency band values</string>
+    <string name="pref_lower">Lower</string>
+    <string name="pref_upper">Upper</string>
+    <string name="pref_normalization_title">Normalization</string>
+    <string name="pref_scaling_title">Scaling</string>
+    <string name="pref_scaling_and_removing">Scaling and removing</string>
+    <string name="activity_title_preprocessing">Preprocessing Settings</string>
+    <string name="activity_title_identification">Identification Settings</string>
 
 
 </resources>

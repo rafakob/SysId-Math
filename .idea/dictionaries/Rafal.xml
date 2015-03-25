@@ -1,9 +1,12 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Rafal">
     <words>
+      <w>datarange</w>
       <w>datasource</w>
       <w>filebrowser</w>
+      <w>lowpass</w>
       <w>preprocessing</w>
+      <w>timeseries</w>
     </words>
   </dictionary>
 </component>
