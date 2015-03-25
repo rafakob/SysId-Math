@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:speedreader="http://schemas.android.com/apk/res-auto">
+
+
+
+
+
+
+    <PreferenceCategory android:title="Parametric model">
+
+        <ListPreference
+            android:defaultValue="ARX"
+            android:entries="@array/idPlantList"
+            android:entryValues="@array/idPlantListValues"
+            android:key="id1"
+            android:summary="\t%s"
+            android:title="Plant model type" />
+
+        <ListPreference
+            android:defaultValue="MA"
+            android:entries="@array/idTimeseriesList"
+            android:entryValues="@array/idTimeseriesListValues"
+            android:key="id2"
+            android:summary="\t%s"
+            android:title="Timeseries model type" />
+
+        <rafakob.multiedip.prefs.DoubleNumberPickerPreference
+            android:defaultValue="2,1,2"
+            android:key="id3"
+            android:title="Structure"
+            speedreader:labelFirst="@string/pref_lower"
+            speedreader:labelSecond="@string/pref_upper" />
+
+
+    </PreferenceCategory>
+
+
+
+
+
+    <!--<PreferenceCategory android:title="Filter">-->
+    <!--<CheckBoxPreference-->
+    <!--android:key="pre_chb_data_range"-->
+    <!--android:title="Data range"-->
+    <!--android:summary="Select only fragment of datasource"/>-->
+
+    <!--<rafakob.multiedip.prefs.DoubleNumberPickerPreference-->
+    <!--android:key="pre_txt_datarange"-->
+    <!--android:title="\tSet start and end"-->
+    <!--android:dependency="pre_chb_data_range"-->
+    <!--speedreader:labelFirst="@string/pref_start"-->
+    <!--speedreader:labelSecond="@string/pref_end"-->
+    <!--android:defaultValue="0-1000"/>-->
+    <!--</PreferenceCategory>-->
+
+
+    <!--<PreferenceCategory-->
+    <!--android:summary="Username and password information"-->
+    <!--android:title="Wybór przedziału" >-->
+    <!--<rafakob.multiedip.prefs.EditTextPreference-->
+    <!--android:key="username"-->
+    <!--android:summary="Please enter your login username"-->
+    <!--android:title="Dolny" />-->
+    <!--<rafakob.multiedip.prefs.EditTextPreference-->
+
+    <!--android:key="password"-->
+    <!--android:summary="Enter your password"-->
+    <!--android:title="Górny" />-->
+    <!--</PreferenceCategory>-->
+
+    <!--<PreferenceCategory-->
+    <!--android:summary="Username and password information"-->
+    <!--android:title="Settings" >-->
+    <!--<CheckBoxPreference-->
+    <!--android:key="checkBox"-->
+    <!--android:summary="On/Off"-->
+    <!--android:title="Keep me logged in" />-->
+
+
+    <!--</PreferenceCategory>-->
+
+
+</PreferenceScreen>

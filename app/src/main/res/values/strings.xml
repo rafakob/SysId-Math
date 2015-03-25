@@ -45,6 +45,22 @@
     <!-- Preprocessing preferences -->
     <string name="pref_start">Start</string>
     <string name="pref_end">End</string>
+    <string name="pref_edit">Edit</string>
+    <string name="pref_datarange_title">Data range</string>
+    <string name="pref_datarange_summary">Select only fragment of datasource</string>
+    <string name="pref_datarange_select_title">\tSet start and end</string>
+    <string name="pref_filter">Filtering</string>
+    <string name="pref_filter_freq_summary">Filtering in frequency domain</string>
+    <string name="pref_filter_freq_title">Frequency filter</string>
+    <string name="pref_filter_freq_type">\tFilter type</string>
+    <string name="pref_filter_freq_values">\tFrequency band values</string>
+    <string name="pref_lower">Lower</string>
+    <string name="pref_upper">Upper</string>
+    <string name="pref_normalization_title">Normalization</string>
+    <string name="pref_scaling_title">Scaling</string>
+    <string name="pref_scaling_and_removing">Scaling and removing</string>
+    <string name="activity_title_preprocessing">Preprocessing Settings</string>
+    <string name="activity_title_identification">Identification Settings</string>
 
 
 </resources>

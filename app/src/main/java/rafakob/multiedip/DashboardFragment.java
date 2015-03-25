@@ -162,14 +162,14 @@ public class DashboardFragment extends Fragment {
 
     public void onPreprocessingsClick() {
         Intent intent = new Intent(getActivity(), ProjectPrefsActivity.class);
+        intent.putExtra("PROJECT_SETTINGS_MODE","preprocessing");
         startActivity(intent);
     }
 
     public void onIdentificationClick() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-// then you use
-
-        Toast.makeText(mContext, prefs.getString("spinnervalue", "lol"), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), ProjectPrefsActivity.class);
+        intent.putExtra("PROJECT_SETTINGS_MODE","identification");
+        startActivity(intent);
 
     }
 
