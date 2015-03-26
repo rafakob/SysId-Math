@@ -4,20 +4,22 @@ package rafakob.multiedip;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
+import rafakob.multiedip.bus.LoadDataFinishedEvent;
 import rafakob.multiedip.bus.SelectFileEvent;
 import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
+import rafakob.multiedip.idsys.IdData;
+import rafakob.multiedip.idsys.LoadDataFromFileTask;
 
 
 /**
@@ -45,6 +47,7 @@ public class DashboardFragment extends Fragment {
     private String currentBrowseStartPath;
 
     private EventBus bus = EventBus.getDefault();
+    private IdData iddata;
 
 
 //    /**
@@ -85,11 +88,12 @@ public class DashboardFragment extends Fragment {
         txtPath = new TextView(mContext);
         txtDataType = new TextView(mContext);
         txtLength = new TextView(mContext);
+        iddata = new IdData();
 
         // Create file browser instance
         filePickerDialogFragment = new FilebrowserDialogFragment();
         // Set up path to sd card
-        if (Environment.MEDIA_MOUNTED.equals( Environment.getExternalStorageState() ))
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
             currentBrowseStartPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     }
@@ -146,6 +150,15 @@ public class DashboardFragment extends Fragment {
         box1.addToGrid(txtDataType, "", 2, 1);
         box1.addToGrid(txtLength, "", 3, 1);
 
+        /** Other buttons **/
+        Button btnRun = (Button) view.findViewById(R.id.btn_run);
+        btnRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRunClick();
+            }
+        });
+
 
         return view;
     }
@@ -158,32 +171,48 @@ public class DashboardFragment extends Fragment {
         Bundle dialogParameters = new Bundle(1);
         dialogParameters.putString("START_PATH", currentBrowseStartPath);
         filePickerDialogFragment.setArguments(dialogParameters);
+
     }
 
     public void onPreprocessingsClick() {
         Intent intent = new Intent(getActivity(), ProjectPrefsActivity.class);
-        intent.putExtra("PROJECT_SETTINGS_MODE","preprocessing");
+        intent.putExtra("PROJECT_SETTINGS_MODE", "preprocessing");
         startActivity(intent);
     }
 
     public void onIdentificationClick() {
         Intent intent = new Intent(getActivity(), ProjectPrefsActivity.class);
-        intent.putExtra("PROJECT_SETTINGS_MODE","identification");
+        intent.putExtra("PROJECT_SETTINGS_MODE", "identification");
         startActivity(intent);
 
     }
 
-    /**
-     * Carch event from FilebrowserDialogFragment
-     * @param event
-     */
-    public void onEvent(SelectFileEvent event) {
-        txtFilename.setText(event.path.substring(event.path.lastIndexOf("/")+1));
-        currentBrowseStartPath = event.path.substring(0,event.path.lastIndexOf("/"));
-        txtPath.setText(currentBrowseStartPath);
+    public void onRunClick() {
+        Toast.makeText(mContext, "test", Toast.LENGTH_SHORT).show();
 
     }
 
+    /**
+     * Catches event from FilebrowserDialogFragment
+     */
+    public void onEvent(SelectFileEvent event) {
+        txtFilename.setText(event.path.substring(event.path.lastIndexOf("/") + 1));
+        currentBrowseStartPath = event.path.substring(0, event.path.lastIndexOf("/"));
+        txtPath.setText(currentBrowseStartPath);
+
+
+        iddata.setPath(currentBrowseStartPath + "/" + txtFilename.getText().toString());
+
+        new LoadDataFromFileTask(txtLength).execute(iddata);
+
+    }
+
+    /**
+     * Update iddata object
+     */
+    public void onEvent(LoadDataFinishedEvent event){
+        txtLength.setText(event.iddata.getLength() + "");
+    }
 
 
 }
