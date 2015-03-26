@@ -1,5 +1,7 @@
 package rafakob.multiedip.idsys.processing;
 
+import com.google.common.primitives.Doubles;
+
 import java.text.DecimalFormat;
 
 import rafakob.multiedip.idsys.IdData;
@@ -15,32 +17,19 @@ public class Normalization implements DataProcessingFunction {
 
     @Override
     public IdData execute(IdData iddata) {
-
         double[] array = iddata.getOutput();
+        double maxAbs = findMaxAbs(array);
 
-        int i;
-        DecimalFormat decFormat = new DecimalFormat("#.####");
-
-        double maxAbs = findMaxAbs(array, array.length);
-
-        for(i = 0; i<array.length; i++){
+        for(int i = 0; i < array.length; i++){
             iddata.getOutput()[i] = array[i] / maxAbs;
         }
-
         return iddata;
     }
 
 
-    private double findMaxAbs(double[] in, int length) {
-        int i = 0;
-        double max = in[0];
-        for(i = 1; i<length; i++){
-
-            if( Math.abs( in[i] ) > max ){
-                max = Math.abs( in[i] );
-            }
-
-        }
-        return max;
+    private double findMaxAbs(double[] array) {
+        double min = Doubles.min(array);
+        double max = Doubles.max(array);
+        return Math.abs(min) > max ? Math.abs(min) : max;
     }
 }

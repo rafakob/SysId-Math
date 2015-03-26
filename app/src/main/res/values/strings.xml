@@ -61,6 +61,7 @@
     <string name="pref_scaling_and_removing">Scaling and removing</string>
     <string name="activity_title_preprocessing">Preprocessing Settings</string>
     <string name="activity_title_identification">Identification Settings</string>
+    <string name="loading_file">Loading file...</string>
 
 
 </resources>

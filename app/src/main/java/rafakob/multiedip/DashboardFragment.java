@@ -19,7 +19,7 @@ import rafakob.multiedip.bus.LoadDataFinishedEvent;
 import rafakob.multiedip.bus.SelectFileEvent;
 import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.LoadDataFromFileTask;
+import rafakob.multiedip.idsys.processing.Normalization;
 
 
 /**
@@ -41,6 +41,7 @@ public class DashboardFragment extends Fragment {
     private TextView txtPath;
     private TextView txtDataType;
     private TextView txtLength;
+    private TextView txtInfo;
     private Context mContext;
 
     private DialogFragment filePickerDialogFragment;
@@ -88,6 +89,7 @@ public class DashboardFragment extends Fragment {
         txtPath = new TextView(mContext);
         txtDataType = new TextView(mContext);
         txtLength = new TextView(mContext);
+        txtInfo = new TextView(mContext);
         iddata = new IdData();
 
         // Create file browser instance
@@ -150,7 +152,7 @@ public class DashboardFragment extends Fragment {
         box1.addToGrid(txtDataType, "", 2, 1);
         box1.addToGrid(txtLength, "", 3, 1);
 
-        /** Other buttons **/
+        /** Others **/
         Button btnRun = (Button) view.findViewById(R.id.btn_run);
         btnRun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +161,8 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        txtInfo = (TextView) view.findViewById(R.id.lbl_info);
+        txtInfo.setText("");
 
         return view;
     }
@@ -166,7 +170,6 @@ public class DashboardFragment extends Fragment {
 
     public void onLoadDatasourceClick() {
 //        // Toast.makeText(mContext, "test", Toast.LENGTH_SHORT).show();
-
         filePickerDialogFragment.show(getActivity().getFragmentManager(), "Filebrowser");
         Bundle dialogParameters = new Bundle(1);
         dialogParameters.putString("START_PATH", currentBrowseStartPath);
@@ -188,8 +191,9 @@ public class DashboardFragment extends Fragment {
     }
 
     public void onRunClick() {
-        Toast.makeText(mContext, "test", Toast.LENGTH_SHORT).show();
+        new Normalization().execute(iddata);
 
+        Toast.makeText(mContext, iddata.getOutput()[0] + "", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -202,16 +206,18 @@ public class DashboardFragment extends Fragment {
 
 
         iddata.setPath(currentBrowseStartPath + "/" + txtFilename.getText().toString());
-
-        new LoadDataFromFileTask(txtLength).execute(iddata);
+        // load data from file to iddata object
+        new LoadDataFromFileTask(txtInfo).execute(iddata);
 
     }
 
     /**
      * Update iddata object
      */
-    public void onEvent(LoadDataFinishedEvent event){
+    public void onEvent(LoadDataFinishedEvent event) {
         txtLength.setText(event.iddata.getLength() + "");
+        txtDataType.setText(event.iddata.getType());
+        txtInfo.setText("");
     }
 
 

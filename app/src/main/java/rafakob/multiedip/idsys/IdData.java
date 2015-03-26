@@ -1,12 +1,5 @@
 package rafakob.multiedip.idsys;
 
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class IdData {
     private double[] input;
     private double[] output;
@@ -33,32 +26,10 @@ public class IdData {
         this.length = output.length;
     }
 
-    public void loadFromFile(String pathToFile){
-        path = pathToFile;
-        File file = new File(path);
-        countLines(file);
-    }
-
     public void saveToFile(String pathToFile){
         // TODO: zaimplementować
     }
 
-    private void countLines(File file) {
-        long numberOfRows = 0;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-
-                numberOfRows++;
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        length = numberOfRows;
-    }
 
     public double[] getInput() {
         return input;
