@@ -21,7 +21,8 @@ public class Normalization implements DataProcessingFunction {
         double maxAbs = findMaxAbs(array);
 
         for(int i = 0; i < array.length; i++){
-            iddata.getOutput()[i] = array[i] / maxAbs;
+//            iddata.getOutput()[i] = array[i] / maxAbs; TODO: wrócic
+            iddata.getOutput()[i] = array[i] *2;
         }
         return iddata;
     }

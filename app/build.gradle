@@ -27,5 +27,7 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
     compile group: 'com.googlecode.efficient-java-matrix-library', name: 'core', version: '0.26'
     compile group: 'com.googlecode.efficient-java-matrix-library', name: 'equation', version: '0.26'
+    compile 'uk.com.robust-it:cloning:1.9.1'
+    compile 'com.pixplicity.easyprefs:library:1.4'
 
 }

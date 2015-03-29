@@ -31,6 +31,15 @@ public class IdData {
     }
 
 
+//    public void copy(IdData objToCopy) {
+//        this.input = objToCopy.getInput();
+//        this.output = objToCopy.getOutput();
+//        this.ts = objToCopy.getTs();
+//        this.length = objToCopy.getLength();
+//        this.type = objToCopy.getType();
+//        this.path = objToCopy.getPath();
+//    }
+
     public double[] getInput() {
         return input;
     }

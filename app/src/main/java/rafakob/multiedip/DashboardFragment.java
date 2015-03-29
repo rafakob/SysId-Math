@@ -14,11 +14,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.LoadDataFinishedEvent;
 import rafakob.multiedip.bus.SelectFileEvent;
 import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
 import rafakob.multiedip.idsys.IdData;
+import rafakob.multiedip.idsys.processing.DataProcessing;
+import rafakob.multiedip.idsys.processing.DataProcessingFunction;
 import rafakob.multiedip.idsys.processing.Normalization;
 
 
@@ -191,9 +196,17 @@ public class DashboardFragment extends Fragment {
     }
 
     public void onRunClick() {
-        new Normalization().execute(iddata);
+//        new Normalization().execute(iddata);
 
-        Toast.makeText(mContext, iddata.getOutput()[0] + "", Toast.LENGTH_SHORT).show();
+        DataProcessing dp = new DataProcessing();
+        ArrayList list = new ArrayList<DataProcessingFunction>();
+        list.add(new Normalization());
+        list.add(new Normalization());
+
+
+
+
+        Toast.makeText(mContext, dp.process(iddata,list).getOutput()[0] + "", Toast.LENGTH_SHORT).show();
     }
 
     /**
