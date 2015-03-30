@@ -53,4 +53,8 @@ public class ContentBox {
         textView.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(col)));
         mGrid.addView(textView);
     }
+
+    public void cleatGrid(){
+        mGrid.removeAllViews();
+    }
 }

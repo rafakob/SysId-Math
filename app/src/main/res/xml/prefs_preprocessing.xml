@@ -6,13 +6,13 @@
 
     <PreferenceCategory android:title="@string/pref_edit">
         <CheckBoxPreference
-            android:key="pre_datarange_flag"
+            android:key="pre_flag_datarange"
             android:summary="@string/pref_datarange_summary"
             android:title="@string/pref_datarange_title" />
 
         <rafakob.multiedip.prefs.DoubleNumberPickerPreference
             android:defaultValue="0-1000"
-            android:dependency="pre_datarange_flag"
+            android:dependency="pre_flag_datarange"
             android:key="pre_datarange_range"
             android:title="@string/pref_datarange_select_title"
             speedreader:labelFirst="@string/pref_start"
@@ -23,13 +23,13 @@
 
     <PreferenceCategory android:title="@string/pref_filter">
         <CheckBoxPreference
-            android:key="pre_filter_freq_flag"
+            android:key="pre_flag_filter_freq"
             android:summary="@string/pref_filter_freq_summary"
             android:title="@string/pref_filter_freq_title" />
 
         <ListPreference
             android:defaultValue="lowpass"
-            android:dependency="pre_filter_freq_flag"
+            android:dependency="pre_flag_filter_freq"
             android:entries="@array/filterList"
             android:entryValues="@array/filterListValues"
             android:key="pre_filter_freq_type"
@@ -38,7 +38,7 @@
 
         <rafakob.multiedip.prefs.DoubleNumberPickerPreference
             android:defaultValue="0-1000"
-            android:dependency="pre_filter_freq_flag"
+            android:dependency="pre_flag_filter_freq"
             android:key="pre_filter_freq_values"
             android:title="@string/pref_filter_freq_values"
             speedreader:labelFirst="@string/pref_lower"
@@ -48,22 +48,22 @@
 
     <PreferenceCategory android:title="@string/pref_scaling_and_removing">
         <CheckBoxPreference
-            android:key="pre_normalization_flag"
+            android:key="pre_flag_normalization"
             android:summary=""
             android:title="@string/pref_normalization_title" />
 
         <CheckBoxPreference
-            android:key="pre_scaling_flag"
+            android:key="pre_flag_scaling"
             android:summary=""
             android:title="@string/pref_scaling_title" />
 
         <CheckBoxPreference
-            android:key="pre_dcremoval_flag"
+            android:key="pre_flag_dcremoval"
             android:summary="Remove mean value from signal"
             android:title="DC offset removal" />
 
         <CheckBoxPreference
-            android:key="pre_polyremoval_flag"
+            android:key="pre_flag_polyremoval"
             android:summary="Remove polynomial trend from signal"
             android:title="Polynomial trend removal" />
 

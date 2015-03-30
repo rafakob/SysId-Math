@@ -9,4 +9,5 @@ import rafakob.multiedip.idsys.IdData;
 public interface DataProcessingFunction {
 
     public IdData execute(IdData iddata);
+    public String getFunctionNameAndParams();
 }

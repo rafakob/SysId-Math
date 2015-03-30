@@ -27,6 +27,10 @@ public class Normalization implements DataProcessingFunction {
         return iddata;
     }
 
+    @Override
+    public String getFunctionNameAndParams() {
+        return "Normalization";
+    }
 
     private double findMaxAbs(double[] array) {
         double min = Doubles.min(array);
