@@ -28,7 +28,7 @@ public class Normalization implements DataProcessingFunction {
     }
 
     @Override
-    public String getFunctionNameAndParams() {
+    public String getFunctionDescription() {
         return "Normalization";
     }
 

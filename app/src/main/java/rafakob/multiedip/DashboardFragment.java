@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.LoadDataFinishedEvent;
 import rafakob.multiedip.bus.SelectFileEvent;
+import rafakob.multiedip.bus.SettingsChangedEvent;
 import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
 import rafakob.multiedip.idsys.IdData;
+import rafakob.multiedip.idsys.identification.IdentificationModel;
 import rafakob.multiedip.idsys.processing.DataProcessingFunction;
 
 
@@ -44,6 +46,10 @@ public class DashboardFragment extends Fragment {
     private TextView txtLength;
     private TextView txtInfo;
     private Context mContext;
+    private PrefManager mPrefManager;
+    private ArrayList<DataProcessingFunction> mPreprocessingTasks;
+    private IdentificationModel mIdentificationModel;
+
 
     private DialogFragment filePickerDialogFragment;
     private String currentBrowseStartPath;
@@ -85,7 +91,7 @@ public class DashboardFragment extends Fragment {
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
         mContext = getActivity().getApplicationContext();
-
+        mPrefManager = new PrefManager(mContext);
         txtFilename = new TextView(mContext);
         txtPath = new TextView(mContext);
         txtDataType = new TextView(mContext);
@@ -165,6 +171,9 @@ public class DashboardFragment extends Fragment {
         txtInfo = (TextView) view.findViewById(R.id.lbl_info);
         txtInfo.setText("");
 
+        updatePreprocessingTasks();
+        updateSettingsBoxes();
+
         return view;
     }
 
@@ -195,21 +204,26 @@ public class DashboardFragment extends Fragment {
 //        new Normalization().execute(iddata);
 
 //        DataProcessing dp = new DataProcessing();
-//        ArrayList list = new ArrayList<DataProcessingFunction>();
-//        list.add(new Normalization());
-//        list.add(new Normalization());
+//        ArrayList mPreprocessingTasks = new ArrayList<DataProcessingFunction>();
+//        mPreprocessingTasks.add(new Normalization());
+//        mPreprocessingTasks.add(new Normalization());
 
 
-        PrefManager pm = new PrefManager(mContext);
-        ArrayList<DataProcessingFunction> list = pm.getPreprocesingConfig();
-        System.out.println(list);
+//        Toast.makeText(mContext, dp.process(iddata,mPreprocessingTasks).getOutput()[0] + "", Toast.LENGTH_SHORT).show();
+    }
 
+    private void updatePreprocessingTasks() {
+        mPreprocessingTasks = mPrefManager.getPreprocesingConfig();
+    }
+
+    private void updateSettingsBoxes() {
         mBox2.cleatGrid();
-        for (int i = 0; i < list.size(); i++) {
-            mBox2.addToGrid(new TextView(mContext),list.get(i).getFunctionNameAndParams(),i,0);
+        if (!mPreprocessingTasks.isEmpty()) {
+            for (int i = 0; i < mPreprocessingTasks.size(); i++) {
+                mBox2.addToGrid(new TextView(mContext), mPreprocessingTasks.get(i).getFunctionDescription(), i, 0);
+            }
         }
 
-//        Toast.makeText(mContext, dp.process(iddata,list).getOutput()[0] + "", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -234,6 +248,16 @@ public class DashboardFragment extends Fragment {
         txtLength.setText(event.iddata.getLength() + "");
         txtDataType.setText(event.iddata.getType());
         txtInfo.setText("");
+    }
+
+    /**
+     * When ProjectPrefsActivity is closed
+     *
+     * @param event
+     */
+    public void onEvent(SettingsChangedEvent event) {
+        updatePreprocessingTasks();
+        updateSettingsBoxes();
     }
 
 

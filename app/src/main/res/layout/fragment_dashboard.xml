@@ -30,7 +30,7 @@
                 android:text="Info"
                 android:id="@+id/lbl_info"
                 android:layout_gravity="center"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="5dp" />
 
             <Button
                 android:layout_width="150dp"
@@ -40,7 +40,7 @@
                 android:layout_gravity="top|center_horizontal"
                 android:singleLine="true"
                 android:background="#ff52ba42"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="15dp" />
         </LinearLayout>
 
         <include
