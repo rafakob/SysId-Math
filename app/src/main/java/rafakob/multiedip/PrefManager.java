@@ -8,12 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import rafakob.multiedip.idsys.processing.DataProcessingFunction;
-import rafakob.multiedip.idsys.processing.DataRange;
-import rafakob.multiedip.idsys.processing.DcOffsetRemoval;
-import rafakob.multiedip.idsys.processing.FrequencyFilter;
 import rafakob.multiedip.idsys.processing.Normalization;
-import rafakob.multiedip.idsys.processing.PolynomialTrendRemoval;
-import rafakob.multiedip.idsys.processing.Scaling;
 
 
 public class PrefManager {
@@ -50,17 +45,17 @@ public class PrefManager {
                     System.out.println(key);
                     switch (key){
                         case "pre_flag_datarange":
-                            methodList.add(new DataRange()); break;
+                            methodList.add(new Normalization()); break;
                         case "pre_flag_filter_freq":
-                            methodList.add(new FrequencyFilter()); break;
+                            methodList.add(new Normalization()); break;
                         case "pre_flag_normalization":
                             methodList.add(new Normalization()); break;
                         case "pre_flag_scaling":
-                            methodList.add(new Scaling()); break;
+                            methodList.add(new Normalization()); break;
                         case "pre_flag_dcremoval":
-                            methodList.add(new DcOffsetRemoval()); break;
+                            methodList.add(new Normalization()); break;
                         case "pre_flag_polyremoval":
-                            methodList.add(new PolynomialTrendRemoval()); break;
+                            methodList.add(new Normalization()); break;
 
                     }
                 }
