@@ -3,82 +3,57 @@
     xmlns:speedreader="http://schemas.android.com/apk/res-auto">
 
 
+    /** Custom RadioGroup **/
+    <PreferenceCategory android:title="Select only one model type">
+        <CheckBoxPreference
+            android:key="id_flag_parametric"
+            android:summary=""
+            android:defaultValue="true"
+            android:title="Parametric model" />
+
+        <CheckBoxPreference
+            android:key="id_flag_nonparametric"
+            android:summary=""
+            android:defaultValue="false "
+            android:title="Nonparametric model" />
+    </PreferenceCategory>
 
 
-
-
-    <PreferenceCategory android:title="Parametric model">
+    /** Parametric models **/
+    <PreferenceCategory android:title="Parametric models"
+        android:dependency="id_flag_parametric">
 
         <ListPreference
-            android:defaultValue="ARX"
+            android:defaultValue="arx"
             android:entries="@array/idPlantList"
             android:entryValues="@array/idPlantListValues"
-            android:key="id1"
+            android:key="id_par_siso_model"
             android:summary="\t%s"
-            android:title="Plant model type" />
+            android:title="SISO model type" />
 
         <ListPreference
-            android:defaultValue="MA"
+            android:defaultValue="ar"
             android:entries="@array/idTimeseriesList"
             android:entryValues="@array/idTimeseriesListValues"
-            android:key="id2"
+            android:key="id_par_timeseries_model"
             android:summary="\t%s"
             android:title="Timeseries model type" />
 
-        <rafakob.multiedip.prefs.DoubleNumberPickerPreference
-            android:defaultValue="2,1,2"
-            android:key="id3"
+        <rafakob.multiedip.prefs.ModelStructurePreference
+            android:defaultValue="2,1,2,1"
+            android:key="id_par_structure"
             android:title="Structure"
-            speedreader:labelFirst="@string/pref_lower"
-            speedreader:labelSecond="@string/pref_upper" />
+        />
 
 
     </PreferenceCategory>
 
 
+    /** Nonparametric models **/
+    <PreferenceCategory android:title="Nonparametric models"
+        android:dependency="id_flag_nonparametric">
+    </PreferenceCategory>
 
-
-
-    <!--<PreferenceCategory android:title="Filter">-->
-    <!--<CheckBoxPreference-->
-    <!--android:key="pre_chb_data_range"-->
-    <!--android:title="Data range"-->
-    <!--android:summary="Select only fragment of datasource"/>-->
-
-    <!--<rafakob.multiedip.prefs.DoubleNumberPickerPreference-->
-    <!--android:key="pre_txt_datarange"-->
-    <!--android:title="\tSet start and end"-->
-    <!--android:dependency="pre_chb_data_range"-->
-    <!--speedreader:labelFirst="@string/pref_start"-->
-    <!--speedreader:labelSecond="@string/pref_end"-->
-    <!--android:defaultValue="0-1000"/>-->
-    <!--</PreferenceCategory>-->
-
-
-    <!--<PreferenceCategory-->
-    <!--android:summary="Username and password information"-->
-    <!--android:title="Wybór przedziału" >-->
-    <!--<rafakob.multiedip.prefs.EditTextPreference-->
-    <!--android:key="username"-->
-    <!--android:summary="Please enter your login username"-->
-    <!--android:title="Dolny" />-->
-    <!--<rafakob.multiedip.prefs.EditTextPreference-->
-
-    <!--android:key="password"-->
-    <!--android:summary="Enter your password"-->
-    <!--android:title="Górny" />-->
-    <!--</PreferenceCategory>-->
-
-    <!--<PreferenceCategory-->
-    <!--android:summary="Username and password information"-->
-    <!--android:title="Settings" >-->
-    <!--<CheckBoxPreference-->
-    <!--android:key="checkBox"-->
-    <!--android:summary="On/Off"-->
-    <!--android:title="Keep me logged in" />-->
-
-
-    <!--</PreferenceCategory>-->
 
 
 </PreferenceScreen>

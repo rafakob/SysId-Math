@@ -1,10 +1,12 @@
-package rafakob.multiedip;
+package rafakob.multiedip.utilities;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
+
+import rafakob.multiedip.R;
 
 public class ContentBox {
     View mBox;
@@ -52,5 +54,13 @@ public class ContentBox {
         textView.setTextColor(mContext.getResources().getColor(R.color.text_small_primary));
         textView.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(col)));
         mGrid.addView(textView);
+    }
+
+    public void setButtonVisibility(int visibility){
+        ((Button) mBox.findViewById(R.id.box_button)).setVisibility(visibility);
+    }
+
+    public void cleatGrid(){
+        mGrid.removeAllViews();
     }
 }

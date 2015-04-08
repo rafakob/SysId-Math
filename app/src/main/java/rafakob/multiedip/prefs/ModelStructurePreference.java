@@ -12,25 +12,24 @@ import android.widget.TextView;
 import rafakob.multiedip.R;
 
 
-public class DoubleNumberPickerPreference extends DialogPreference {
+public class ModelStructurePreference extends DialogPreference {
     private String mCurrentValue;
-    private EditText mEditText1;
-    private EditText mEditText2;
+    private EditText mEditTextParamK;
+    private EditText mEditTextParamDa;
+    private EditText mEditTextParamDb;
+    private EditText mEditTextParamDc;
+
 
     private TextView mLabel1;
     private TextView mLabel2;
 
-    private String mStrLabel1;
-    private String mStrLabel2;
 
-    public DoubleNumberPickerPreference(final Context context, final AttributeSet attrs) {
+    public ModelStructurePreference(final Context context, final AttributeSet attrs) {
         super(context, attrs);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DoubleNumberPicker);
-        mStrLabel1 = a.getString(R.styleable.DoubleNumberPicker_labelFirst);
-        mStrLabel2 = a.getString(R.styleable.DoubleNumberPicker_labelSecond);
 
-        setDialogLayoutResource(R.layout.pref_double_number_picker);
+        setDialogLayoutResource(R.layout.pref_model_structure);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
         setDialogIcon(null);
@@ -40,30 +39,32 @@ public class DoubleNumberPickerPreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        mEditText1 = (EditText) view.findViewById(R.id.dnum_number1);
-        mEditText2 = (EditText) view.findViewById(R.id.dnum_number2);
-
-        mLabel1 = (TextView) view.findViewById(R.id.dnum_picker_label1);
-        mLabel2 = (TextView) view.findViewById(R.id.dnum_picker_label2);
+        mEditTextParamK = (EditText) view.findViewById(R.id.param_k);
+        mEditTextParamDa = (EditText) view.findViewById(R.id.param_da);
+        mEditTextParamDb = (EditText) view.findViewById(R.id.param_db);
+        mEditTextParamDc = (EditText) view.findViewById(R.id.param_dc);
     }
 
     @Override
     protected void onPrepareDialogBuilder(Builder builder) {
         super.onPrepareDialogBuilder(builder);
 
-        //TODO: dodać zabezpieczenie przed nullem!
-        mEditText1.setText(mCurrentValue.substring(0, mCurrentValue.lastIndexOf("-")));
-        mEditText2.setText(mCurrentValue.substring(mCurrentValue.lastIndexOf("-")+1));
+        String[] values = mCurrentValue.split(",", -1);
 
-        mLabel1.setText(mStrLabel1 + ":");
-        mLabel2.setText(mStrLabel2 + ":");
+        //TODO: dodać wyszarzanie na podstawie wybranego modelu
+        mEditTextParamK.setText(values[0]);
+        mEditTextParamDa.setText(values[1]);
+        mEditTextParamDb.setText(values[2]);
+        mEditTextParamDc.setText(values[3]);
+
+
     }
 
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
             // Restore existing state
-            mCurrentValue = this.getPersistedString("0-");
+            mCurrentValue = this.getPersistedString("1,1,1,1");
         } else {
             // Set default state from the XML attribute
             mCurrentValue = (String) defaultValue;
@@ -83,7 +84,11 @@ public class DoubleNumberPickerPreference extends DialogPreference {
     protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && this.shouldPersist()) {
 
-            mCurrentValue = mEditText1.getText().toString() + "-" + mEditText2.getText().toString();
+            mCurrentValue = mEditTextParamK.getText().toString() +
+                    "," + mEditTextParamDa.getText().toString() +
+                    "," + mEditTextParamDb.getText().toString() +
+                    "," + mEditTextParamDc.getText().toString();
+
             this.persistString(mCurrentValue);
             this.updateSummary();
         }
