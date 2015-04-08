@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
-    private String selectedPath;
+
 
     // Drawer items:
     private static final int NAV_DASHBOARD = 1;
@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
 
             case NAV_STATISTICS:
-                f = new AboutFragment();
+                f = new StatisticsFragment();
                 mTitle = getString(R.string.title_item2);
                 break;
             case NAV_PLOTS:

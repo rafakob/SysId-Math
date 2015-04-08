@@ -5,7 +5,7 @@ import rafakob.multiedip.idsys.IdData;
 /**
  * Created by Rafal on 2015-03-31.
  */
-public class FrequencyFilter implements DataProcessingFunction {
+public class FrequencyFilter implements DataProcessingInterface {
     @Override
     public IdData execute(IdData iddata) {
         return null;
@@ -13,6 +13,6 @@ public class FrequencyFilter implements DataProcessingFunction {
 
     @Override
     public String getFunctionDescription() {
-        return "FrequencyFIlter";
+        return "FrequencyFilter";
     }
 }

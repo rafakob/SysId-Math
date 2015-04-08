@@ -39,7 +39,7 @@
     <string name="box_identification">IDENTIFICATION</string>
     <string name="box_load">LOAD</string>
     <string name="box_settings">SETTINGS</string>
-
+    <string name="box_result">RESULT</string>
 
 
     <!-- Preprocessing preferences -->
@@ -62,6 +62,7 @@
     <string name="activity_title_preprocessing">Preprocessing Settings</string>
     <string name="activity_title_identification">Identification Settings</string>
     <string name="loading_file">Loading file...</string>
+
 
 
 </resources>

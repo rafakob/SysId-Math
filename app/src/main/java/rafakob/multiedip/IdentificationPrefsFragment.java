@@ -1,7 +1,10 @@
 package rafakob.multiedip;
 
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 
 /**
  * Author: Rafal Kobylko
@@ -15,6 +18,37 @@ public class IdentificationPrefsFragment extends PreferenceFragment {
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.prefs_identification);
+
+        // Setup listeners for custom radio group
+        super.findPreference("id_flag_parametric")
+                .setOnPreferenceChangeListener( new Preference.OnPreferenceChangeListener(){
+                    @Override
+                    public boolean onPreferenceChange(Preference pref, Object newVal) {
+                        if((Boolean) newVal==true) {
+
+                            // User just turned off checkbox - take necessary action here
+                            ((CheckBoxPreference) getPreferenceManager().findPreference("id_flag_nonparametric")).setChecked(false);
+                            return true;
+                        }
+                        return false; // Finally, let the checkbox value go through to update itself
+                    }
+                });
+
+
+        super.findPreference("id_flag_nonparametric")
+                .setOnPreferenceChangeListener( new Preference.OnPreferenceChangeListener(){
+                    @Override
+                    public boolean onPreferenceChange(Preference pref, Object newVal) {
+                        if((Boolean) newVal==true) {
+
+                            // User just turned off checkbox - take necessary action here
+                            ((CheckBoxPreference) getPreferenceManager().findPreference("id_flag_parametric")).setChecked(false);
+                            return true;
+                        }
+                        return false; // Finally, let the checkbox value go through to update itself
+                    }
+                });
+
     }
 
 }

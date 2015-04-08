@@ -2,15 +2,13 @@ package rafakob.multiedip.idsys.processing;
 
 import com.google.common.primitives.Doubles;
 
-import java.text.DecimalFormat;
-
 import rafakob.multiedip.idsys.IdData;
 
 /**
  * Author: Rafal Kobylko
  * Created on: 2015-03-26
  */
-public class Normalization implements DataProcessingFunction {
+public class Normalization implements DataProcessingInterface {
 
     public Normalization() {
     }

@@ -16,13 +16,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
+import rafakob.multiedip.bus.IdentificationFinishedEvent;
 import rafakob.multiedip.bus.LoadDataFinishedEvent;
 import rafakob.multiedip.bus.SelectFileEvent;
 import rafakob.multiedip.bus.SettingsChangedEvent;
 import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
 import rafakob.multiedip.idsys.IdData;
 import rafakob.multiedip.idsys.identification.IdentificationModel;
-import rafakob.multiedip.idsys.processing.DataProcessingFunction;
+import rafakob.multiedip.idsys.processing.DataProcessing;
+import rafakob.multiedip.idsys.processing.DataProcessingInterface;
+import rafakob.multiedip.prefs.PrefManager;
+import rafakob.multiedip.utilities.ContentBox;
+import rafakob.multiedip.utilities.LoadDataFromFileTask;
 
 
 /**
@@ -31,15 +36,6 @@ import rafakob.multiedip.idsys.processing.DataProcessingFunction;
  * create an instance of this fragment.
  */
 public class DashboardFragment extends Fragment {
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     private TextView txtFilename;
     private TextView txtPath;
     private TextView txtDataType;
@@ -47,49 +43,28 @@ public class DashboardFragment extends Fragment {
     private TextView txtInfo;
     private Context mContext;
     private PrefManager mPrefManager;
-    private ArrayList<DataProcessingFunction> mPreprocessingTasks;
+    private ArrayList<DataProcessingInterface> mPreprocessingTasks;
     private IdentificationModel mIdentificationModel;
-
 
     private DialogFragment filePickerDialogFragment;
     private String currentBrowseStartPath;
 
-    private EventBus bus = EventBus.getDefault();
+    private boolean mFlagFileLoaded = false;
+
+    private EventBus mBus = EventBus.getDefault();
     private IdData iddata;
     private ContentBox mBox1, mBox2, mBox3;
 
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment DashboardFragment.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static DashboardFragment newInstance(String param1, String param2) {
-//        DashboardFragment fragment = new DashboardFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     public DashboardFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        bus.register(this);
+        mBus.register(this);
 
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
         mContext = getActivity().getApplicationContext();
         mPrefManager = new PrefManager(mContext);
         txtFilename = new TextView(mContext);
@@ -97,7 +72,7 @@ public class DashboardFragment extends Fragment {
         txtDataType = new TextView(mContext);
         txtLength = new TextView(mContext);
         txtInfo = new TextView(mContext);
-        iddata = new IdData();
+        iddata = ((GlobalApp) mContext).getDataSource();
 
         // Create file browser instance
         filePickerDialogFragment = new FilebrowserDialogFragment();
@@ -201,19 +176,23 @@ public class DashboardFragment extends Fragment {
     }
 
     public void onRunClick() {
-//        new Normalization().execute(iddata);
 
-//        DataProcessing dp = new DataProcessing();
-//        ArrayList mPreprocessingTasks = new ArrayList<DataProcessingFunction>();
-//        mPreprocessingTasks.add(new Normalization());
-//        mPreprocessingTasks.add(new Normalization());
+        DataProcessing dp = new DataProcessing();
+        dp.process(iddata, mPreprocessingTasks); // perform preprocessing
+        mIdentificationModel.execute(dp.getDataProcessed());
+
+        EventBus bus = EventBus.getDefault();
+        bus.post(new IdentificationFinishedEvent(mIdentificationModel));
 
 
 //        Toast.makeText(mContext, dp.process(iddata,mPreprocessingTasks).getOutput()[0] + "", Toast.LENGTH_SHORT).show();
     }
 
+
     private void updatePreprocessingTasks() {
         mPreprocessingTasks = mPrefManager.getPreprocesingConfig();
+        if (mFlagFileLoaded)
+            mIdentificationModel = mPrefManager.getIdentificationConfig(iddata.getType());
     }
 
     private void updateSettingsBoxes() {
@@ -224,6 +203,10 @@ public class DashboardFragment extends Fragment {
             }
         }
 
+
+        mBox3.cleatGrid();
+        if (mFlagFileLoaded)
+            mBox3.addToGrid(new TextView(mContext), mIdentificationModel.getFunctionDescription(), 0, 0);
     }
 
     /**
@@ -238,6 +221,7 @@ public class DashboardFragment extends Fragment {
         iddata.setPath(currentBrowseStartPath + "/" + txtFilename.getText().toString());
         // load data from file to iddata object
         new LoadDataFromFileTask(txtInfo).execute(iddata);
+        mFlagFileLoaded = true;
 
     }
 
@@ -252,8 +236,6 @@ public class DashboardFragment extends Fragment {
 
     /**
      * When ProjectPrefsActivity is closed
-     *
-     * @param event
      */
     public void onEvent(SettingsChangedEvent event) {
         updatePreprocessingTasks();

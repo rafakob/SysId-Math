@@ -1,4 +1,4 @@
-package rafakob.multiedip;
+package rafakob.multiedip.utilities;
 
 import android.os.AsyncTask;
 import android.widget.TextView;

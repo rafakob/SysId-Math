@@ -7,7 +7,7 @@ import rafakob.multiedip.idsys.IdData;
 
 
 public class DataProcessing {
-    private IdData mIddataProcessed;
+    private IdData dataProcessed;
     private Cloner mCloner;
 
     public DataProcessing() {
@@ -15,11 +15,15 @@ public class DataProcessing {
     }
 
 
-    public IdData process(IdData iddata, List<DataProcessingFunction> listFun) {
-        mIddataProcessed = mCloner.deepClone(iddata);
-        for (DataProcessingFunction el : listFun) {
-            el.execute(mIddataProcessed);
+    public IdData process(IdData iddata, List<DataProcessingInterface> listFun) {
+        dataProcessed = mCloner.deepClone(iddata);
+        for (DataProcessingInterface el : listFun) {
+            el.execute(dataProcessed);
         }
-        return mIddataProcessed;
+        return dataProcessed;
+    }
+
+    public IdData getDataProcessed() {
+        return dataProcessed;
     }
 }
