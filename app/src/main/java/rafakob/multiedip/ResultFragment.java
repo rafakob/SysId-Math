@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.IdentificationFinishedEvent;
@@ -46,7 +45,7 @@ public class ResultFragment extends Fragment {
      */
     public void onEvent(IdentificationFinishedEvent event) {
         mResultBox.cleatGrid();
-        mResultBox.addToGrid(new TextView(mContext), event.idModel.getResult(), 0, 0);
+        mResultBox.addToGrid(0, 0, event.idModel.getResult());
     }
 
 }

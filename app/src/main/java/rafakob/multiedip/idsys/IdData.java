@@ -4,9 +4,10 @@ public class IdData {
     private double[] input;
     private double[] output;
     private double ts;
-    private long length;
-    private String type;
+    private long length = 0;
+    private String type = "";
     private String path;
+
 
     public IdData() {
     }
@@ -31,14 +32,17 @@ public class IdData {
     }
 
 
-//    public void copy(IdData objToCopy) {
-//        this.input = objToCopy.getInput();
-//        this.output = objToCopy.getOutput();
-//        this.ts = objToCopy.getTs();
-//        this.length = objToCopy.getLength();
-//        this.type = objToCopy.getType();
-//        this.path = objToCopy.getPath();
-//    }
+    public boolean isNull(){
+        return length < 1;
+    }
+    public boolean isTimeseries(){
+        return type.equals("timeseries");
+    }
+    public boolean isSiso(){
+        return type.equals("siso");
+    }
+
+
 
     public double[] getInput() {
         return input;

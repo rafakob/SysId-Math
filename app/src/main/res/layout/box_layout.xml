@@ -6,7 +6,7 @@
         android:paddingRight="15dp"
         android:paddingTop="10dp"
         android:weightSum="1"
-    android:paddingBottom="10dp">
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:orientation="vertical"
@@ -60,7 +60,7 @@
                 android:columnOrderPreserved="false"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:rowCount="6"
+                android:rowCount="20"
                 android:useDefaultMargins="true">
 
             </GridLayout>

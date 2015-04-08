@@ -40,6 +40,8 @@
     <string name="box_load">LOAD</string>
     <string name="box_settings">SETTINGS</string>
     <string name="box_result">RESULT</string>
+    <string name="box_stat_source">STATISTICS - SOURCE</string>
+    <string name="box_stat_processed">STATISTICS - PROCESSED</string>
 
 
     <!-- Preprocessing preferences -->
@@ -63,6 +65,13 @@
     <string name="activity_title_identification">Identification Settings</string>
     <string name="loading_file">Loading file...</string>
 
-
+    <!-- Statistics -->
+    <string name="stats_mean">Mean</string>
+    <string name="stats_stddev">Standard deviation</string>
+    <string name="stats_skewness">Skewness</string>
+    <string name="stats_kurtosis">Kurtosis</string>
+    <string name="stats_peakcoef">Peak coef</string>
+    <string name="stats_input_signal">INPUT SIGNAL</string>
+    <string name="stats_output_signal">OUTPUT SIGNAL</string>
 
 </resources>

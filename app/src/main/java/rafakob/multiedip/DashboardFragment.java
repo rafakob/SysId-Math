@@ -124,15 +124,15 @@ public class DashboardFragment extends Fragment {
         });
 
         /** Add TextViews to grid layout: **/
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_filename, 0, 0);
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_path, 1, 0);
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_data_type, 2, 0);
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_length_source, 3, 0);
+        mBox1.addToGrid(0, 0, R.string.lbl_filename);
+        mBox1.addToGrid(1, 0, R.string.lbl_path);
+        mBox1.addToGrid(2, 0, R.string.lbl_data_type);
+        mBox1.addToGrid(3, 0, R.string.lbl_length_source);
 
-        mBox1.addToGrid(txtFilename, "", 0, 1);
-        mBox1.addToGrid(txtPath, "", 1, 1);
-        mBox1.addToGrid(txtDataType, "", 2, 1);
-        mBox1.addToGrid(txtLength, "", 3, 1);
+        mBox1.addToGrid(0, 1, txtFilename, "");
+        mBox1.addToGrid(1, 1, txtPath, "");
+        mBox1.addToGrid(2, 1, txtDataType, "");
+        mBox1.addToGrid(3, 1, txtLength, "");
 
         /** Others **/
         Button btnRun = (Button) view.findViewById(R.id.btn_run);
@@ -199,14 +199,14 @@ public class DashboardFragment extends Fragment {
         mBox2.cleatGrid();
         if (!mPreprocessingTasks.isEmpty()) {
             for (int i = 0; i < mPreprocessingTasks.size(); i++) {
-                mBox2.addToGrid(new TextView(mContext), mPreprocessingTasks.get(i).getFunctionDescription(), i, 0);
+                mBox2.addToGrid(i, 0, new TextView(mContext), mPreprocessingTasks.get(i).getFunctionDescription());
             }
         }
 
 
         mBox3.cleatGrid();
         if (mFlagFileLoaded)
-            mBox3.addToGrid(new TextView(mContext), mIdentificationModel.getFunctionDescription(), 0, 0);
+            mBox3.addToGrid(0, 0, new TextView(mContext), mIdentificationModel.getFunctionDescription());
     }
 
     /**

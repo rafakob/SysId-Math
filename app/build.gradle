@@ -29,5 +29,6 @@ dependencies {
     compile group: 'com.googlecode.efficient-java-matrix-library', name: 'equation', version: '0.26'
     compile 'uk.com.robust-it:cloning:1.9.1'
     compile 'com.pixplicity.easyprefs:library:1.4'
+    compile 'org.apache.commons:commons-math3:3.0'
 
 }
