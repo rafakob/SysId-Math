@@ -13,7 +13,7 @@ import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.LoadDataFinishedEvent;
 import rafakob.multiedip.idsys.DataStatistics;
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.utilities.ContentBox;
+import rafakob.multiedip.others.ContentBox;
 
 public class StatisticsFragment extends Fragment {
     private EventBus mBus = EventBus.getDefault();

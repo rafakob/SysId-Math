@@ -12,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.common.base.Stopwatch;
-import com.rits.cloning.Cloner;
 
 import java.util.ArrayList;
 
@@ -30,8 +28,8 @@ import rafakob.multiedip.idsys.identification.IdentificationModel;
 import rafakob.multiedip.idsys.processing.DataProcessing;
 import rafakob.multiedip.idsys.processing.DataProcessingInterface;
 import rafakob.multiedip.prefs.PrefManager;
-import rafakob.multiedip.utilities.ContentBox;
-import rafakob.multiedip.utilities.LoadDataFromFileTask;
+import rafakob.multiedip.others.ContentBox;
+import rafakob.multiedip.others.LoadDataFromFileTask;
 
 
 /**

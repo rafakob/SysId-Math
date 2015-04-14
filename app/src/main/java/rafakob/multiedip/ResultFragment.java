@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.IdentificationFinishedEvent;
-import rafakob.multiedip.utilities.ContentBox;
+import rafakob.multiedip.others.ContentBox;
 
 
 public class ResultFragment extends Fragment {
