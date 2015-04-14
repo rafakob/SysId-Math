@@ -27,6 +27,15 @@ public class IdData {
         this.length = output.length;
     }
 
+    public void cloneFromIddata(IdData iddata){
+        this.length = iddata.getLength();
+        this.type = iddata.getType();
+        this.path = iddata.getPath();
+        this.ts = iddata.getTs();
+        this.input = iddata.getInput();
+        this.output = iddata.getOutput();
+    }
+
     public void saveToFile(String pathToFile){
         // TODO: zaimplementować
     }

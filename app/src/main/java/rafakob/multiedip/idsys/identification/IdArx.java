@@ -14,6 +14,7 @@ import rafakob.multiedip.idsys.MatrixUtils;
 public class IdArx implements IdentificationModel {
     double[] A;
     double[] B;
+    long length;
     int dA, dB, k;
     double L;
 
@@ -28,6 +29,7 @@ public class IdArx implements IdentificationModel {
     public void execute(IdData iddata) {
         double[] y = iddata.getOutput();
         double[] u = iddata.getInput();
+        this.length = iddata.getLength();
 
 //        int dA = 2, dB = 1, k = 1;
 //        double L = 1;
@@ -84,14 +86,14 @@ public class IdArx implements IdentificationModel {
 
     @Override
     public String getResult() {
-        return "Result: \n \tA = " + MatrixUtils.getString(A) +
+        return "ARX model: \n \tA = " + MatrixUtils.getString(A) +
                 "\n\tB = " + MatrixUtils.getString(B);
 
     }
 
     @Override
     public String getFunctionDescription() {
-        return "Arx";
+        return "ARX(" + dA + ", " + dB + ", " + k + ")";
     }
 
     private double[] getReverseVec(int start, int end, double[] values) {

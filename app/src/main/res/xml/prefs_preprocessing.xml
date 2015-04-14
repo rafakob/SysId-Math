@@ -11,7 +11,7 @@
             android:title="@string/pref_datarange_title" />
 
         <rafakob.multiedip.prefs.DoubleNumberPickerPreference
-            android:defaultValue="0-1000"
+            android:defaultValue="1-1000"
             android:dependency="pre_flag_datarange"
             android:key="pre_datarange_range"
             android:title="@string/pref_datarange_select_title"

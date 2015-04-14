@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.common.base.Stopwatch;
+import com.rits.cloning.Cloner;
 
 import java.util.ArrayList;
 
@@ -52,7 +56,7 @@ public class DashboardFragment extends Fragment {
     private boolean mFlagFileLoaded = false;
 
     private EventBus mBus = EventBus.getDefault();
-    private IdData iddata;
+    private IdData iddata, dataProcessed;
     private ContentBox mBox1, mBox2, mBox3;
 
 
@@ -73,6 +77,7 @@ public class DashboardFragment extends Fragment {
         txtLength = new TextView(mContext);
         txtInfo = new TextView(mContext);
         iddata = ((GlobalApp) mContext).getDataSource();
+        dataProcessed = ((GlobalApp) mContext).getDataProcessed();
 
         // Create file browser instance
         filePickerDialogFragment = new FilebrowserDialogFragment();
@@ -176,11 +181,18 @@ public class DashboardFragment extends Fragment {
     }
 
     public void onRunClick() {
+        /****** RUN CLICK ******/
+        Stopwatch stopwatch = Stopwatch.createStarted();
 
         DataProcessing dp = new DataProcessing();
-        dp.process(iddata, mPreprocessingTasks); // perform preprocessing
-        mIdentificationModel.execute(dp.getDataProcessed());
+        dataProcessed.cloneFromIddata(iddata);
+        dp.process(dataProcessed, mPreprocessingTasks); // perform preprocessing
+        mIdentificationModel.execute(dataProcessed);
 
+        stopwatch.stop();
+
+
+        txtInfo.setText("Finished in " + stopwatch);
         EventBus bus = EventBus.getDefault();
         bus.post(new IdentificationFinishedEvent(mIdentificationModel));
 
@@ -217,12 +229,12 @@ public class DashboardFragment extends Fragment {
         currentBrowseStartPath = event.path.substring(0, event.path.lastIndexOf("/"));
         txtPath.setText(currentBrowseStartPath);
 
-
         iddata.setPath(currentBrowseStartPath + "/" + txtFilename.getText().toString());
         // load data from file to iddata object
         new LoadDataFromFileTask(txtInfo).execute(iddata);
         mFlagFileLoaded = true;
 
+        // todo: odświeżac boksy po wczytaniu pliku
     }
 
     /**
