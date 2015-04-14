@@ -57,8 +57,8 @@ public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
             else{
                 /** Read SISO **/
                 while ((line = br.readLine()) != null) {
-                    output[i] = Double.valueOf(line.split(SEPARATOR)[0].trim());
-                    input[i] = Double.valueOf(line.split(SEPARATOR)[1].trim());
+                    output[i] = Double.valueOf(line.split(SEPARATOR)[1].trim());
+                    input[i] = Double.valueOf(line.split(SEPARATOR)[0].trim());
                     i++;
                 }
                 iddata.setOutput(output);

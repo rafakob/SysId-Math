@@ -8,8 +8,8 @@ import rafakob.multiedip.idsys.IdData;
  */
 public class IdArmax implements IdentificationModel {
     @Override
-    public IdData execute(IdData iddata) {
-        return null;
+    public void execute(IdData iddata) {
+
     }
 
     @Override

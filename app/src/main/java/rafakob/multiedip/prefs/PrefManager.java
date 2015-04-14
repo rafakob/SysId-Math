@@ -66,7 +66,7 @@ public class PrefManager {
 
     public IdentificationModel getIdentificationConfig(String modelType){
         if (getBoolean("id_flag_parametric", false) && modelType.equals("siso")){
-            if (getString("id_par_siso_model","").equals("arx")) return new IdArx();
+            if (getString("id_par_siso_model","").equals("arx")) return new IdArx(2,1,1,0.99);
             if (getString("id_par_siso_model","").equals("armax")) return new IdArmax();
         }
 
