@@ -48,7 +48,7 @@ public class IdArx implements IdentificationModel {
         SimpleMatrix num, dem, E, Ptemp;
 
 //        int dA = 2, dB = 1, k = 1;
-        for (int i = k + dB + 1; i < u.length; i++) {
+        for (int i = k + dA + dB + 1; i < u.length; i++) {
 
             fi.setColumn(0, 0, getReverseVec(i - k - dB, i - k, u));
             fi.setColumn(0, k + dB, getReverseVecNeg(i - dA, i - 1, y));
@@ -57,7 +57,7 @@ public class IdArx implements IdentificationModel {
             dem = fi.transpose().mult(P).mult(fi).plus(L);
 
             Ptemp = (P.minus(num.divide(dem.get(0)))).divide(L);
-            if ((Ptemp.trace()) < (S * n + 1)) // B=1000, n - ilosc wart. wlasnych, +1 żeby na początku warunek przeszedł
+            if ((Ptemp.trace()) < (S * n + 1))
                 P = Ptemp;
 
             kw = P.mult(fi);

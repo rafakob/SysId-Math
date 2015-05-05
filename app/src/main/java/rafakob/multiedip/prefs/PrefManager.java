@@ -84,7 +84,7 @@ public class PrefManager {
 
         if (getBoolean("id_flag_parametric", false) && modelType.equals("timeseries")){
             if (getString("id_par_timeseries_model","").equals("ar"))
-                return new IdAr();
+                return new IdAr(Integer.parseInt(params[0]));
             if (getString("id_par_timeseries_model","").equals("ma"))
                 return new IdMa();
             if (getString("id_par_timeseries_model","").equals("arma"))
