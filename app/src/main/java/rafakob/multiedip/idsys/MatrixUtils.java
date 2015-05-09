@@ -3,6 +3,7 @@ package rafakob.multiedip.idsys;
 import org.ejml.simple.SimpleMatrix;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 /**
  *
@@ -40,7 +41,7 @@ public class MatrixUtils {
         s = "[";
 
         for (int i = 0; i < array.length; i++) {
-            s = s + df.format(array[i]);
+            s = s + df.format(array[i]).replace(',','.');
             if (i < array.length - 1)
                 s = s + ", ";
         }
@@ -48,5 +49,26 @@ public class MatrixUtils {
         s = s + "]";
 
         return s;
+    }
+
+    public static double[] getFilledVector(int length, double fillValue){
+        double[] v = new double[length];
+        Arrays.fill(v, fillValue);
+        return v;
+    }
+
+    public static double[] multiplyScalar(double[] v, double multiplier){
+        for (int i = 0; i < v.length; i++) {
+            v[i] = v[i]*multiplier;
+        }
+        return v;
+    }
+
+    public static double[] subtract(double[] v1, double[] v2) {
+        double[] y = new double[v1.length];
+        for (int i = 0; i < v1.length; i++) {
+            y[i] = v1[i] - v2[i];
+        }
+        return y;
     }
 }

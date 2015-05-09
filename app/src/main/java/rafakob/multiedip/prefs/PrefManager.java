@@ -14,7 +14,7 @@ import rafakob.multiedip.idsys.identification.IdMa;
 import rafakob.multiedip.idsys.identification.IdentificationModel;
 import rafakob.multiedip.idsys.processing.DataProcessingInterface;
 import rafakob.multiedip.idsys.processing.DataRange;
-import rafakob.multiedip.idsys.processing.DcOffsetRemoval;
+import rafakob.multiedip.idsys.processing.AverageRemoval;
 import rafakob.multiedip.idsys.processing.FrequencyFilter;
 import rafakob.multiedip.idsys.processing.Normalization;
 import rafakob.multiedip.idsys.processing.PolynomialTrendRemoval;
@@ -51,15 +51,18 @@ public class PrefManager {
 
 
         if (getBoolean("pre_flag_datarange", false)) {
-            String[] params = getString("pre_datarange_range","").split("-");
+            String[] params = getString("pre_datarange_range","").split(";");
             methodList.add(new DataRange(Integer.parseInt(params[0]),Integer.parseInt(params[1])));
         }
         if (getBoolean("pre_flag_filter_freq", false)) methodList.add(new FrequencyFilter());
-        if (getBoolean("pre_flag_scaling", false)) methodList.add(new Scaling());
-        if (getBoolean("pre_flag_dcremoval", false)) methodList.add(new DcOffsetRemoval());
-        if (getBoolean("pre_flag_polyremoval", false)) methodList.add(new PolynomialTrendRemoval());
-        if (getBoolean("pre_flag_normalization", false)) methodList.add(new Normalization());
+        if (getBoolean("pre_flag_scaling", false)) {
+            String[] params = getString("pre_scaling_values","").split(";");
+            methodList.add(new Scaling(Integer.parseInt(params[0]),Integer.parseInt(params[1])));
+        }
 
+        if (getBoolean("pre_flag_avgremoval", false)) methodList.add(new AverageRemoval());
+        if (getBoolean("pre_flag_polyremoval", false)) methodList.add(new PolynomialTrendRemoval(Integer.parseInt(getString("pre_polyremoval_order",""))));
+        if (getBoolean("pre_flag_normalization", false)) methodList.add(new Normalization());
 
 
 //        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);

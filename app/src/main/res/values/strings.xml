@@ -48,6 +48,8 @@
     <string name="pref_start">Start</string>
     <string name="pref_end">End</string>
     <string name="pref_edit">Edit</string>
+    <string name="pref_multiplier_in">Input signal\n(siso)</string>
+    <string name="pref_multiplier_out">Output signal\n(siso, timeseries)</string>
     <string name="pref_datarange_title">Data range</string>
     <string name="pref_datarange_summary">Select only fragment of datasource</string>
     <string name="pref_datarange_select_title">\tSet start and end</string>
@@ -60,7 +62,13 @@
     <string name="pref_upper">Upper</string>
     <string name="pref_normalization_title">Normalization</string>
     <string name="pref_scaling_title">Scaling</string>
+    <string name="pref_scaling_values_title">\tSet multipliers</string>
     <string name="pref_scaling_and_removing">Scaling and removing</string>
+    <string name="pref_avremoval_title">Average removal</string>
+    <string name="pref_avremoval_summary">Remove average value from signal</string>
+    <string name="pref_polyremoval_summary">Remove polynomial trend from signal</string>
+    <string name="pref_polyremoval_order_title">\tSelect polynomial order</string>
+
     <string name="activity_title_preprocessing">Preprocessing Settings</string>
     <string name="activity_title_identification">Identification Settings</string>
     <string name="loading_file">Loading file...</string>
@@ -73,5 +81,8 @@
     <string name="stats_peakcoef">Peak coef</string>
     <string name="stats_input_signal">INPUT SIGNAL</string>
     <string name="stats_output_signal">OUTPUT SIGNAL</string>
+    <string name="pref_polyremoval_title">Polynomial trend removal</string>
+
+
 
 </resources>

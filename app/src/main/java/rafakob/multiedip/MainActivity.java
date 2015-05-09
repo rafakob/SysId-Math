@@ -198,5 +198,8 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onFloatingActionButtonClick(View v) {
+        showFragment(NAV_DASHBOARD);
+    }
 
 }

@@ -1,6 +1,7 @@
 package rafakob.multiedip.idsys;
 
 import com.google.common.math.DoubleMath;
+import com.google.common.primitives.Doubles;
 
 import org.apache.commons.math3.stat.descriptive.moment.Kurtosis;
 import org.apache.commons.math3.stat.descriptive.moment.Skewness;
@@ -28,6 +29,7 @@ public class DataStatistics {
         stddev(val);
         skewness(val);
         kurtosis(val);
+        peakcoef(val);
     }
 
 
@@ -46,6 +48,10 @@ public class DataStatistics {
 
     private void kurtosis(double[] val){
         kurtosis = round((new Kurtosis()).evaluate(val), DECIMAL_PLACES);
+    }
+
+    private void peakcoef(double[] val){
+        peakcoef = round((Doubles.max(val) - Doubles.min(val))/(2*Math.sqrt(2)*stddev), DECIMAL_PLACES);
     }
 
 

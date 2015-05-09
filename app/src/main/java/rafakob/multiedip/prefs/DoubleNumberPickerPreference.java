@@ -52,8 +52,8 @@ public class DoubleNumberPickerPreference extends DialogPreference {
         super.onPrepareDialogBuilder(builder);
 
         //TODO: dodać zabezpieczenie przed nullem!
-        mEditText1.setText(mCurrentValue.substring(0, mCurrentValue.lastIndexOf("-")));
-        mEditText2.setText(mCurrentValue.substring(mCurrentValue.lastIndexOf("-")+1));
+        mEditText1.setText(mCurrentValue.substring(0, mCurrentValue.lastIndexOf(";")));
+        mEditText2.setText(mCurrentValue.substring(mCurrentValue.lastIndexOf(";")+1));
 
         mLabel1.setText(mStrLabel1 + ":");
         mLabel2.setText(mStrLabel2 + ":");
@@ -63,7 +63,7 @@ public class DoubleNumberPickerPreference extends DialogPreference {
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
             // Restore existing state
-            mCurrentValue = this.getPersistedString("0-");
+            mCurrentValue = this.getPersistedString("0;");
         } else {
             // Set default state from the XML attribute
             mCurrentValue = (String) defaultValue;
@@ -83,7 +83,7 @@ public class DoubleNumberPickerPreference extends DialogPreference {
     protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && this.shouldPersist()) {
 
-            mCurrentValue = mEditText1.getText().toString() + "-" + mEditText2.getText().toString();
+            mCurrentValue = mEditText1.getText().toString() + ";" + mEditText2.getText().toString();
             this.persistString(mCurrentValue);
             this.updateSummary();
         }

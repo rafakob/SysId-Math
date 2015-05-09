@@ -2,7 +2,9 @@ package rafakob.multiedip.idsys.processing;
 
 import com.google.common.primitives.Doubles;
 
+import rafakob.multiedip.idsys.DataStatistics;
 import rafakob.multiedip.idsys.IdData;
+import rafakob.multiedip.idsys.MatrixUtils;
 
 /**
  * Author: Rafal Kobylko
@@ -15,13 +17,13 @@ public class Normalization implements DataProcessingInterface {
 
     @Override
     public IdData execute(IdData iddata) {
-        double[] array = iddata.getOutput();
-        double maxAbs = findMaxAbs(array);
-
-        for(int i = 0; i < array.length; i++){
-//            iddata.getOutput()[i] = array[i] / maxAbs; TODO: wrócic
-            iddata.getOutput()[i] = array[i] *2;
+        if(iddata.isSiso()) {
+            iddata.setInput(normalize(iddata.getInput().clone()));
+            iddata.setOutput(normalize(iddata.getOutput().clone()));
+        } else{
+            iddata.setOutput(normalize(iddata.getOutput().clone()));
         }
+        iddata.setLength(50-5+1);
         return iddata;
     }
 
@@ -30,9 +32,15 @@ public class Normalization implements DataProcessingInterface {
         return "Normalization";
     }
 
-    private double findMaxAbs(double[] array) {
-        double min = Doubles.min(array);
-        double max = Doubles.max(array);
-        return Math.abs(min) > max ? Math.abs(min) : max;
+    private double[] normalize(double[] v){
+        DataStatistics ds = new DataStatistics();
+        ds.calculate(v);
+
+        for (int i = 0; i < v.length; i++) {
+            v[i] = (v[i] - ds.getMean())/ds.getStddev();
+        }
+
+        return v;
     }
+
 }

@@ -3,11 +3,15 @@ package rafakob.multiedip;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.software.shell.fab.ActionButton;
 
 import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.LoadDataFinishedEvent;
@@ -23,6 +27,7 @@ public class StatisticsFragment extends Fragment {
     private DataStatistics mStatistics;
     private IdData dataSource;
     private IdData dataProcessed;
+    private ActionButton actionButton;
 
     public StatisticsFragment() {
     }
@@ -35,6 +40,9 @@ public class StatisticsFragment extends Fragment {
         dataProcessed = ((GlobalApp) mContext).getDataProcessed();
         mStatistics = new DataStatistics();
         mBus.register(this);
+
+        actionButton = (ActionButton) getActivity().findViewById(R.id.fab_button);
+
     }
 
     @Override

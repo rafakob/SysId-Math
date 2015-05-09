@@ -102,5 +102,6 @@
     <orderEntry type="library" exported="" name="core-0.27" level="project" />
     <orderEntry type="library" exported="" name="denseC64-0.27" level="project" />
     <orderEntry type="library" exported="" name="objenesis-2.1" level="project" />
+    <orderEntry type="library" exported="" name="fab-1.0.5" level="project" />
   </component>
 </module>

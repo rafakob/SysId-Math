@@ -17,8 +17,13 @@ public class DataRange implements DataProcessingInterface {
 
     @Override
     public IdData execute(IdData iddata) {
-        iddata.setInput(MatrixUtils.extract(start-1,end-1,iddata.getInput()));
-        iddata.setOutput(MatrixUtils.extract(start-1,end-1,iddata.getOutput()));
+        if(iddata.isSiso()) {
+            iddata.setInput(MatrixUtils.extract(start - 1, end - 1, iddata.getInput()));
+            iddata.setOutput(MatrixUtils.extract(start - 1, end - 1, iddata.getOutput()));
+        }
+        else{
+            iddata.setOutput(MatrixUtils.extract(start - 1, end - 1, iddata.getOutput()));
+        }
         iddata.setLength(end-start+1);
         return iddata;
     }

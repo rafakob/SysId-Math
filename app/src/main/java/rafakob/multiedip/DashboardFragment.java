@@ -149,7 +149,7 @@ public class DashboardFragment extends Fragment {
         txtInfo = (TextView) view.findViewById(R.id.lbl_info);
         txtInfo.setText("");
 
-        updatePreprocessingTasks();
+        updateTasksAndModels();
         updateSettingsBoxes();
 
         return view;
@@ -199,7 +199,7 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    private void updatePreprocessingTasks() {
+    private void updateTasksAndModels() {
         mPreprocessingTasks = mPrefManager.getPreprocesingConfig();
         if (mFlagFileLoaded)
             mIdentificationModel = mPrefManager.getIdentificationConfig(iddata.getType());
@@ -248,7 +248,7 @@ public class DashboardFragment extends Fragment {
      * When ProjectPrefsActivity is closed
      */
     public void onEvent(SettingsChangedEvent event) {
-        updatePreprocessingTasks();
+        updateTasksAndModels();
         updateSettingsBoxes();
     }
 
