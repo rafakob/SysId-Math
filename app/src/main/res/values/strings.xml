@@ -82,7 +82,8 @@
     <string name="stats_input_signal">INPUT SIGNAL</string>
     <string name="stats_output_signal">OUTPUT SIGNAL</string>
     <string name="pref_polyremoval_title">Polynomial trend removal</string>
-
+    <string name="title_activity_plots">Plots</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

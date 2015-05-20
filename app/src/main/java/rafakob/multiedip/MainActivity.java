@@ -1,8 +1,8 @@
 package rafakob.multiedip;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -24,10 +24,9 @@ import rafakob.multiedip.drawer.DrawerAdapter;
 import rafakob.multiedip.drawer.DrawerHeader;
 import rafakob.multiedip.drawer.DrawerItem;
 import rafakob.multiedip.drawer.DrawerObject;
-import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity  {
 
     private LinearLayout mMainWindowLayout; // layout with tabs Project and Result
     private FrameLayout mFragmentContainerLayout; // layout where fragments are injected from drawer
@@ -35,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
-
 
     // Drawer items:
     private static final int NAV_DASHBOARD = 1;
@@ -63,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),getApplicationContext()));
         /** Give the PagerSlidingTabStrip the ViewPager. **/
-        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs_main);
+        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabstrip_main);
         /** Attach the view pager to the tab strip. **/
         tabsStrip.setViewPager(viewPager);
 
@@ -72,6 +70,9 @@ public class MainActivity extends ActionBarActivity {
         mFragmentContainerLayout = (FrameLayout) this.findViewById(R.id.fragment_container);
 
         getSupportActionBar().setElevation(0);
+
+
+
 
     }
 
@@ -122,8 +123,11 @@ public class MainActivity extends ActionBarActivity {
                 mTitle = getString(R.string.title_item2);
                 break;
             case NAV_PLOTS:
-                f = new AboutFragment();
-                mTitle = getString(R.string.title_item3);
+//                f = new PlotsFragment();
+//                mTitle = getString(R.string.title_item3);
+                Intent i;
+                i = new Intent(this, PlotsActivity.class);
+                startActivity(i);
                 break;
 
             case NAV_SETTINGS:
@@ -137,7 +141,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
 
-        if (f != null && position != NAV_DASHBOARD) {
+        if (f != null && position != NAV_DASHBOARD && position != NAV_PLOTS) {
             /** Hide main window. **/
             mMainWindowLayout.setVisibility(LinearLayout.GONE);
             /** "Insert" new fragment in the container. **/
@@ -201,5 +205,6 @@ public class MainActivity extends ActionBarActivity {
     public void onFloatingActionButtonClick(View v) {
         showFragment(NAV_DASHBOARD);
     }
+
 
 }

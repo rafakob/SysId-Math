@@ -41,7 +41,6 @@ public class StatisticsFragment extends Fragment {
         mStatistics = new DataStatistics();
         mBus.register(this);
 
-        actionButton = (ActionButton) getActivity().findViewById(R.id.fab_button);
 
     }
 
