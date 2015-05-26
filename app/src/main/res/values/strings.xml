@@ -3,9 +3,7 @@
     <string name="app_name">MultiEdip</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_project_prefs">ProjectPrefsActivity</string>
-    <string name="hello_world">Hello world!</string>
 
     <!-- Navigation drawer -->
     <string name="title_drawer_opened">Navigation</string>
@@ -83,7 +81,34 @@
     <string name="stats_output_signal">OUTPUT SIGNAL</string>
     <string name="pref_polyremoval_title">Polynomial trend removal</string>
     <string name="title_activity_plots">Plots</string>
-    <string name="action_settings">Settings</string>
+    <string name="plot_menu_toggle_values">Toggle Values</string>
+    <string name="plot_menu_toggle_circles">Toggle Circles</string>
+    <string name="plot_menu_toggle_filled">Toggle Filled</string>
+    <string name="plot_menu_toggle_cubic">Toggle Cubic</string>
+    <string name="plot_menu_toggle_pinchzoom">Toggle PinchZoom</string>
+    <string name="plot_menu_animate_x">Animate X</string>
+    <string name="plot_menu_animate_y">Animate Y</string>
+    <string name="plot_menu_animate_xy">Animate XY</string>
+    <string name="plot_menu_save_to_sdcard">Save to SD-Card</string>
+    <string name="btn_run">RUN</string>
+    <string name="btn_add">ADD</string>
+    <string name="toggle_source">Toggle source</string>
+    <string name="toggle_processed">Toggle processed</string>
+    <string name="fab_menu_plot_1">Output signal</string>
+    <string name="fab_menu_plot_2">Input signal</string>
+    <string name="fab_menu_plot_3">Autocorr</string>
+    <string name="fab_menu_plot_4">PSD</string>
+    <string name="plot_lbl_source">Source</string>
+    <string name="plot_lbl_processed">Processed</string>
+    <string name="activity_plots_title_pre">"Plots: "</string>
+    <string name="plot_name_1">Output signal</string>
+    <string name="plot_name_2">Input signal</string>
+    <string name="plot_name_3">Autocorr</string>
+    <string name="plot_name_4">PSD</string>
+    <string name="plot_saving_success">Saving SUCCESSFUL!</string>
+    <string name="plot_saving_failed">Saving FAILED!</string>
+    <string name="plot_info_provide_data">You need to provide data for the chart.</string>
+    <string name="plot_info_no_chart">No chart data available.</string>
 
 
 </resources>

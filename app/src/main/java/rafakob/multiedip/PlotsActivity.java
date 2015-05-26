@@ -39,8 +39,8 @@ public class PlotsActivity extends ActionBarActivity implements
     private static final Integer ID_PROCESSED = 1;
     private static final int COLOR_SOURCE = Color.RED;
     private static final int COLOR_PROCESSED = Color.BLUE;
-    private static final String LBL_SOURCE = "Source";
-    private static final String LBL_PROCESSED = "Processed";
+    private String lblSource;
+    private String lblProcessed;
 
     private FloatingActionMenu fabPlotMenu;
 
@@ -48,7 +48,7 @@ public class PlotsActivity extends ActionBarActivity implements
     private IdData gDataSource;
     private IdData gDataProcessed;
     private LineData mLineData;
-    private String mTitlePre = "Plots: ";
+    private String mTitlePre;
 
     HashMap<Integer, PlotDataset> plotDataSets;
     List<LineDataSet> visibleDataSets = new ArrayList<>();
@@ -65,13 +65,16 @@ public class PlotsActivity extends ActionBarActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fabPlotMenu = (FloatingActionMenu) findViewById(R.id.fab_menu_plots);
+        mTitlePre = getString(R.string.activity_plots_title_pre);
+        lblSource = getString(R.string.plot_lbl_source);
+        lblProcessed = getString(R.string.plot_lbl_processed);
 
         // get reference to global app data objects
         gDataSource = ((GlobalApp) getApplicationContext()).getDataSource();
         gDataProcessed = ((GlobalApp) getApplicationContext()).getDataProcessed();
 
         // init
-        setTitle(mTitlePre + "Output signal");
+        setTitle(mTitlePre + getString(R.string.plot_name_1));
         mLineData = new LineData();
         plotDataSets = new HashMap<>();
 
@@ -95,7 +98,8 @@ public class PlotsActivity extends ActionBarActivity implements
 
         // no description text
         mChart.setDescription("");
-        mChart.setNoDataTextDescription("You need to provide data for the chart.");
+        mChart.setNoDataText(getString(R.string.plot_info_no_chart));
+        mChart.setNoDataTextDescription(getString(R.string.plot_info_provide_data));
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
@@ -129,19 +133,19 @@ public class PlotsActivity extends ActionBarActivity implements
     private void initOutputSignal() {
         plotDataSets.clear();
         if (!gDataSource.isNull())
-            plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getOutput(), LBL_SOURCE, COLOR_SOURCE));
+            plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getOutput(), lblSource, COLOR_SOURCE));
 
         if (!gDataProcessed.isNull())
-            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getOutput(), LBL_PROCESSED, COLOR_PROCESSED));
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getOutput(), lblSource, COLOR_PROCESSED));
     }
 
     private void initInputSignal() {
         plotDataSets.clear();
         if (!gDataSource.isNull() && gDataSource.isSiso())
-            plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getInput(), LBL_SOURCE, COLOR_SOURCE));
+            plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getInput(), lblSource, COLOR_SOURCE));
 
         if (!gDataProcessed.isNull() && gDataProcessed.isSiso())
-            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getInput(), LBL_PROCESSED, COLOR_PROCESSED));
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getInput(), lblProcessed, COLOR_PROCESSED));
     }
 
 
@@ -151,7 +155,7 @@ public class PlotsActivity extends ActionBarActivity implements
         if (!gDataSource.isNull()) {
             Correlation.auto(gDataSource.getOutput(), "biased");
 
-            PlotDataset tmp = new PlotDataset(gDataSource.getSamples(), Correlation.auto, LBL_SOURCE, COLOR_SOURCE);
+            PlotDataset tmp = new PlotDataset(gDataSource.getSamples(), Correlation.auto, lblSource, COLOR_SOURCE);
             tmp.getSet().setCircleSize(4f);
             tmp.getSet().setLineWidth(0f);
             tmp.getSet().setDrawCircles(true);
@@ -160,7 +164,7 @@ public class PlotsActivity extends ActionBarActivity implements
 
         if (!gDataProcessed.isNull()) {
             Correlation.auto(gDataProcessed.getOutput(), "biased");
-            PlotDataset tmp = new PlotDataset(gDataProcessed.getSamples(),Correlation.auto, LBL_PROCESSED, COLOR_PROCESSED);
+            PlotDataset tmp = new PlotDataset(gDataProcessed.getSamples(), Correlation.auto, lblProcessed, COLOR_PROCESSED);
             tmp.getSet().setCircleSize(4f);
             tmp.getSet().setLineWidth(0f);
             tmp.getSet().setDrawCircles(true);
@@ -173,13 +177,13 @@ public class PlotsActivity extends ActionBarActivity implements
         if (!gDataSource.isNull()) {
             Correlation.auto(gDataSource.getOutput(), "biased");
             Psd.periodogram(Correlation.auto);
-            plotDataSets.put(ID_SOURCE, new PlotDataset(Psd.freq, Psd.vals, LBL_SOURCE, COLOR_SOURCE));
+            plotDataSets.put(ID_SOURCE, new PlotDataset(Psd.freq, Psd.vals, lblSource, COLOR_SOURCE));
         }
 
         if (!gDataProcessed.isNull()) {
             Correlation.auto(gDataProcessed.getOutput(), "biased");
             Psd.periodogram(Correlation.auto);
-            plotDataSets.put(ID_PROCESSED, new PlotDataset(Psd.freq, Psd.vals, LBL_PROCESSED, COLOR_PROCESSED));
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(Psd.freq, Psd.vals, lblProcessed, COLOR_PROCESSED));
         }
     }
 
@@ -202,7 +206,7 @@ public class PlotsActivity extends ActionBarActivity implements
 
         if (visibleDataSets.isEmpty())
             return;
-        
+
         mLineData = new LineData(xVals, visibleDataSets);
         if (redraw) {
             YAxis leftAxis = mChart.getAxisLeft();
@@ -283,29 +287,28 @@ public class PlotsActivity extends ActionBarActivity implements
     }
 
     public void onPlotsMenu1Click(View v) {
-        setTitle(mTitlePre + "Output signal");
+        setTitle(mTitlePre + getString(R.string.plot_name_1));
         initOutputSignal();
         updateChartData(true, false);
         fabPlotMenu.close(true);
     }
 
     public void onPlotsMenu2Click(View v) {
-        setTitle(mTitlePre + "Input signal");
+        setTitle(mTitlePre + getString(R.string.plot_name_2));
         initInputSignal();
         updateChartData(true, false);
         fabPlotMenu.close(true);
     }
 
     public void onPlotsMenu3Click(View v) {
-        setTitle(mTitlePre + "Autocorr");
+        setTitle(mTitlePre + getString(R.string.plot_name_3));
         initAutocorr();
         updateChartData(true, false);
-//        new LoadDataTask().execute("");
         fabPlotMenu.close(true);
     }
 
     public void onPlotsMenu4Click(View v) {
-        setTitle(mTitlePre + "PSD");
+        setTitle(mTitlePre + getString(R.string.plot_name_4));
         initPsd();
         updateChartData(true, true);
         fabPlotMenu.close(true);
@@ -415,10 +418,10 @@ public class PlotsActivity extends ActionBarActivity implements
 
             case R.id.actionSave: {
                 if (mChart.saveToPath("title" + System.currentTimeMillis(), "")) {
-                    Toast.makeText(getApplicationContext(), "Saving SUCCESSFUL!",
+                    Toast.makeText(getApplicationContext(), getString(R.string.plot_saving_success),
                             Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(getApplicationContext(), "Saving FAILED!", Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(), getString(R.string.plot_saving_failed), Toast.LENGTH_SHORT)
                             .show();
 
                 // mChart.saveToGallery("title"+System.currentTimeMillis())
@@ -428,27 +431,6 @@ public class PlotsActivity extends ActionBarActivity implements
         return true;
     }
 
-//    private class LoadDataTask extends AsyncTask<String, Integer, Boolean >{
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            mChart.clear();
-//            mChart.setDescription("WCZYTYWANIE");
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(String... params) {
-//            initAutocorr();
-//            return true;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Boolean aBoolean) {
-//            updateChartData(true,false);
-//
-//            super.onPostExecute(aBoolean);
-//        }
-//    }
 
 }
 

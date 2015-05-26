@@ -45,7 +45,7 @@
                     android:layout_weight="0.10"
 
                     android:singleLine="true"
-                    android:text="ADD"
+                    android:text="@string/btn_add"
                     android:textSize="12sp"
 
                     android:background="@drawable/button_custom" />
