@@ -92,7 +92,7 @@ public class ContentBox {
 
 
     public void setButtonVisibility(int visibility){
-        ((Button) mBox.findViewById(R.id.box_button)).setVisibility(visibility);
+        mBox.findViewById(R.id.box_button).setVisibility(visibility);
     }
 
     public void cleatGrid(){

@@ -2,7 +2,6 @@ package rafakob.multiedip;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.google.common.primitives.Doubles;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

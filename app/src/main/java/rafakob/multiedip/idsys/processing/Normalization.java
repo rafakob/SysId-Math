@@ -1,10 +1,7 @@
 package rafakob.multiedip.idsys.processing;
 
-import com.google.common.primitives.Doubles;
-
 import rafakob.multiedip.idsys.DataStatistics;
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.MatrixUtils;
 
 /**
  * Author: Rafal Kobylko

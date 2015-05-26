@@ -24,7 +24,7 @@
 
 
     <!-- Filebrowser -->
-    <string name="btn_select_source_file">Select source file...</string>
+    <string name="btn_select_source_file">Select source file…</string>
     <string name="error_root_browse">Root browse not allowed!</string>
     <string name="btn_cancel">Cancel</string>
 
@@ -71,7 +71,7 @@
 
     <string name="activity_title_preprocessing">Preprocessing Settings</string>
     <string name="activity_title_identification">Identification Settings</string>
-    <string name="loading_file">Loading file...</string>
+    <string name="loading_file">Loading file…</string>
 
     <!-- Statistics -->
     <string name="stats_mean">Mean</string>

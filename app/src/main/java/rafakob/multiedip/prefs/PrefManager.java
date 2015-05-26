@@ -45,7 +45,7 @@ public class PrefManager {
     }
 
     public ArrayList<DataProcessingInterface> getPreprocesingConfig() {
-        ArrayList methodList = new ArrayList<DataProcessingInterface>();
+        ArrayList methodList = new ArrayList<>();
 
         Map<String, ?> all = PreferenceManager.getDefaultSharedPreferences(mContext).getAll();
 

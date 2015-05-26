@@ -16,11 +16,9 @@
 
 
 
-
-
-
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fab_togglemenu"
+        android:id="@+id/fab_menu_toggle"
+        android:src="@drawable/ic_eye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -40,19 +38,19 @@
         fab:menu_shadowColor="#444">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab122"
+            android:id="@+id/fab_toggle_source"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="toggleSource"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_eye"
             fab:fab_colorNormal="#F50057"
             fab:fab_colorPressed="#E8004A"
             fab:fab_colorRipple="#C20024"
             fab:fab_label="Toogle source" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab222"
+            android:id="@+id/fab_toggle_processed"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,7 +58,7 @@
             fab:fab_colorNormal="#ff4c7af5"
             fab:fab_colorPressed="#ff4375f5"
             fab:fab_colorRipple="#ff386af5"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_eye"
             fab:fab_label="Toggle processed" />
 
 
@@ -70,7 +68,7 @@
 
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fab_plotmenu"
+        android:id="@+id/fab_menu_plots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -89,8 +87,9 @@
         fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_shadowColor="#444">
 
+
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab12"
+            android:id="@+id/fab_plot_1"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +98,7 @@
             fab:fab_label="Output signal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab22"
+            android:id="@+id/fab_plot_2"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,7 +107,7 @@
             fab:fab_label="Input signal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab32"
+            android:id="@+id/fab_plot_3"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,7 +116,7 @@
             fab:fab_label="Autocorr" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab42"
+            android:id="@+id/fab_plot_4"
             style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/num_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -31,7 +32,8 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="numberSigned"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            tools:ignore="UnusedAttribute" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +59,8 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="numberSigned"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            tools:ignore="UnusedAttribute" />
     </LinearLayout>
 
 </LinearLayout>

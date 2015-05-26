@@ -5,7 +5,7 @@ import com.google.common.primitives.Doubles;
 import org.ejml.simple.SimpleMatrix;
 
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.MatrixUtils;
+import rafakob.multiedip.idsys.MathDbl;
 
 /**
  * Author: Rafal Kobylko
@@ -71,9 +71,9 @@ public class IdArx implements IdentificationModel {
 
             // b0 b1 a1 a2
 
-            B = MatrixUtils.extract(0, dB, MatrixUtils.SimpleMatrixToDoubles(theta));
-            A = Doubles.concat(MatrixUtils.getNumberAsArray(1.0),
-                    MatrixUtils.extract(dB + 1, MatrixUtils.SimpleMatrixToDoubles(theta).length - 1, MatrixUtils.SimpleMatrixToDoubles(theta)));
+            B = MathDbl.extract(0, dB, MathDbl.SimpleMatrixToDoubles(theta));
+            A = Doubles.concat(MathDbl.getNumberAsArray(1.0),
+                    MathDbl.extract(dB + 1, MathDbl.SimpleMatrixToDoubles(theta).length - 1, MathDbl.SimpleMatrixToDoubles(theta)));
 
 
         }
@@ -90,8 +90,8 @@ public class IdArx implements IdentificationModel {
 
     @Override
     public String getResult() {
-        return "ARX model: \n \tA = " + MatrixUtils.getString(A) +
-                "\n\tB = " + MatrixUtils.getString(B);
+        return "ARX model: \n \tA = " + MathDbl.getString(A) +
+                "\n\tB = " + MathDbl.getString(B);
 
     }
 

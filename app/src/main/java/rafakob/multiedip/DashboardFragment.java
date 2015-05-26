@@ -4,6 +4,7 @@ package rafakob.multiedip;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ public class DashboardFragment extends Fragment {
     private TextView txtLength;
     private TextView txtInfo;
     private Context mContext;
+    private Button btnRun;
     private PrefManager mPrefManager;
     private ArrayList<DataProcessingInterface> mPreprocessingTasks;
     private IdentificationModel mIdentificationModel;
@@ -56,6 +58,7 @@ public class DashboardFragment extends Fragment {
     private EventBus mBus = EventBus.getDefault();
     private IdData iddata, dataProcessed;
     private ContentBox mBox1, mBox2, mBox3;
+
 
 
     public DashboardFragment() {
@@ -76,7 +79,6 @@ public class DashboardFragment extends Fragment {
         txtInfo = new TextView(mContext);
         iddata = ((GlobalApp) mContext).getDataSource();
         dataProcessed = ((GlobalApp) mContext).getDataProcessed();
-
         // Create file browser instance
         filePickerDialogFragment = new FilebrowserDialogFragment();
         // Set up path to sd card
@@ -138,7 +140,7 @@ public class DashboardFragment extends Fragment {
         mBox1.addToGrid(3, 1, txtLength, "");
 
         /** Others **/
-        Button btnRun = (Button) view.findViewById(R.id.btn_run);
+        btnRun = (Button) view.findViewById(R.id.btn_run);
         btnRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,22 +182,7 @@ public class DashboardFragment extends Fragment {
 
     public void onRunClick() {
         /****** RUN CLICK ******/
-        Stopwatch stopwatch = Stopwatch.createStarted();
-
-        DataProcessing dp = new DataProcessing();
-        dataProcessed.cloneFromIddata(iddata);
-        dp.process(dataProcessed, mPreprocessingTasks); // perform preprocessing
-        mIdentificationModel.execute(dataProcessed);
-
-        stopwatch.stop();
-
-
-        txtInfo.setText("Finished in " + stopwatch);
-        EventBus bus = EventBus.getDefault();
-        bus.post(new IdentificationFinishedEvent(mIdentificationModel));
-
-
-//        Toast.makeText(mContext, dp.process(iddata,mPreprocessingTasks).getOutput()[0] + "", Toast.LENGTH_SHORT).show();
+        new RunTask().execute("");
     }
 
 
@@ -252,5 +239,59 @@ public class DashboardFragment extends Fragment {
         updateSettingsBoxes();
     }
 
+    /**
+     * Run task
+     */
+    private class RunTask extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            txtInfo.setText("Performing calculations...");
+            btnRun.setEnabled(false);
+            btnRun.setBackgroundColor(getResources().getColor(R.color.btn_run_disabled));
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Stopwatch stopwatch = Stopwatch.createStarted();
+
+
+            try{
+                DataProcessing dp = new DataProcessing();
+                dataProcessed.cloneFromIddata(iddata);
+                dp.process(dataProcessed, mPreprocessingTasks); // perform preprocessing
+                mIdentificationModel.execute(dataProcessed); // perform identification
+            }
+            catch(OutOfMemoryError e) {
+                return "Error! Out of memory!";
+            }
+            catch(NullPointerException e) {
+                return "Error! No data or settings!";
+            }
+            catch (Exception e){
+                return "An unexpected error occurred!";
+            }
+
+            stopwatch.stop();
+            return "Finished in " + stopwatch;
+        }
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            if(!s.contains("error")) {
+                EventBus bus = EventBus.getDefault();
+                bus.post(new IdentificationFinishedEvent(mIdentificationModel));
+            }
+
+            txtInfo.setText(s.trim());
+            btnRun.setEnabled(true);
+            btnRun.setBackgroundColor(getResources().getColor(R.color.btn_run_enabled));
+
+        }
+    }
 
 }

@@ -1,13 +1,11 @@
 package rafakob.multiedip;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import de.greenrobot.event.EventBus;
-import rafakob.multiedip.bus.SelectFileEvent;
 import rafakob.multiedip.bus.SettingsChangedEvent;
 
 

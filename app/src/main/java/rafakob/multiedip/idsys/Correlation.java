@@ -4,20 +4,24 @@ import java.util.Arrays;
 
 public class Correlation {
 
-    public static double[] autoBiased(double[] x) {
+    public static double[] auto;
+
+    public static void auto(double[] x, String type) {
         int N = x.length;
-        double[] Rxx = MatrixUtils.getFilledVector(N,0);
+        double[] Rxx = MathDbl.getFilledVector(N, 0);
 
         for (int m = 0; m < N; m++) {
             for (int i = 0; i < N-1-m; i++) {
                 Rxx[m] += x[i+m]*x[i];
             }
-            Rxx[m] = Rxx[m]/N;
 
+            if(type.equals("biased"))
+                Rxx[m] = Rxx[m]/N;
+
+            else if(type.equals("unbiased"))
+                Rxx[m] = Rxx[m]/(N-m);
         }
-
-        // return MatrixUtils.extract(0,(int) Math.round(Math.sqrt(N)),Rxx);
-        return Rxx;
+        auto = Rxx;
     }
 
 //    public static double[] execute(double[] y, int kmax) {

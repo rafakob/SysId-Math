@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -80,12 +79,12 @@ public class MainActivity extends ActionBarActivity  {
     private void addDrawerItems() {
         DrawerObject[] menu = new DrawerObject[]{
                 DrawerHeader.create(100, getString(R.string.title_header1)),
-                DrawerItem.create(101, getString(R.string.title_item1), "ic_view_dashboard_black_24dp", true, this),
-                DrawerItem.create(102, getString(R.string.title_item2), "ic_trending_up_black_24dp", true, this),
-                DrawerItem.create(103, getString(R.string.title_item3), "ic_poll_black_24dp", true, this),
+                DrawerItem.create(101, getString(R.string.title_item1), "ic_view_dashboard", true, this),
+                DrawerItem.create(102, getString(R.string.title_item2), "ic_trending_up", true, this),
+                DrawerItem.create(103, getString(R.string.title_item3), "ic_poll", true, this),
                 DrawerHeader.create(200, getString(R.string.title_header2)),
-                DrawerItem.create(201, getString(R.string.title_item4), "ic_settings_black_24dp", false, this),
-                DrawerItem.create(202, getString(R.string.title_item5), "ic_information_outline_black_24dp", false, this),
+                DrawerItem.create(201, getString(R.string.title_item4), "ic_settings", false, this),
+                DrawerItem.create(202, getString(R.string.title_item5), "ic_information_outline", false, this),
         };
 
         DrawerAdapter mAdapter = new DrawerAdapter(this, R.layout.drawer_list_item, menu);
@@ -196,9 +195,9 @@ public class MainActivity extends ActionBarActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         /** Activate the navigation drawer toggle. **/
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected(item))
             return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

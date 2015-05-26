@@ -1,11 +1,9 @@
 package rafakob.multiedip.idsys.processing;
 
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.MatrixUtils;
+import rafakob.multiedip.idsys.MathDbl;
 
-/**
- * Created by Rafal on 2015-03-31.
- */
+
 public class DataRange implements DataProcessingInterface {
     int start;
     int end;
@@ -18,11 +16,13 @@ public class DataRange implements DataProcessingInterface {
     @Override
     public IdData execute(IdData iddata) {
         if(iddata.isSiso()) {
-            iddata.setInput(MatrixUtils.extract(start - 1, end - 1, iddata.getInput()));
-            iddata.setOutput(MatrixUtils.extract(start - 1, end - 1, iddata.getOutput()));
+            iddata.setInput(MathDbl.extract(start - 1, end - 1, iddata.getInput()));
+            iddata.setOutput(MathDbl.extract(start - 1, end - 1, iddata.getOutput()));
+            iddata.setSamples(MathDbl.extract(start - 1, end - 1, iddata.getSamples()));
         }
         else{
-            iddata.setOutput(MatrixUtils.extract(start - 1, end - 1, iddata.getOutput()));
+            iddata.setOutput(MathDbl.extract(start - 1, end - 1, iddata.getOutput()));
+            iddata.setSamples(MathDbl.extract(start - 1, end - 1, iddata.getSamples()));
         }
         iddata.setLength(end-start+1);
         return iddata;

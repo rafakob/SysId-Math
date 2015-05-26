@@ -1,18 +1,12 @@
 package rafakob.multiedip.idsys.processing;
 
-import com.google.common.math.DoubleMath;
-
-import org.apache.commons.math3.util.DoubleArray;
 import org.ejml.alg.dense.linsol.AdjustableLinearSolver;
 import org.ejml.data.DenseMatrix64F;
 import org.ejml.factory.LinearSolverFactory;
 
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.MatrixUtils;
+import rafakob.multiedip.idsys.MathDbl;
 
-/**
- * Created by Rafal on 2015-03-31.
- */
 public class PolynomialTrendRemoval implements DataProcessingInterface {
     private DenseMatrix64F A; // Vandermonde matrix
     private DenseMatrix64F coef; // matrix containing computed polynomial coefficients
@@ -30,7 +24,7 @@ public class PolynomialTrendRemoval implements DataProcessingInterface {
 
     @Override
     public IdData execute(IdData iddata) {
-        N = (int) iddata.getLength();
+        N = iddata.getLength();
         poly = new double[N];
 
 
@@ -49,8 +43,8 @@ public class PolynomialTrendRemoval implements DataProcessingInterface {
         polyfit(samples, iddata.getOutput()); // compute coefs and polyval
 
         // detrend:
-        iddata.setOutput(MatrixUtils.subtract(iddata.getOutput(), poly));
-        System.out.printf(MatrixUtils.getString(iddata.getOutput()));
+        iddata.setOutput(MathDbl.subtract(iddata.getOutput(), poly));
+        System.out.printf(MathDbl.getString(iddata.getOutput()));
         return iddata;
     }
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  *
  */
-public class MatrixUtils {
+public class MathDbl {
     public static DecimalFormat df = new DecimalFormat("0.000000");
 
     public static double[] extract(int start, int end, double[] array) {
@@ -37,8 +37,7 @@ public class MatrixUtils {
     }
 
     public static String getString(double[] array) {
-        String s = new String();
-        s = "[";
+        String s = "[";
 
         for (int i = 0; i < array.length; i++) {
             s = s + df.format(array[i]).replace(',','.');
@@ -74,8 +73,8 @@ public class MatrixUtils {
 
     public static double sumElements(double[] v){
         double sum = 0;
-        for (int i = 0; i < v.length; i++) {
-            sum += v[i];
+        for (double aV : v) {
+            sum += aV;
         }
 
         return sum;

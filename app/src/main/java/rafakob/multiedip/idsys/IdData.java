@@ -3,8 +3,9 @@ package rafakob.multiedip.idsys;
 public class IdData {
     private double[] input;
     private double[] output;
-    private double ts;
-    private long length = 0;
+    private double[] samples;
+    private double ts = 1;
+    private int length = 0;
     private String type = "";
     private String path;
 
@@ -17,6 +18,8 @@ public class IdData {
         this.output = output;
         this.ts = ts;
         this.length = output.length;
+
+        initSamples();
     }
 
     public IdData(double[] output, double[] input, double ts) {
@@ -25,6 +28,8 @@ public class IdData {
         this.output = output;
         this.ts = ts;
         this.length = output.length;
+
+        initSamples();
     }
 
     public void cloneFromIddata(IdData iddata){
@@ -34,10 +39,17 @@ public class IdData {
         this.ts = iddata.getTs();
         this.input = iddata.getInput();
         this.output = iddata.getOutput();
+        this.samples = iddata.getSamples();
     }
 
     public void saveToFile(String pathToFile){
         // TODO: zaimplementować
+    }
+
+    public void initSamples(){
+        samples = new double[length];
+        for (int i = 0; i < length; i++)
+            samples[i] = i*ts;
     }
 
 
@@ -77,11 +89,11 @@ public class IdData {
         this.ts = ts;
     }
 
-    public long getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(long length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
@@ -99,5 +111,13 @@ public class IdData {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double[] getSamples() {
+        return samples;
+    }
+
+    public void setSamples(double[] samples) {
+        this.samples = samples;
     }
 }

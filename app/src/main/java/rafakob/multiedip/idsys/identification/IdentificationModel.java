@@ -7,7 +7,7 @@ import rafakob.multiedip.idsys.IdData;
  * Created on: 2015-03-26
  */
 public interface IdentificationModel {
-    public void execute(IdData iddata);
-    public String getFunctionDescription();
-    public String getResult();
+    void execute(IdData iddata);
+    String getFunctionDescription();
+    String getResult();
 }

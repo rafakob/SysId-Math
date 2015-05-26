@@ -38,8 +38,8 @@ public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
         publishProgress();
         updateLengthAndType(iddata);
 
-        double[] output = new double[(int)iddata.getLength()];
-        double[] input = new double[(int)iddata.getLength()];
+        double[] output = new double[iddata.getLength()];
+        double[] input = new double[iddata.getLength()];
 
 
         try {
@@ -65,8 +65,8 @@ public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
                 iddata.setInput(input);
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            iddata.initSamples();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,7 +77,7 @@ public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
     }
 
     private void updateLengthAndType(IdData iddata) {
-        long numberOfRows = 0;
+        int numberOfRows = 0;
         File file = new File(iddata.getPath());
         try {
             iddata.setType(Files.readFirstLine(file, Charsets.UTF_8).contains(SEPARATOR) ? "siso" : "timeseries");
@@ -86,8 +86,6 @@ public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
             while (br.readLine() != null) {
                 numberOfRows++;
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

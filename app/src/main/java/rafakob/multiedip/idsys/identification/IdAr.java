@@ -7,7 +7,7 @@ import org.ejml.simple.SimpleMatrix;
 import java.util.Arrays;
 
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.MatrixUtils;
+import rafakob.multiedip.idsys.MathDbl;
 
 /**
  * Author: Rafal Kobylko
@@ -76,9 +76,9 @@ public class IdAr implements IdentificationModel {
 
             // b0 b1 a1 a2
 
-            B = MatrixUtils.extract(0, dB, MatrixUtils.SimpleMatrixToDoubles(theta));
-            A = Doubles.concat(MatrixUtils.getNumberAsArray(1.0),
-                    MatrixUtils.extract(dB + 1, MatrixUtils.SimpleMatrixToDoubles(theta).length - 1, MatrixUtils.SimpleMatrixToDoubles(theta)));
+            B = MathDbl.extract(0, dB, MathDbl.SimpleMatrixToDoubles(theta));
+            A = Doubles.concat(MathDbl.getNumberAsArray(1.0),
+                    MathDbl.extract(dB + 1, MathDbl.SimpleMatrixToDoubles(theta).length - 1, MathDbl.SimpleMatrixToDoubles(theta)));
 
 
         }
@@ -87,7 +87,7 @@ public class IdAr implements IdentificationModel {
 
     @Override
     public String getResult() {
-        return "AR model: \n \tA = " + MatrixUtils.getString(A);
+        return "AR model: \n \tA = " + MathDbl.getString(A);
 
     }
 

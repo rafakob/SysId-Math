@@ -8,6 +8,6 @@ import rafakob.multiedip.idsys.IdData;
  */
 public interface DataProcessingInterface {
 
-    public IdData execute(IdData iddata);
-    public String getFunctionDescription();
+    IdData execute(IdData iddata);
+    String getFunctionDescription();
 }

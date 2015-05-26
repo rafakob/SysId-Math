@@ -35,8 +35,13 @@ import rafakob.multiedip.idsys.Psd;
 public class PlotsActivity extends ActionBarActivity implements
         OnChartGestureListener, OnChartValueSelectedListener {
 
-    private static final Integer SOURCE_PLOT = 0;
-    private static final Integer PROCESSED_PLOT = 1;
+    private static final Integer ID_SOURCE = 0;
+    private static final Integer ID_PROCESSED = 1;
+    private static final int COLOR_SOURCE = Color.RED;
+    private static final int COLOR_PROCESSED = Color.BLUE;
+    private static final String LBL_SOURCE = "Source";
+    private static final String LBL_PROCESSED = "Processed";
+
     private FloatingActionMenu fabPlotMenu;
 
     private LineChart mChart;
@@ -57,7 +62,9 @@ public class PlotsActivity extends ActionBarActivity implements
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_plots);
-        fabPlotMenu = (FloatingActionMenu) findViewById(R.id.fab_plotmenu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        fabPlotMenu = (FloatingActionMenu) findViewById(R.id.fab_menu_plots);
 
         // get reference to global app data objects
         gDataSource = ((GlobalApp) getApplicationContext()).getDataSource();
@@ -76,10 +83,8 @@ public class PlotsActivity extends ActionBarActivity implements
 
 
     /**
-     * *****************************************************************************
-     *
+     * ******************************************************************************
      * Chart initialization
-     *
      * ******************************************************************************
      */
     private void initChart() {
@@ -117,64 +122,64 @@ public class PlotsActivity extends ActionBarActivity implements
 
 
     /**
-     * *****************************************************************************
-     *
+     * ******************************************************************************
      * Setting data
-     *
      * ******************************************************************************
      */
     private void initOutputSignal() {
         plotDataSets.clear();
-        if (!gDataSource.isNull()) {
-            plotDataSets.put(SOURCE_PLOT, new PlotDataset(gDataSource.getOutput(), "Source", Color.RED));
-        }
+        if (!gDataSource.isNull())
+            plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getOutput(), LBL_SOURCE, COLOR_SOURCE));
 
-        if (!gDataProcessed.isNull()) {
-            plotDataSets.put(PROCESSED_PLOT, new PlotDataset(gDataProcessed.getOutput(), "Processed", Color.BLUE));
-        }
+        if (!gDataProcessed.isNull())
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getOutput(), LBL_PROCESSED, COLOR_PROCESSED));
     }
 
     private void initInputSignal() {
         plotDataSets.clear();
-        if (!gDataSource.isNull() && gDataSource.isSiso()) {
-            plotDataSets.put(SOURCE_PLOT, new PlotDataset(gDataSource.getInput(), "Source", Color.RED));
-        }
+        if (!gDataSource.isNull() && gDataSource.isSiso())
+            plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getInput(), LBL_SOURCE, COLOR_SOURCE));
 
-        if (!gDataProcessed.isNull() && gDataProcessed.isSiso()) {
-            plotDataSets.put(PROCESSED_PLOT, new PlotDataset(gDataProcessed.getInput(), "Processed", Color.BLUE));
-        }
+        if (!gDataProcessed.isNull() && gDataProcessed.isSiso())
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getInput(), LBL_PROCESSED, COLOR_PROCESSED));
     }
 
 
     private void initAutocorr() {
         plotDataSets.clear();
+
         if (!gDataSource.isNull()) {
-            PlotDataset tmp = new PlotDataset(Correlation.autoBiased(gDataSource.getOutput()), "Source", Color.RED);
+            Correlation.auto(gDataSource.getOutput(), "biased");
+
+            PlotDataset tmp = new PlotDataset(gDataSource.getSamples(), Correlation.auto, LBL_SOURCE, COLOR_SOURCE);
             tmp.getSet().setCircleSize(4f);
             tmp.getSet().setLineWidth(0f);
             tmp.getSet().setDrawCircles(true);
-            plotDataSets.put(SOURCE_PLOT, tmp);
+            plotDataSets.put(ID_SOURCE, tmp);
         }
 
         if (!gDataProcessed.isNull()) {
-            PlotDataset tmp = new PlotDataset(Correlation.autoBiased(gDataProcessed.getOutput()), "Processed", Color.BLUE);
+            Correlation.auto(gDataProcessed.getOutput(), "biased");
+            PlotDataset tmp = new PlotDataset(gDataProcessed.getSamples(),Correlation.auto, LBL_PROCESSED, COLOR_PROCESSED);
             tmp.getSet().setCircleSize(4f);
             tmp.getSet().setLineWidth(0f);
             tmp.getSet().setDrawCircles(true);
-            plotDataSets.put(PROCESSED_PLOT, tmp);
+            plotDataSets.put(ID_PROCESSED, tmp);
         }
     }
 
     private void initPsd() {
         plotDataSets.clear();
         if (!gDataSource.isNull()) {
-            Psd.periodogram(Correlation.autoBiased(gDataSource.getOutput()));
-            plotDataSets.put(SOURCE_PLOT, new PlotDataset(Psd.freq, Psd.vals, "Source", Color.RED));
+            Correlation.auto(gDataSource.getOutput(), "biased");
+            Psd.periodogram(Correlation.auto);
+            plotDataSets.put(ID_SOURCE, new PlotDataset(Psd.freq, Psd.vals, LBL_SOURCE, COLOR_SOURCE));
         }
 
         if (!gDataProcessed.isNull()) {
-            Psd.periodogram(Correlation.autoBiased(gDataProcessed.getOutput()));
-            plotDataSets.put(PROCESSED_PLOT, new PlotDataset(Psd.freq, Psd.vals, "Processed", Color.BLUE));
+            Correlation.auto(gDataProcessed.getOutput(), "biased");
+            Psd.periodogram(Correlation.auto);
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(Psd.freq, Psd.vals, LBL_PROCESSED, COLOR_PROCESSED));
         }
     }
 
@@ -188,15 +193,18 @@ public class PlotsActivity extends ActionBarActivity implements
         for (PlotDataset plot : plotDataSets.values()) {
             if (plot.isVisible()) {
 
-                if (xVals.isEmpty())
+                if (plot.getxVals().size() > xVals.size())
                     xVals = plot.getxVals();
 
                 visibleDataSets.add(plot.getSet());
             }
         }
 
+        if (visibleDataSets.isEmpty())
+            return;
+        
         mLineData = new LineData(xVals, visibleDataSets);
-        if(redraw) {
+        if (redraw) {
             YAxis leftAxis = mChart.getAxisLeft();
             leftAxis.setAxisMaxValue((float) (mLineData.getYMax() + Math.abs(mLineData.getYMax() * 0.15)));
             leftAxis.setAxisMinValue((float) (mLineData.getYMin() - Math.abs(mLineData.getYMin() * 0.15)));
@@ -205,7 +213,7 @@ public class PlotsActivity extends ActionBarActivity implements
 
         mChart.setData(mLineData);
 
-        if(redraw)
+        if (redraw)
             mChart.animateX(1000, Easing.EasingOption.EaseInOutQuart);
 
         mChart.invalidate();
@@ -213,10 +221,8 @@ public class PlotsActivity extends ActionBarActivity implements
 
 
     /**
-     * *****************************************************************************
-     *
+     * ******************************************************************************
      * Plots listeners
-     *
      * ******************************************************************************
      */
     @Override
@@ -266,10 +272,8 @@ public class PlotsActivity extends ActionBarActivity implements
     }
 
     /**
-     * *****************************************************************************
-     *
+     * ******************************************************************************
      * Button actions
-     *
      * ******************************************************************************
      */
     @Override
@@ -296,6 +300,7 @@ public class PlotsActivity extends ActionBarActivity implements
         setTitle(mTitlePre + "Autocorr");
         initAutocorr();
         updateChartData(true, false);
+//        new LoadDataTask().execute("");
         fabPlotMenu.close(true);
     }
 
@@ -307,21 +312,19 @@ public class PlotsActivity extends ActionBarActivity implements
     }
 
     public void toggleSource(View v) {
-        plotDataSets.get(SOURCE_PLOT).setVisible(!plotDataSets.get(SOURCE_PLOT).isVisible());
+        plotDataSets.get(ID_SOURCE).setVisible(!plotDataSets.get(ID_SOURCE).isVisible());
         updateChartData(false, false);
     }
 
     public void toggleProcessed(View v) {
-        plotDataSets.get(PROCESSED_PLOT).setVisible(!plotDataSets.get(PROCESSED_PLOT).isVisible());
+        plotDataSets.get(ID_PROCESSED).setVisible(!plotDataSets.get(ID_PROCESSED).isVisible());
         updateChartData(false, false);
     }
 
 
     /**
-     * *****************************************************************************
-     *
+     * ******************************************************************************
      * Menu on ActionBar
-     *
      * ******************************************************************************
      */
     @Override
@@ -334,6 +337,12 @@ public class PlotsActivity extends ActionBarActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
+            case android.R.id.home:
+                // API 5+ solution
+                onBackPressed();
+                return true;
+
             case R.id.actionToggleValues: {
                 for (DataSet<?> set : mChart.getData().getDataSets())
                     set.setDrawValues(!set.isDrawValuesEnabled());
@@ -418,6 +427,28 @@ public class PlotsActivity extends ActionBarActivity implements
         }
         return true;
     }
+
+//    private class LoadDataTask extends AsyncTask<String, Integer, Boolean >{
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            mChart.clear();
+//            mChart.setDescription("WCZYTYWANIE");
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(String... params) {
+//            initAutocorr();
+//            return true;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean aBoolean) {
+//            updateChartData(true,false);
+//
+//            super.onPostExecute(aBoolean);
+//        }
+//    }
 
 }
 
