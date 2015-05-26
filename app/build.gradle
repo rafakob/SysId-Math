@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "rafakob.multiedip"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -25,9 +25,10 @@ dependencies {
     compile 'com.jpardogo.materialtabstrip:library:1.0.9'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
-    compile group: 'com.googlecode.efficient-java-matrix-library', name: 'core', version: '0.26'
-    compile group: 'com.googlecode.efficient-java-matrix-library', name: 'equation', version: '0.26'
+    compile group: 'org.ejml', name: 'all', version: '0.27'
     compile 'uk.com.robust-it:cloning:1.9.1'
     compile 'com.pixplicity.easyprefs:library:1.4'
-
+    compile 'org.apache.commons:commons-math3:3.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.0'
+    compile 'com.github.clans:fab:1.5.0'
 }

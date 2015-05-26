@@ -62,10 +62,7 @@ public class FilebrowserAdapter extends BaseAdapter {
             public boolean accept(File file) {
                 if (file.isDirectory() && !file.getName().startsWith("."))
                     return true;
-                else if (file.getName().toLowerCase().endsWith(".txt"))
-                    return true;
-                else
-                    return false;
+                else return file.getName().toLowerCase().endsWith(".txt");
             }
         };
 

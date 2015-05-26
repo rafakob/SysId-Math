@@ -1,8 +1,8 @@
 package rafakob.multiedip;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -24,10 +23,9 @@ import rafakob.multiedip.drawer.DrawerAdapter;
 import rafakob.multiedip.drawer.DrawerHeader;
 import rafakob.multiedip.drawer.DrawerItem;
 import rafakob.multiedip.drawer.DrawerObject;
-import rafakob.multiedip.filebrowser.FilebrowserDialogFragment;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity  {
 
     private LinearLayout mMainWindowLayout; // layout with tabs Project and Result
     private FrameLayout mFragmentContainerLayout; // layout where fragments are injected from drawer
@@ -35,7 +33,6 @@ public class MainActivity extends ActionBarActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mTitle;
-
 
     // Drawer items:
     private static final int NAV_DASHBOARD = 1;
@@ -63,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),getApplicationContext()));
         /** Give the PagerSlidingTabStrip the ViewPager. **/
-        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs_main);
+        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabstrip_main);
         /** Attach the view pager to the tab strip. **/
         tabsStrip.setViewPager(viewPager);
 
@@ -73,18 +70,21 @@ public class MainActivity extends ActionBarActivity {
 
         getSupportActionBar().setElevation(0);
 
+
+
+
     }
 
 
     private void addDrawerItems() {
         DrawerObject[] menu = new DrawerObject[]{
                 DrawerHeader.create(100, getString(R.string.title_header1)),
-                DrawerItem.create(101, getString(R.string.title_item1), "ic_view_dashboard_black_24dp", true, this),
-                DrawerItem.create(102, getString(R.string.title_item2), "ic_trending_up_black_24dp", true, this),
-                DrawerItem.create(103, getString(R.string.title_item3), "ic_poll_black_24dp", true, this),
+                DrawerItem.create(101, getString(R.string.title_item1), "ic_view_dashboard", true, this),
+                DrawerItem.create(102, getString(R.string.title_item2), "ic_trending_up", true, this),
+                DrawerItem.create(103, getString(R.string.title_item3), "ic_poll", true, this),
                 DrawerHeader.create(200, getString(R.string.title_header2)),
-                DrawerItem.create(201, getString(R.string.title_item4), "ic_settings_black_24dp", false, this),
-                DrawerItem.create(202, getString(R.string.title_item5), "ic_information_outline_black_24dp", false, this),
+                DrawerItem.create(201, getString(R.string.title_item4), "ic_settings", false, this),
+                DrawerItem.create(202, getString(R.string.title_item5), "ic_information_outline", false, this),
         };
 
         DrawerAdapter mAdapter = new DrawerAdapter(this, R.layout.drawer_list_item, menu);
@@ -122,8 +122,11 @@ public class MainActivity extends ActionBarActivity {
                 mTitle = getString(R.string.title_item2);
                 break;
             case NAV_PLOTS:
-                f = new AboutFragment();
-                mTitle = getString(R.string.title_item3);
+//                f = new PlotsFragment();
+//                mTitle = getString(R.string.title_item3);
+                Intent i;
+                i = new Intent(this, PlotsActivity.class);
+                startActivity(i);
                 break;
 
             case NAV_SETTINGS:
@@ -137,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
 
-        if (f != null && position != NAV_DASHBOARD) {
+        if (f != null && position != NAV_DASHBOARD && position != NAV_PLOTS) {
             /** Hide main window. **/
             mMainWindowLayout.setVisibility(LinearLayout.GONE);
             /** "Insert" new fragment in the container. **/
@@ -192,10 +195,14 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         /** Activate the navigation drawer toggle. **/
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected(item))
             return true;
-        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onFloatingActionButtonClick(View v) {
+        showFragment(NAV_DASHBOARD);
     }
 
 

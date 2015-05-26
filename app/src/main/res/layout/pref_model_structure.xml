@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/num_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,7 +25,7 @@
             android:text="k:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="0.5"
-            android:layout_row="0"
+            android:layout_row="3"
             android:layout_column="0"
             android:layout_gravity="left|center_vertical" />
 
@@ -38,8 +39,9 @@
             android:gravity="center"
             android:inputType="numberSigned"
             android:textAlignment="center"
-            android:layout_row="0"
-            android:layout_column="1" />
+            android:layout_row="3"
+            android:layout_column="1"
+            tools:ignore="UnusedAttribute" />
 
         <TextView
             android:id="@+id/param_da_label"
@@ -48,7 +50,7 @@
             android:text="dA:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="0.5"
-            android:layout_row="1"
+            android:layout_row="0"
             android:layout_column="0"
             android:layout_gravity="left|center_vertical" />
 
@@ -61,9 +63,10 @@
             android:gravity="center"
             android:inputType="numberSigned"
             android:textAlignment="center"
-            android:layout_row="1"
+            android:layout_row="0"
             android:layout_column="1"
-            android:layout_gravity="left|bottom" />
+            android:layout_gravity="left|bottom"
+            tools:ignore="UnusedAttribute" />
 
 
 
@@ -81,7 +84,7 @@
             android:text="dB:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="0.5"
-            android:layout_row="2"
+            android:layout_row="1"
             android:layout_column="0"
             android:layout_gravity="left|center_vertical" />
 
@@ -94,9 +97,10 @@
             android:gravity="center"
             android:inputType="numberSigned"
             android:textAlignment="center"
-            android:layout_row="2"
+            android:layout_row="1"
             android:layout_column="1"
-            android:layout_gravity="left|bottom" />
+            android:layout_gravity="left|bottom"
+            tools:ignore="UnusedAttribute" />
 
 
 
@@ -114,7 +118,7 @@
             android:text="dC:"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_weight="0.5"
-            android:layout_row="3"
+            android:layout_row="2"
             android:layout_column="0"
             android:layout_gravity="left|center_vertical" />
 
@@ -127,9 +131,10 @@
             android:gravity="center"
             android:inputType="numberSigned"
             android:textAlignment="center"
-            android:layout_row="3"
+            android:layout_row="2"
             android:layout_column="1"
-            android:layout_gravity="left|bottom" />
+            android:layout_gravity="left|bottom"
+            tools:ignore="UnusedAttribute" />
     </GridLayout>
 
 </LinearLayout>

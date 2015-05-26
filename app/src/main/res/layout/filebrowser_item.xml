@@ -22,7 +22,6 @@
         android:singleLine="true"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Test"
         android:textColor="@color/text_header_primary" />
 
 </LinearLayout>

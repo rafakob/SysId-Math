@@ -7,7 +7,6 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import rafakob.multiedip.R;
 
@@ -20,8 +19,6 @@ public class ModelStructurePreference extends DialogPreference {
     private EditText mEditTextParamDc;
 
 
-    private TextView mLabel1;
-    private TextView mLabel2;
 
 
     public ModelStructurePreference(final Context context, final AttributeSet attrs) {
@@ -39,10 +36,10 @@ public class ModelStructurePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        mEditTextParamK = (EditText) view.findViewById(R.id.param_k);
         mEditTextParamDa = (EditText) view.findViewById(R.id.param_da);
         mEditTextParamDb = (EditText) view.findViewById(R.id.param_db);
         mEditTextParamDc = (EditText) view.findViewById(R.id.param_dc);
+        mEditTextParamK = (EditText) view.findViewById(R.id.param_k);
     }
 
     @Override
@@ -52,10 +49,10 @@ public class ModelStructurePreference extends DialogPreference {
         String[] values = mCurrentValue.split(",", -1);
 
         //TODO: dodać wyszarzanie na podstawie wybranego modelu
-        mEditTextParamK.setText(values[0]);
-        mEditTextParamDa.setText(values[1]);
-        mEditTextParamDb.setText(values[2]);
-        mEditTextParamDc.setText(values[3]);
+        mEditTextParamDa.setText(values[0]);
+        mEditTextParamDb.setText(values[1]);
+        mEditTextParamDc.setText(values[2]);
+        mEditTextParamK.setText(values[3]);
 
 
     }
@@ -84,10 +81,10 @@ public class ModelStructurePreference extends DialogPreference {
     protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && this.shouldPersist()) {
 
-            mCurrentValue = mEditTextParamK.getText().toString() +
-                    "," + mEditTextParamDa.getText().toString() +
+            mCurrentValue = mEditTextParamDa.getText().toString() +
                     "," + mEditTextParamDb.getText().toString() +
-                    "," + mEditTextParamDc.getText().toString();
+                    "," + mEditTextParamDc.getText().toString() +
+                    "," + mEditTextParamK.getText().toString();
 
             this.persistString(mCurrentValue);
             this.updateSummary();

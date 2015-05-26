@@ -2,13 +2,21 @@ package rafakob.multiedip.idsys.processing;
 
 import rafakob.multiedip.idsys.IdData;
 
-/**
- * Created by Rafal on 2015-03-31.
- */
+
 public class FrequencyFilter implements DataProcessingInterface {
     @Override
     public IdData execute(IdData iddata) {
-        return null;
+//        double[] y = iddata.getOutput().clone();
+//        double[] u = MatrixUtils.getFilledVector(y.length,0);
+//
+//        Fft.transform(y, u);
+//
+//        System.out.println(MatrixUtils.getString(iddata.getOutput()));
+//        System.out.println(MatrixUtils.getString(u));
+//
+//
+
+        return iddata;
     }
 
     @Override

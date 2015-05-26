@@ -1,18 +1,35 @@
 package rafakob.multiedip.idsys.processing;
 
 import rafakob.multiedip.idsys.IdData;
+import rafakob.multiedip.idsys.MathDbl;
 
-/**
- * Created by Rafal on 2015-03-31.
- */
+
 public class DataRange implements DataProcessingInterface {
+    int start;
+    int end;
+
+    public DataRange(int start, int end) {
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public IdData execute(IdData iddata) {
-        return null;
+        if(iddata.isSiso()) {
+            iddata.setInput(MathDbl.extract(start - 1, end - 1, iddata.getInput()));
+            iddata.setOutput(MathDbl.extract(start - 1, end - 1, iddata.getOutput()));
+            iddata.setSamples(MathDbl.extract(start - 1, end - 1, iddata.getSamples()));
+        }
+        else{
+            iddata.setOutput(MathDbl.extract(start - 1, end - 1, iddata.getOutput()));
+            iddata.setSamples(MathDbl.extract(start - 1, end - 1, iddata.getSamples()));
+        }
+        iddata.setLength(end-start+1);
+        return iddata;
     }
 
     @Override
     public String getFunctionDescription() {
-        return "DataRange";
+        return "Data range: " + start + "-" + end;
     }
 }

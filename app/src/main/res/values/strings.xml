@@ -1,11 +1,9 @@
 <resources>
     <!-- Application -->
     <string name="app_name">MultiEdip</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_project_prefs">ProjectPrefsActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="title_activity_project_prefs" translatable="false">ProjectPrefsActivity</string>
 
     <!-- Navigation drawer -->
     <string name="title_drawer_opened">Navigation</string>
@@ -23,8 +21,9 @@
     <string name="tab_result">Result</string>
 
 
+
     <!-- Filebrowser -->
-    <string name="btn_select_source_file">Select source file...</string>
+    <string name="btn_select_source_file">Select source file…</string>
     <string name="error_root_browse">Root browse not allowed!</string>
     <string name="btn_cancel">Cancel</string>
 
@@ -33,6 +32,8 @@
     <string name="lbl_path">Path:</string>
     <string name="lbl_data_type">Data type:</string>
     <string name="lbl_length_source">Length:</string>
+    <string name="btn_run">RUN</string>
+    <string name="btn_add">ADD</string>
 
     <string name="box_datasource">DATASOURCE</string>
     <string name="box_preprocessing">PREPROCESSING</string>
@@ -40,12 +41,16 @@
     <string name="box_load">LOAD</string>
     <string name="box_settings">SETTINGS</string>
     <string name="box_result">RESULT</string>
+    <string name="box_stat_source">STATISTICS - SOURCE</string>
+    <string name="box_stat_processed">STATISTICS - PROCESSED</string>
 
 
     <!-- Preprocessing preferences -->
     <string name="pref_start">Start</string>
     <string name="pref_end">End</string>
     <string name="pref_edit">Edit</string>
+    <string name="pref_multiplier_in">Input signal\n(siso)</string>
+    <string name="pref_multiplier_out">Output signal\n(siso, timeseries)</string>
     <string name="pref_datarange_title">Data range</string>
     <string name="pref_datarange_summary">Select only fragment of datasource</string>
     <string name="pref_datarange_select_title">\tSet start and end</string>
@@ -58,11 +63,55 @@
     <string name="pref_upper">Upper</string>
     <string name="pref_normalization_title">Normalization</string>
     <string name="pref_scaling_title">Scaling</string>
+    <string name="pref_scaling_values_title">\tSet multipliers</string>
     <string name="pref_scaling_and_removing">Scaling and removing</string>
+    <string name="pref_avremoval_title">Average removal</string>
+    <string name="pref_avremoval_summary">Remove average value from signal</string>
+    <string name="pref_polyremoval_summary">Remove polynomial trend from signal</string>
+    <string name="pref_polyremoval_order_title">\tSelect polynomial order</string>
+
     <string name="activity_title_preprocessing">Preprocessing Settings</string>
     <string name="activity_title_identification">Identification Settings</string>
-    <string name="loading_file">Loading file...</string>
+    <string name="loading_file">Loading file…</string>
 
+    <!-- Statistics -->
+    <string name="stats_mean">Mean</string>
+    <string name="stats_stddev">Standard deviation</string>
+    <string name="stats_skewness">Skewness</string>
+    <string name="stats_kurtosis">Kurtosis</string>
+    <string name="stats_peakcoef">Peak coef</string>
+    <string name="stats_input_signal">INPUT SIGNAL</string>
+    <string name="stats_output_signal">OUTPUT SIGNAL</string>
+    <string name="pref_polyremoval_title">Polynomial trend removal</string>
+
+    <!-- Plots-->
+    <string name="title_activity_plots">Plots</string>
+    <string name="plot_menu_toggle_values">Toggle Values</string>
+    <string name="plot_menu_toggle_circles">Toggle Circles</string>
+    <string name="plot_menu_toggle_filled">Toggle Filled</string>
+    <string name="plot_menu_toggle_cubic">Toggle Cubic</string>
+    <string name="plot_menu_toggle_pinchzoom">Toggle PinchZoom</string>
+    <string name="plot_menu_animate_x">Animate X</string>
+    <string name="plot_menu_animate_y">Animate Y</string>
+    <string name="plot_menu_animate_xy">Animate XY</string>
+    <string name="plot_menu_save_to_sdcard">Save to SD-Card</string>
+    <string name="toggle_source">Toggle source</string>
+    <string name="toggle_processed">Toggle processed</string>
+    <string name="fab_menu_plot_1">Output signal</string>
+    <string name="fab_menu_plot_2">Input signal</string>
+    <string name="fab_menu_plot_3">Autocorr</string>
+    <string name="fab_menu_plot_4">Periodogram</string>
+    <string name="plot_lbl_source">Source</string>
+    <string name="plot_lbl_processed">Processed</string>
+    <string name="activity_plots_title_pre">"Plots: "</string>
+    <string name="plot_name_1">Output signal</string>
+    <string name="plot_name_2">Input signal</string>
+    <string name="plot_name_3">Autocorr</string>
+    <string name="plot_name_4">PSD</string>
+    <string name="plot_saving_success">Saving SUCCESSFUL!</string>
+    <string name="plot_saving_failed">Saving FAILED!</string>
+    <string name="plot_info_provide_data">You need to provide data for the chart.</string>
+    <string name="plot_info_no_chart">No chart data available.</string>
 
 
 </resources>

@@ -35,11 +35,11 @@
             <Button
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:text="RUN"
+                android:text="@string/btn_run"
                 android:id="@+id/btn_run"
                 android:layout_gravity="top|center_horizontal"
                 android:singleLine="true"
-                android:background="#ff52ba42"
+                android:background="@color/btn_run_enabled"
                 android:layout_marginBottom="15dp" />
         </LinearLayout>
 

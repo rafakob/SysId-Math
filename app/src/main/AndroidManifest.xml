@@ -23,8 +23,10 @@
         <activity
             android:name=".ProjectPrefsActivity"
             android:label="@string/title_activity_project_prefs" >
-
-
+        </activity>
+        <activity
+            android:name=".PlotsActivity"
+            android:label="@string/title_activity_plots" >
         </activity>
     </application>
 

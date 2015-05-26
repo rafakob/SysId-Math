@@ -11,7 +11,7 @@
             android:title="@string/pref_datarange_title" />
 
         <rafakob.multiedip.prefs.DoubleNumberPickerPreference
-            android:defaultValue="0-1000"
+            android:defaultValue="1;1000"
             android:dependency="pre_flag_datarange"
             android:key="pre_datarange_range"
             android:title="@string/pref_datarange_select_title"
@@ -37,7 +37,7 @@
             android:title="@string/pref_filter_freq_type" />
 
         <rafakob.multiedip.prefs.DoubleNumberPickerPreference
-            android:defaultValue="0-1000"
+            android:defaultValue="0;1000"
             android:dependency="pre_flag_filter_freq"
             android:key="pre_filter_freq_values"
             android:title="@string/pref_filter_freq_values"
@@ -56,16 +56,32 @@
             android:key="pre_flag_scaling"
             android:summary=""
             android:title="@string/pref_scaling_title" />
+        <rafakob.multiedip.prefs.DoubleNumberPickerPreference
+            android:defaultValue="1;1000"
+            android:dependency="pre_flag_scaling"
+            android:key="pre_scaling_values"
+            android:title="@string/pref_scaling_values_title"
+            speedreader:labelFirst="@string/pref_multiplier_in"
+            speedreader:labelSecond="@string/pref_multiplier_out" />
 
         <CheckBoxPreference
-            android:key="pre_flag_dcremoval"
-            android:summary="Remove mean value from signal"
-            android:title="DC offset removal" />
+            android:key="pre_flag_avgremoval"
+            android:summary="@string/pref_avremoval_summary"
+            android:title="@string/pref_avremoval_title" />
+
 
         <CheckBoxPreference
             android:key="pre_flag_polyremoval"
-            android:summary="Remove polynomial trend from signal"
-            android:title="Polynomial trend removal" />
+            android:summary="@string/pref_polyremoval_summary"
+            android:title="@string/pref_polyremoval_title" />
+        <ListPreference
+            android:defaultValue="1"
+            android:dependency="pre_flag_polyremoval"
+            android:entries="@array/polyOrderList"
+            android:entryValues="@array/polyOrderListValues"
+            android:key="pre_polyremoval_order"
+            android:summary="\t%s"
+            android:title="@string/pref_polyremoval_order_title" />
 
     </PreferenceCategory>
 

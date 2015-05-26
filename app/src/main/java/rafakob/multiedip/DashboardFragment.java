@@ -4,6 +4,7 @@ package rafakob.multiedip;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.common.base.Stopwatch;
 
 import java.util.ArrayList;
 
@@ -26,8 +29,8 @@ import rafakob.multiedip.idsys.identification.IdentificationModel;
 import rafakob.multiedip.idsys.processing.DataProcessing;
 import rafakob.multiedip.idsys.processing.DataProcessingInterface;
 import rafakob.multiedip.prefs.PrefManager;
-import rafakob.multiedip.utilities.ContentBox;
-import rafakob.multiedip.utilities.LoadDataFromFileTask;
+import rafakob.multiedip.others.ContentBox;
+import rafakob.multiedip.others.LoadDataFromFileTask;
 
 
 /**
@@ -42,6 +45,7 @@ public class DashboardFragment extends Fragment {
     private TextView txtLength;
     private TextView txtInfo;
     private Context mContext;
+    private Button btnRun;
     private PrefManager mPrefManager;
     private ArrayList<DataProcessingInterface> mPreprocessingTasks;
     private IdentificationModel mIdentificationModel;
@@ -52,8 +56,9 @@ public class DashboardFragment extends Fragment {
     private boolean mFlagFileLoaded = false;
 
     private EventBus mBus = EventBus.getDefault();
-    private IdData iddata;
+    private IdData iddata, dataProcessed;
     private ContentBox mBox1, mBox2, mBox3;
+
 
 
     public DashboardFragment() {
@@ -73,7 +78,7 @@ public class DashboardFragment extends Fragment {
         txtLength = new TextView(mContext);
         txtInfo = new TextView(mContext);
         iddata = ((GlobalApp) mContext).getDataSource();
-
+        dataProcessed = ((GlobalApp) mContext).getDataProcessed();
         // Create file browser instance
         filePickerDialogFragment = new FilebrowserDialogFragment();
         // Set up path to sd card
@@ -124,18 +129,18 @@ public class DashboardFragment extends Fragment {
         });
 
         /** Add TextViews to grid layout: **/
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_filename, 0, 0);
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_path, 1, 0);
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_data_type, 2, 0);
-        mBox1.addToGrid(new TextView(mContext), R.string.lbl_length_source, 3, 0);
+        mBox1.addToGrid(0, 0, R.string.lbl_filename);
+        mBox1.addToGrid(1, 0, R.string.lbl_path);
+        mBox1.addToGrid(2, 0, R.string.lbl_data_type);
+        mBox1.addToGrid(3, 0, R.string.lbl_length_source);
 
-        mBox1.addToGrid(txtFilename, "", 0, 1);
-        mBox1.addToGrid(txtPath, "", 1, 1);
-        mBox1.addToGrid(txtDataType, "", 2, 1);
-        mBox1.addToGrid(txtLength, "", 3, 1);
+        mBox1.addToGrid(0, 1, txtFilename, "");
+        mBox1.addToGrid(1, 1, txtPath, "");
+        mBox1.addToGrid(2, 1, txtDataType, "");
+        mBox1.addToGrid(3, 1, txtLength, "");
 
         /** Others **/
-        Button btnRun = (Button) view.findViewById(R.id.btn_run);
+        btnRun = (Button) view.findViewById(R.id.btn_run);
         btnRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +151,7 @@ public class DashboardFragment extends Fragment {
         txtInfo = (TextView) view.findViewById(R.id.lbl_info);
         txtInfo.setText("");
 
-        updatePreprocessingTasks();
+        updateTasksAndModels();
         updateSettingsBoxes();
 
         return view;
@@ -176,20 +181,12 @@ public class DashboardFragment extends Fragment {
     }
 
     public void onRunClick() {
-
-        DataProcessing dp = new DataProcessing();
-        dp.process(iddata, mPreprocessingTasks); // perform preprocessing
-        mIdentificationModel.execute(dp.getDataProcessed());
-
-        EventBus bus = EventBus.getDefault();
-        bus.post(new IdentificationFinishedEvent(mIdentificationModel));
-
-
-//        Toast.makeText(mContext, dp.process(iddata,mPreprocessingTasks).getOutput()[0] + "", Toast.LENGTH_SHORT).show();
+        /****** RUN CLICK ******/
+        new RunTask().execute("");
     }
 
 
-    private void updatePreprocessingTasks() {
+    private void updateTasksAndModels() {
         mPreprocessingTasks = mPrefManager.getPreprocesingConfig();
         if (mFlagFileLoaded)
             mIdentificationModel = mPrefManager.getIdentificationConfig(iddata.getType());
@@ -199,14 +196,14 @@ public class DashboardFragment extends Fragment {
         mBox2.cleatGrid();
         if (!mPreprocessingTasks.isEmpty()) {
             for (int i = 0; i < mPreprocessingTasks.size(); i++) {
-                mBox2.addToGrid(new TextView(mContext), mPreprocessingTasks.get(i).getFunctionDescription(), i, 0);
+                mBox2.addToGrid(i, 0, new TextView(mContext), mPreprocessingTasks.get(i).getFunctionDescription());
             }
         }
 
 
         mBox3.cleatGrid();
         if (mFlagFileLoaded)
-            mBox3.addToGrid(new TextView(mContext), mIdentificationModel.getFunctionDescription(), 0, 0);
+            mBox3.addToGrid(0, 0, new TextView(mContext), mIdentificationModel.getFunctionDescription());
     }
 
     /**
@@ -217,30 +214,86 @@ public class DashboardFragment extends Fragment {
         currentBrowseStartPath = event.path.substring(0, event.path.lastIndexOf("/"));
         txtPath.setText(currentBrowseStartPath);
 
-
         iddata.setPath(currentBrowseStartPath + "/" + txtFilename.getText().toString());
         // load data from file to iddata object
         new LoadDataFromFileTask(txtInfo).execute(iddata);
         mFlagFileLoaded = true;
 
+        // todo: odświeżac boksy po wczytaniu pliku
     }
 
     /**
-     * Update iddata object
+     * Update iddata object (send from LoadDataFromFileTask)
      */
     public void onEvent(LoadDataFinishedEvent event) {
         txtLength.setText(event.iddata.getLength() + "");
         txtDataType.setText(event.iddata.getType());
         txtInfo.setText("");
+        updateTasksAndModels();
+        updateSettingsBoxes();
     }
 
     /**
      * When ProjectPrefsActivity is closed
      */
     public void onEvent(SettingsChangedEvent event) {
-        updatePreprocessingTasks();
+        updateTasksAndModels();
         updateSettingsBoxes();
     }
 
+    /**
+     * Run task
+     */
+    private class RunTask extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            txtInfo.setText("Performing calculations...");
+            btnRun.setEnabled(false);
+            btnRun.setBackgroundColor(getResources().getColor(R.color.btn_run_disabled));
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Stopwatch stopwatch = Stopwatch.createStarted();
+
+
+            try{
+                DataProcessing dp = new DataProcessing();
+                dataProcessed.cloneFromIddata(iddata);
+                dp.process(dataProcessed, mPreprocessingTasks); // perform preprocessing
+                mIdentificationModel.execute(dataProcessed); // perform identification
+            }
+            catch(OutOfMemoryError e) {
+                return "Error! Out of memory!";
+            }
+            catch(NullPointerException e) {
+                return "Error! No data or settings!";
+            }
+            catch (Exception e){
+                return "An unexpected error occurred!";
+            }
+
+            stopwatch.stop();
+            return "Finished in " + stopwatch;
+        }
+
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            if(!s.contains("error")) {
+                EventBus bus = EventBus.getDefault();
+                bus.post(new IdentificationFinishedEvent(mIdentificationModel));
+            }
+
+            txtInfo.setText(s.trim());
+            btnRun.setEnabled(true);
+            btnRun.setBackgroundColor(getResources().getColor(R.color.btn_run_enabled));
+
+        }
+    }
 
 }
