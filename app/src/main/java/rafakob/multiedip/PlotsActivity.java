@@ -26,7 +26,9 @@ import com.github.mikephil.charting.utils.Highlight;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import rafakob.multiedip.idsys.Autocorr;
 import rafakob.multiedip.idsys.IdData;
+import rafakob.multiedip.idsys.MatrixUtils;
 
 
 public class PlotsActivity extends ActionBarActivity implements
@@ -291,6 +293,7 @@ public class PlotsActivity extends ActionBarActivity implements
 
     public void onPlotsMenu3Click(View v) {
         setTitle(mTitlePre + "Autocorr");
+        Autocorr.execute(gDataSource.getOutput(),5);
     }
 
     public void toggleSource(View v) {
