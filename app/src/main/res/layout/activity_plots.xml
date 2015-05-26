@@ -10,7 +10,7 @@
     tools:context="rafakob.multiedip.PlotsActivity">
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/linechart"
+        android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -20,7 +20,7 @@
 
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu_toggle"
+        android:id="@+id/fab_togglemenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -70,7 +70,7 @@
 
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu2"
+        android:id="@+id/fab_plotmenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -115,6 +115,15 @@
             android:onClick="onPlotsMenu3Click"
             android:src="@drawable/ic_edit"
             fab:fab_label="Autocorr" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab42"
+            style="@style/MenuButtonsStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onPlotsMenu4Click"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="PSD" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.software.shell.fab.ActionButton;
+
 
 import de.greenrobot.event.EventBus;
 import rafakob.multiedip.bus.LoadDataFinishedEvent;
@@ -27,7 +27,6 @@ public class StatisticsFragment extends Fragment {
     private DataStatistics mStatistics;
     private IdData dataSource;
     private IdData dataProcessed;
-    private ActionButton actionButton;
 
     public StatisticsFragment() {
     }

@@ -22,7 +22,7 @@ public class IdArx implements IdentificationModel {
         this.dA = dA;
         this.dB = dB;
         this.k = k;
-        this.L = l;
+        this.L = 1;
     }
 
     @Override
@@ -47,11 +47,15 @@ public class IdArx implements IdentificationModel {
         SimpleMatrix P = SimpleMatrix.identity(n).scale(S);
         SimpleMatrix num, dem, E, Ptemp;
 
-//        int dA = 2, dB = 1, k = 1;
-        for (int i = k + dA + dB + 1; i < u.length; i++) {
+        for (int i = 0; i < y.length; i++) {
 
-            fi.setColumn(0, 0, getReverseVec(i - k - dB, i - k, u));
-            fi.setColumn(0, k + dB, getReverseVecNeg(i - dA, i - 1, y));
+            if(i>=k+dB)
+                fi.setColumn(0, 0, getReverseVec(i-k-dB, i-k, u));
+
+            if(i>=dA)
+                fi.setColumn(0, k + dB, getReverseVecNeg(i - dA, i - 1, y));
+
+
 
             num = P.mult(fi).mult(fi.transpose()).mult(P);
             dem = fi.transpose().mult(P).mult(fi).plus(L);

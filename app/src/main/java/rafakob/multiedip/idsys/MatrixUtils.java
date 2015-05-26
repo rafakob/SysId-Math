@@ -9,7 +9,7 @@ import java.util.Arrays;
  *
  */
 public class MatrixUtils {
-    public static DecimalFormat df = new DecimalFormat("0.0000");
+    public static DecimalFormat df = new DecimalFormat("0.000000");
 
     public static double[] extract(int start, int end, double[] array) {
         int len = end - start + 1;

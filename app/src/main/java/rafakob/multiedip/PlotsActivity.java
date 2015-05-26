@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -18,34 +19,34 @@ import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.filter.Approximator;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Highlight;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
-import rafakob.multiedip.idsys.Autocorr;
+import rafakob.multiedip.idsys.Correlation;
 import rafakob.multiedip.idsys.IdData;
-import rafakob.multiedip.idsys.MatrixUtils;
+import rafakob.multiedip.idsys.Psd;
 
 
 public class PlotsActivity extends ActionBarActivity implements
         OnChartGestureListener, OnChartValueSelectedListener {
 
-    private LineChart mLineChart;
+    private static final Integer SOURCE_PLOT = 0;
+    private static final Integer PROCESSED_PLOT = 1;
+    private FloatingActionMenu fabPlotMenu;
+
+    private LineChart mChart;
     private IdData gDataSource;
     private IdData gDataProcessed;
-    LineData mLineData;
-    ArrayList<String> xVals;
+    private LineData mLineData;
     private String mTitlePre = "Plots: ";
-    boolean showSource = false;
-    boolean showProcessed = false;
 
-    LineDataSet lnsSource;
-    LineDataSet lnsProcessed;
-
+    HashMap<Integer, PlotDataset> plotDataSets;
+    List<LineDataSet> visibleDataSets = new ArrayList<>();
 
 
     @Override
@@ -56,176 +57,168 @@ public class PlotsActivity extends ActionBarActivity implements
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_plots);
+        fabPlotMenu = (FloatingActionMenu) findViewById(R.id.fab_plotmenu);
 
-
+        // get reference to global app data objects
         gDataSource = ((GlobalApp) getApplicationContext()).getDataSource();
         gDataProcessed = ((GlobalApp) getApplicationContext()).getDataProcessed();
-        mLineData = new LineData();
-        lnsSource = new LineDataSet(new ArrayList<Entry>(),"");
-        lnsProcessed = new LineDataSet(new ArrayList<Entry>(),"");
 
+        // init
         setTitle(mTitlePre + "Output signal");
-        initLineChart();
+        mLineData = new LineData();
+        plotDataSets = new HashMap<>();
+
+
+        initChart();
+        initOutputSignal();
+        updateChartData(true, false);
     }
 
-    /********************************************************************************
-     *
-     *   Plots initialization
-     *
-     ********************************************************************************/
 
-    private void initLineChart(){
-        mLineChart = (LineChart) findViewById(R.id.linechart);
-        mLineChart.setOnChartGestureListener(this);
-        mLineChart.setOnChartValueSelectedListener(this);
-        mLineChart.setDrawGridBackground(false);
+    /**
+     * *****************************************************************************
+     *
+     * Chart initialization
+     *
+     * ******************************************************************************
+     */
+    private void initChart() {
+        mChart = (LineChart) findViewById(R.id.chart);
+        mChart.setOnChartGestureListener(this);
+        mChart.setOnChartValueSelectedListener(this);
+        mChart.setDrawGridBackground(false);
 
         // no description text
-        mLineChart.setDescription(""); // remove
-        mLineChart.setNoDataTextDescription("You need to provide data for the chart."); // remove
-
-        // enable value highlighting
-//        mLineChart.setHighlightEnabled(true);
+        mChart.setDescription("");
+        mChart.setNoDataTextDescription("You need to provide data for the chart.");
 
         // enable touch gestures
-        mLineChart.setTouchEnabled(true);
+        mChart.setTouchEnabled(true);
 
         // enable scaling and dragging
-        mLineChart.setDragEnabled(true);
-        mLineChart.setScaleEnabled(true);
-
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
 
         // if disabled, scaling can be done on x- and y-axis separately
-        mLineChart.setPinchZoom(true);
+        mChart.setPinchZoom(true);
 
-        // set an alternative background color
-        // mLineChart.setBackgroundColor(Color.GRAY);
+        // enable/disable highlight indicators (the lines that indicate the highlighted Entry)
+        mChart.setHighlightIndicatorEnabled(false);
 
-        // enable/disable highlight indicators (the lines that indicate the
-        // highlighted Entry)
-        mLineChart.setHighlightIndicatorEnabled(false);
-
-
-
-        YAxis leftAxis = mLineChart.getAxisLeft();
+        // axis limit values
+        YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
-        leftAxis.setAxisMaxValue(10f);
-        leftAxis.setAxisMinValue(-10f);
         leftAxis.setStartAtZero(false);
-//        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-
-        mLineChart.getAxisRight().setEnabled(false);
-
-        // add data
-
-
-
-//        mLineChart.setVisibleXRange(20);
-//        mLineChart.setVisibleYRange(20f, AxisDependency.LEFT);
-//        mLineChart.centerViewTo(20, 50, AxisDependency.LEFT);
-
-        mLineChart.animateX(2500, Easing.EasingOption.EaseInOutQuart);
-//        mLineChart.invalidate();
-
+        mChart.getAxisRight().setEnabled(false);
         // get the legend (only possible after setting data)
-        Legend l = mLineChart.getLegend();
-
-        // modify the legend ...
-        // l.setPosition(LegendPosition.LEFT_OF_CHART);
+        Legend l = mChart.getLegend();
         l.setForm(Legend.LegendForm.LINE);
-
-        // // dont forget to refresh the drawing
-        // mLineChart.invalidate();
-
-
-
-        if(!gDataSource.isNull()) {
-            lnsSource = createLineDataSet(gDataSource.getOutput(),"Data source",Color.RED);
-            showSource = true;
-        }
-
-        if(!gDataProcessed.isNull()) {
-            lnsProcessed = createLineDataSet(gDataProcessed.getOutput(),"Data processed",Color.BLUE);
-            showProcessed = true;
-        }
-        setXVals((int) gDataSource.getLength(), new double[0]);
-        setLineChartData();
-
     }
 
 
-    /********************************************************************************
+    /**
+     * *****************************************************************************
      *
-     *   Setting data
+     * Setting data
      *
-     ********************************************************************************/
-    private LineDataSet createLineDataSet (double[] vals, String label, int colorId){
-
-        ArrayList<Entry> yVals = new ArrayList<Entry>();
-        for (int i = 0; i < vals.length; i++) {
-            yVals.add(new Entry( (float) vals[i], i));
+     * ******************************************************************************
+     */
+    private void initOutputSignal() {
+        plotDataSets.clear();
+        if (!gDataSource.isNull()) {
+            plotDataSets.put(SOURCE_PLOT, new PlotDataset(gDataSource.getOutput(), "Source", Color.RED));
         }
 
-        // create a dataset and give it a type
-        LineDataSet set = new LineDataSet(yVals, label);
-
-        // set the line to be drawn like this "- - - - - -"
-//        set1.enableDashedLine(10f, 5f, 0f);
-        set.setColor(colorId);
-        set.setCircleColor(colorId);
-        set.setLineWidth(1f);
-        set.setCircleSize(3f);
-        set.setDrawCircleHole(false);
-        set.setValueTextSize(9f);
-        set.setFillAlpha(65);
-        set.setFillColor(colorId);
-
-        set.setDrawCircles(false);
-        set.setDrawValues(false);
-//        set1.setDrawFilled(true);
-        // set1.setShader(new LinearGradient(0, 0, 0, mLineChart.getHeight(),
-        // Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR));
-
-        return set;
-    }
-
-
-
-    private void setXVals(int length, double[] xvals){
-        xVals = new ArrayList<>();
-
-        for (int i = 0; i < length; i++) {
-            if(xvals.length > 0)
-                xVals.add(xvals[i] + "");
-            else
-                xVals.add(i + "");
-
+        if (!gDataProcessed.isNull()) {
+            plotDataSets.put(PROCESSED_PLOT, new PlotDataset(gDataProcessed.getOutput(), "Processed", Color.BLUE));
         }
     }
 
-    public void setLineChartData(){
-        if (showSource && !showProcessed)
-            mLineData = new LineData(xVals, lnsSource);
+    private void initInputSignal() {
+        plotDataSets.clear();
+        if (!gDataSource.isNull() && gDataSource.isSiso()) {
+            plotDataSets.put(SOURCE_PLOT, new PlotDataset(gDataSource.getInput(), "Source", Color.RED));
+        }
 
-        if (!showSource && showProcessed)
-            mLineData = new LineData(xVals, lnsProcessed);
-
-        if (showSource && showProcessed)
-            mLineData = new LineData(xVals, Arrays.asList(lnsSource,lnsProcessed));
-
-        if (!showSource && !showProcessed)
-            mLineData = new LineData();
-
-        mLineChart.setData(mLineData);
-        mLineChart.invalidate();
+        if (!gDataProcessed.isNull() && gDataProcessed.isSiso()) {
+            plotDataSets.put(PROCESSED_PLOT, new PlotDataset(gDataProcessed.getInput(), "Processed", Color.BLUE));
+        }
     }
 
 
-    /********************************************************************************
+    private void initAutocorr() {
+        plotDataSets.clear();
+        if (!gDataSource.isNull()) {
+            PlotDataset tmp = new PlotDataset(Correlation.autoBiased(gDataSource.getOutput()), "Source", Color.RED);
+            tmp.getSet().setCircleSize(4f);
+            tmp.getSet().setLineWidth(0f);
+            tmp.getSet().setDrawCircles(true);
+            plotDataSets.put(SOURCE_PLOT, tmp);
+        }
+
+        if (!gDataProcessed.isNull()) {
+            PlotDataset tmp = new PlotDataset(Correlation.autoBiased(gDataProcessed.getOutput()), "Processed", Color.BLUE);
+            tmp.getSet().setCircleSize(4f);
+            tmp.getSet().setLineWidth(0f);
+            tmp.getSet().setDrawCircles(true);
+            plotDataSets.put(PROCESSED_PLOT, tmp);
+        }
+    }
+
+    private void initPsd() {
+        plotDataSets.clear();
+        if (!gDataSource.isNull()) {
+            Psd.periodogram(Correlation.autoBiased(gDataSource.getOutput()));
+            plotDataSets.put(SOURCE_PLOT, new PlotDataset(Psd.freq, Psd.vals, "Source", Color.RED));
+        }
+
+        if (!gDataProcessed.isNull()) {
+            Psd.periodogram(Correlation.autoBiased(gDataProcessed.getOutput()));
+            plotDataSets.put(PROCESSED_PLOT, new PlotDataset(Psd.freq, Psd.vals, "Processed", Color.BLUE));
+        }
+    }
+
+
+    private void updateChartData(boolean redraw, boolean leftAxisAtZero) {
+        mLineData.clearValues();
+        mChart.clear();
+        visibleDataSets.clear();
+        ArrayList<String> xVals = new ArrayList<>();
+
+        for (PlotDataset plot : plotDataSets.values()) {
+            if (plot.isVisible()) {
+
+                if (xVals.isEmpty())
+                    xVals = plot.getxVals();
+
+                visibleDataSets.add(plot.getSet());
+            }
+        }
+
+        mLineData = new LineData(xVals, visibleDataSets);
+        if(redraw) {
+            YAxis leftAxis = mChart.getAxisLeft();
+            leftAxis.setAxisMaxValue((float) (mLineData.getYMax() + Math.abs(mLineData.getYMax() * 0.15)));
+            leftAxis.setAxisMinValue((float) (mLineData.getYMin() - Math.abs(mLineData.getYMin() * 0.15)));
+            leftAxis.setStartAtZero(leftAxisAtZero);
+        }
+
+        mChart.setData(mLineData);
+
+        if(redraw)
+            mChart.animateX(1000, Easing.EasingOption.EaseInOutQuart);
+
+        mChart.invalidate();
+    }
+
+
+    /**
+     * *****************************************************************************
      *
-     *   Plots listeners
+     * Plots listeners
      *
-     ********************************************************************************/
+     * ******************************************************************************
+     */
     @Override
     public void onChartLongPressed(MotionEvent me) {
 //        Log.i("LongPress", "Chart longpressed.");
@@ -259,7 +252,7 @@ public class PlotsActivity extends ActionBarActivity implements
     @Override
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
 //        Log.i("Entry selected", e.toString());
-//        Log.i("", "low: " + mLineChart.getLowestVisibleXIndex() + ", high: " + mLineChart.getHighestVisibleXIndex());
+//        Log.i("", "low: " + mChart.getLowestVisibleXIndex() + ", high: " + mChart.getHighestVisibleXIndex());
     }
 
     @Override
@@ -272,11 +265,13 @@ public class PlotsActivity extends ActionBarActivity implements
         super.onWindowFocusChanged(hasFocus);
     }
 
-    /********************************************************************************
+    /**
+     * *****************************************************************************
      *
-     *   Button actions
+     * Button actions
      *
-     ********************************************************************************/
+     * ******************************************************************************
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -285,34 +280,50 @@ public class PlotsActivity extends ActionBarActivity implements
 
     public void onPlotsMenu1Click(View v) {
         setTitle(mTitlePre + "Output signal");
+        initOutputSignal();
+        updateChartData(true, false);
+        fabPlotMenu.close(true);
     }
 
     public void onPlotsMenu2Click(View v) {
         setTitle(mTitlePre + "Input signal");
+        initInputSignal();
+        updateChartData(true, false);
+        fabPlotMenu.close(true);
     }
 
     public void onPlotsMenu3Click(View v) {
         setTitle(mTitlePre + "Autocorr");
-        Autocorr.execute(gDataSource.getOutput(),5);
+        initAutocorr();
+        updateChartData(true, false);
+        fabPlotMenu.close(true);
+    }
+
+    public void onPlotsMenu4Click(View v) {
+        setTitle(mTitlePre + "PSD");
+        initPsd();
+        updateChartData(true, true);
+        fabPlotMenu.close(true);
     }
 
     public void toggleSource(View v) {
-        showSource = !showSource;
-        setLineChartData();
+        plotDataSets.get(SOURCE_PLOT).setVisible(!plotDataSets.get(SOURCE_PLOT).isVisible());
+        updateChartData(false, false);
     }
 
     public void toggleProcessed(View v) {
-        showProcessed = !showProcessed;
-        setLineChartData();
+        plotDataSets.get(PROCESSED_PLOT).setVisible(!plotDataSets.get(PROCESSED_PLOT).isVisible());
+        updateChartData(false, false);
     }
 
 
-
-    /********************************************************************************
+    /**
+     * *****************************************************************************
      *
-     *   Menu on ActionBar
+     * Menu on ActionBar
      *
-     ********************************************************************************/
+     * ******************************************************************************
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_plots, menu);
@@ -324,14 +335,14 @@ public class PlotsActivity extends ActionBarActivity implements
 
         switch (item.getItemId()) {
             case R.id.actionToggleValues: {
-                for (DataSet<?> set : mLineChart.getData().getDataSets())
+                for (DataSet<?> set : mChart.getData().getDataSets())
                     set.setDrawValues(!set.isDrawValuesEnabled());
 
-                mLineChart.invalidate();
+                mChart.invalidate();
                 break;
             }
             case R.id.actionToggleCircles: {
-                ArrayList<LineDataSet> sets = (ArrayList<LineDataSet>) mLineChart.getData()
+                ArrayList<LineDataSet> sets = (ArrayList<LineDataSet>) mChart.getData()
                         .getDataSets();
 
                 for (LineDataSet set : sets) {
@@ -340,12 +351,12 @@ public class PlotsActivity extends ActionBarActivity implements
                     else
                         set.setDrawCircles(true);
                 }
-                mLineChart.invalidate();
+                mChart.invalidate();
                 break;
             }
             case R.id.actionToggleFilled: {
 
-                ArrayList<LineDataSet> sets = (ArrayList<LineDataSet>) mLineChart.getData()
+                ArrayList<LineDataSet> sets = (ArrayList<LineDataSet>) mChart.getData()
                         .getDataSets();
 
                 for (LineDataSet set : sets) {
@@ -354,12 +365,12 @@ public class PlotsActivity extends ActionBarActivity implements
                     else
                         set.setDrawFilled(true);
                 }
-                mLineChart.invalidate();
+                mChart.invalidate();
                 break;
             }
 
             case R.id.actionToggleCubic: {
-                ArrayList<LineDataSet> sets = (ArrayList<LineDataSet>) mLineChart.getData()
+                ArrayList<LineDataSet> sets = (ArrayList<LineDataSet>) mChart.getData()
                         .getDataSets();
 
                 for (LineDataSet set : sets) {
@@ -368,40 +379,40 @@ public class PlotsActivity extends ActionBarActivity implements
                     else
                         set.setDrawCubic(true);
                 }
-                mLineChart.invalidate();
+                mChart.invalidate();
                 break;
             }
             case R.id.actionTogglePinch: {
-                if (mLineChart.isPinchZoomEnabled())
-                    mLineChart.setPinchZoom(false);
+                if (mChart.isPinchZoomEnabled())
+                    mChart.setPinchZoom(false);
                 else
-                    mLineChart.setPinchZoom(true);
+                    mChart.setPinchZoom(true);
 
-                mLineChart.invalidate();
+                mChart.invalidate();
                 break;
             }
             case R.id.animateX: {
-                mLineChart.animateX(3000);
+                mChart.animateX(3000);
                 break;
             }
             case R.id.animateY: {
-                mLineChart.animateY(3000, Easing.EasingOption.EaseInCubic);
+                mChart.animateY(3000, Easing.EasingOption.EaseInCubic);
                 break;
             }
             case R.id.animateXY: {
-                mLineChart.animateXY(3000, 3000);
+                mChart.animateXY(3000, 3000);
                 break;
             }
 
             case R.id.actionSave: {
-                if (mLineChart.saveToPath("title" + System.currentTimeMillis(), "")) {
+                if (mChart.saveToPath("title" + System.currentTimeMillis(), "")) {
                     Toast.makeText(getApplicationContext(), "Saving SUCCESSFUL!",
                             Toast.LENGTH_SHORT).show();
                 } else
                     Toast.makeText(getApplicationContext(), "Saving FAILED!", Toast.LENGTH_SHORT)
                             .show();
 
-                // mLineChart.saveToGallery("title"+System.currentTimeMillis())
+                // mChart.saveToGallery("title"+System.currentTimeMillis())
                 break;
             }
         }

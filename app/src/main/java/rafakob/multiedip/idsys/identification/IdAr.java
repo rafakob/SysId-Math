@@ -25,7 +25,7 @@ public class IdAr implements IdentificationModel {
         this.dA = dA;
         dB = 0;
         k = 1;
-        L = 0.99;
+        L = 1;
 
     }
 
@@ -53,10 +53,14 @@ public class IdAr implements IdentificationModel {
         SimpleMatrix num, dem, E, Ptemp;
 
 //        int dA = 2, dB = 1, k = 1;
-        for (int i = k + dA + 1; i < u.length; i++) {
+        for (int i = 0; i < y.length; i++) {
 
-            fi.setColumn(0, 0, getReverseVec(i - k - dB, i - k, u));
-            fi.setColumn(0, k + dB, getReverseVecNeg(i - dA, i - 1, y));
+
+            if(i>=k+dB)
+                fi.setColumn(0, 0, getReverseVec(i-k-dB, i-k, u));
+
+            if(i>=dA)
+                fi.setColumn(0, k + dB, getReverseVecNeg(i - dA, i - 1, y));
 
             num = P.mult(fi).mult(fi.transpose()).mult(P);
             dem = fi.transpose().mult(P).mult(fi).plus(L);
