@@ -223,12 +223,14 @@ public class DashboardFragment extends Fragment {
     }
 
     /**
-     * Update iddata object
+     * Update iddata object (send from LoadDataFromFileTask)
      */
     public void onEvent(LoadDataFinishedEvent event) {
         txtLength.setText(event.iddata.getLength() + "");
         txtDataType.setText(event.iddata.getType());
         txtInfo.setText("");
+        updateTasksAndModels();
+        updateSettingsBoxes();
     }
 
     /**

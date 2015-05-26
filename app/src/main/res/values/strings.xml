@@ -1,9 +1,9 @@
 <resources>
     <!-- Application -->
     <string name="app_name">MultiEdip</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="title_activity_project_prefs">ProjectPrefsActivity</string>
+    <string name="drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="title_activity_project_prefs" translatable="false">ProjectPrefsActivity</string>
 
     <!-- Navigation drawer -->
     <string name="title_drawer_opened">Navigation</string>
@@ -21,6 +21,7 @@
     <string name="tab_result">Result</string>
 
 
+
     <!-- Filebrowser -->
     <string name="btn_select_source_file">Select source file…</string>
     <string name="error_root_browse">Root browse not allowed!</string>
@@ -31,6 +32,8 @@
     <string name="lbl_path">Path:</string>
     <string name="lbl_data_type">Data type:</string>
     <string name="lbl_length_source">Length:</string>
+    <string name="btn_run">RUN</string>
+    <string name="btn_add">ADD</string>
 
     <string name="box_datasource">DATASOURCE</string>
     <string name="box_preprocessing">PREPROCESSING</string>
@@ -80,6 +83,8 @@
     <string name="stats_input_signal">INPUT SIGNAL</string>
     <string name="stats_output_signal">OUTPUT SIGNAL</string>
     <string name="pref_polyremoval_title">Polynomial trend removal</string>
+
+    <!-- Plots-->
     <string name="title_activity_plots">Plots</string>
     <string name="plot_menu_toggle_values">Toggle Values</string>
     <string name="plot_menu_toggle_circles">Toggle Circles</string>
@@ -90,14 +95,12 @@
     <string name="plot_menu_animate_y">Animate Y</string>
     <string name="plot_menu_animate_xy">Animate XY</string>
     <string name="plot_menu_save_to_sdcard">Save to SD-Card</string>
-    <string name="btn_run">RUN</string>
-    <string name="btn_add">ADD</string>
     <string name="toggle_source">Toggle source</string>
     <string name="toggle_processed">Toggle processed</string>
     <string name="fab_menu_plot_1">Output signal</string>
     <string name="fab_menu_plot_2">Input signal</string>
     <string name="fab_menu_plot_3">Autocorr</string>
-    <string name="fab_menu_plot_4">PSD</string>
+    <string name="fab_menu_plot_4">Periodogram</string>
     <string name="plot_lbl_source">Source</string>
     <string name="plot_lbl_processed">Processed</string>
     <string name="activity_plots_title_pre">"Plots: "</string>

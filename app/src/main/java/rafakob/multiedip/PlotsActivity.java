@@ -136,7 +136,7 @@ public class PlotsActivity extends ActionBarActivity implements
             plotDataSets.put(ID_SOURCE, new PlotDataset(gDataSource.getSamples(), gDataSource.getOutput(), lblSource, COLOR_SOURCE));
 
         if (!gDataProcessed.isNull())
-            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getOutput(), lblSource, COLOR_PROCESSED));
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(gDataProcessed.getSamples(), gDataProcessed.getOutput(), lblProcessed, COLOR_PROCESSED));
     }
 
     private void initInputSignal() {

@@ -23,11 +23,13 @@ import rafakob.multiedip.idsys.IdData;
  */
 public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
     private TextView textViewInfo;
+
     private static final String SEPARATOR = ";";
 
 
     public LoadDataFromFileTask(TextView textView) {
         this.textViewInfo = textView;
+
     }
 
 
