@@ -39,7 +39,7 @@
             android:summary="\t%s"
             android:title="Timeseries model type" />
 
-        <rafakob.multiedip.prefs.ModelStructurePreference
+        <rafakob.sysidmath.prefs.ModelStructurePreference
             android:defaultValue="2,1,2,1"
             android:key="id_par_structure"
             android:title="Structure"

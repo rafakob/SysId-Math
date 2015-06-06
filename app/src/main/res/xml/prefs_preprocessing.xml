@@ -10,7 +10,7 @@
             android:summary="@string/pref_datarange_summary"
             android:title="@string/pref_datarange_title" />
 
-        <rafakob.multiedip.prefs.DoubleNumberPickerPreference
+        <rafakob.sysidmath.prefs.DoubleNumberPickerPreference
             android:defaultValue="1;1000"
             android:dependency="pre_flag_datarange"
             android:key="pre_datarange_range"
@@ -36,7 +36,7 @@
             android:summary="\t%s"
             android:title="@string/pref_filter_freq_type" />
 
-        <rafakob.multiedip.prefs.DoubleNumberPickerPreference
+        <rafakob.sysidmath.prefs.DoubleNumberPickerPreference
             android:defaultValue="0;1000"
             android:dependency="pre_flag_filter_freq"
             android:key="pre_filter_freq_values"
@@ -56,7 +56,7 @@
             android:key="pre_flag_scaling"
             android:summary=""
             android:title="@string/pref_scaling_title" />
-        <rafakob.multiedip.prefs.DoubleNumberPickerPreference
+        <rafakob.sysidmath.prefs.DoubleNumberPickerPreference
             android:defaultValue="1;1000"
             android:dependency="pre_flag_scaling"
             android:key="pre_scaling_values"

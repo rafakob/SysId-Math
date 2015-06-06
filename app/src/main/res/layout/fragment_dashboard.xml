@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/window_background"
-    tools:context="rafakob.multiedip.DashboardFragment">
+    tools:context="rafakob.sysidmath.DashboardFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"

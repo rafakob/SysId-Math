@@ -11,6 +11,7 @@
       <w>lowpass</w>
       <w>preprocessing</w>
       <w>stddev</w>
+      <w>sysidmath</w>
       <w>timeseries</w>
     </words>
   </dictionary>

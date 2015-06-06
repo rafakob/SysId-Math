@@ -1,6 +1,6 @@
 <resources>
     <!-- Application -->
-    <string name="app_name">MultiEdip</string>
+    <string name="app_name">SysId Math</string>
     <string name="drawer_open" translatable="false">Open navigation drawer</string>
     <string name="drawer_close" translatable="false">Close navigation drawer</string>
     <string name="title_activity_project_prefs" translatable="false">ProjectPrefsActivity</string>
