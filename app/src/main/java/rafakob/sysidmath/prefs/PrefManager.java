@@ -11,6 +11,7 @@ import rafakob.sysidmath.sysid.identification.IdArma;
 import rafakob.sysidmath.sysid.identification.IdArmax;
 import rafakob.sysidmath.sysid.identification.IdArx;
 import rafakob.sysidmath.sysid.identification.IdMa;
+import rafakob.sysidmath.sysid.identification.IdNonparam;
 import rafakob.sysidmath.sysid.identification.IdentificationModel;
 import rafakob.sysidmath.sysid.processing.DataProcessingInterface;
 import rafakob.sysidmath.sysid.processing.DataRange;
@@ -92,6 +93,14 @@ public class PrefManager {
                 return new IdMa();
             if (getString("id_par_timeseries_model","").equals("arma"))
                 return new IdArma();
+        }
+
+        if (getBoolean("id_flag_nonparametric", false) && modelType.equals("siso")){
+            return new IdNonparam();
+        }
+
+        if (getBoolean("id_flag_nonparametric", false) && modelType.equals("timeseries")){
+            return new IdNonparam();
         }
 
         return null;

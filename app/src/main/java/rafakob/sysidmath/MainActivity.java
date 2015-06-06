@@ -38,8 +38,8 @@ public class MainActivity extends ActionBarActivity  {
     private static final int NAV_DASHBOARD = 1;
     private static final int NAV_STATISTICS = 2;
     private static final int NAV_PLOTS = 3;
-    private static final int NAV_SETTINGS = 5;
-    private static final int NAV_ABOUT = 6;
+    private static final int NAV_SETTINGS = 4;
+    private static final int NAV_ABOUT = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,7 @@ public class MainActivity extends ActionBarActivity  {
                 DrawerItem.create(102, getString(R.string.title_item2), "ic_trending_up", true, this),
                 DrawerItem.create(103, getString(R.string.title_item3), "ic_poll", true, this),
                 DrawerHeader.create(200, getString(R.string.title_header2)),
-                DrawerItem.create(201, getString(R.string.title_item4), "ic_settings", false, this),
+                //DrawerItem.create(201, getString(R.string.title_item4), "ic_settings", false, this), //TODO: menu Settings commented out
                 DrawerItem.create(202, getString(R.string.title_item5), "ic_information_outline", false, this),
         };
 

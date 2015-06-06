@@ -23,7 +23,7 @@ import rafakob.sysidmath.sysid.IdData;
 public class LoadDataFromFileTask extends AsyncTask<IdData, Long, IdData> {
     private TextView textViewInfo;
 
-    private static final String SEPARATOR = ";";
+    private static final String SEPARATOR = ",";
 
 
     public LoadDataFromFileTask(TextView textView) {

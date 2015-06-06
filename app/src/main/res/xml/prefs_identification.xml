@@ -49,10 +49,10 @@
     </PreferenceCategory>
 
 
-    /** Nonparametric models **/
-    <PreferenceCategory android:title="Nonparametric models"
-        android:dependency="id_flag_nonparametric">
-    </PreferenceCategory>
+    <!--/** Nonparametric models **/-->
+    <!--<PreferenceCategory android:title="Nonparametric models"-->
+        <!--android:dependency="id_flag_nonparametric">-->
+    <!--</PreferenceCategory>-->
 
 
 
