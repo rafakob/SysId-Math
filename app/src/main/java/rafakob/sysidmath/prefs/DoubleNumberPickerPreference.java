@@ -4,6 +4,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -23,12 +24,15 @@ public class DoubleNumberPickerPreference extends DialogPreference {
     private String mStrLabel1;
     private String mStrLabel2;
 
+    private String mNumeric;
+
     public DoubleNumberPickerPreference(final Context context, final AttributeSet attrs) {
         super(context, attrs);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DoubleNumberPicker);
         mStrLabel1 = a.getString(R.styleable.DoubleNumberPicker_labelFirst);
         mStrLabel2 = a.getString(R.styleable.DoubleNumberPicker_labelSecond);
+        mNumeric = a.getString(R.styleable.DoubleNumberPicker_numeric);
 
         setDialogLayoutResource(R.layout.pref_double_number_picker);
         setPositiveButtonText(android.R.string.ok);
@@ -42,6 +46,11 @@ public class DoubleNumberPickerPreference extends DialogPreference {
         super.onBindDialogView(view);
         mEditText1 = (EditText) view.findViewById(R.id.dnum_number1);
         mEditText2 = (EditText) view.findViewById(R.id.dnum_number2);
+
+        if(mNumeric.equals("decimal")){
+            mEditText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            mEditText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        }
 
         mLabel1 = (TextView) view.findViewById(R.id.dnum_picker_label1);
         mLabel2 = (TextView) view.findViewById(R.id.dnum_picker_label2);

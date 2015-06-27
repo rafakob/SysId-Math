@@ -1,5 +1,6 @@
-package rafakob.sysidmath.sysid;
+package rafakob.sysidmath.sysid.identification;
 
+import rafakob.sysidmath.sysid.MathDbl;
 import rafakob.sysidmath.sysid.processing.Fft;
 
 /**

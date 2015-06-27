@@ -1,6 +1,8 @@
-package rafakob.sysidmath.sysid;
+package rafakob.sysidmath.sysid.identification;
 
 import java.util.Arrays;
+
+import rafakob.sysidmath.sysid.MathDbl;
 
 public class Correlation {
 

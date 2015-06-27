@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.google.common.base.Stopwatch;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
 import rafakob.sysidmath.bus.IdentificationFinishedEvent;
@@ -25,12 +27,15 @@ import rafakob.sysidmath.bus.SelectFileEvent;
 import rafakob.sysidmath.bus.SettingsChangedEvent;
 import rafakob.sysidmath.filebrowser.FilebrowserDialogFragment;
 import rafakob.sysidmath.sysid.IdData;
+import rafakob.sysidmath.sysid.identification.IdArx;
 import rafakob.sysidmath.sysid.identification.IdentificationModel;
 import rafakob.sysidmath.sysid.processing.DataProcessing;
 import rafakob.sysidmath.sysid.processing.DataProcessingInterface;
 import rafakob.sysidmath.prefs.PrefManager;
 import rafakob.sysidmath.others.ContentBox;
 import rafakob.sysidmath.others.LoadDataFromFileTask;
+import rafakob.sysidmath.sysid.processing.DataRange;
+import rafakob.sysidmath.sysid.processing.Normalization;
 
 
 /**
@@ -154,6 +159,11 @@ public class DashboardFragment extends Fragment {
         updateTasksAndModels();
         updateSettingsBoxes();
 
+        txtInfo.setText(getString(R.string.lbl_filename));
+        txtInfo.setText(getString(R.string.lbl_path));
+        txtInfo.setText(getString(R.string.lbl_data_type));
+        txtInfo.setText(getString(R.string.lbl_length_source));
+
         return view;
     }
 
@@ -231,6 +241,23 @@ public class DashboardFragment extends Fragment {
         txtInfo.setText("");
         updateTasksAndModels();
         updateSettingsBoxes();
+
+//        IdData iddata = new IdData(); // nowy obiekt
+//        // wczytaj dane do iddata z pliku lub ręcznie
+//
+//        // Wstępne przetwarzanie:
+//        DataProcessing dp = new DataProcessing();
+//        dp.process(iddata, Arrays.asList(
+//                            new DataRange(1,100),
+//                            new Normalization()
+//                            ) // wykonaj dwie metody
+//                    );
+//        // Identyfikacja:
+//        IdArx arx = new IdArx(2,1,1,0.99);
+//        arx.execute(iddata);
+//
+//        System.out.println( "Wynik identyfikacji: " + arx.getResult() );
+
     }
 
     /**

@@ -4,6 +4,12 @@
     <declare-styleable name="DoubleNumberPicker">
         <attr name="labelFirst" format="string" />
         <attr name="labelSecond" format="string" />
+        <attr name="numeric" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SingleNumberPicker">
+        <attr name="label" format="string" />
+        <attr name="numericInput" format="string" />
     </declare-styleable>
 
 </resources>

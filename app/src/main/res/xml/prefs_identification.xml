@@ -4,23 +4,23 @@
 
 
     /** Custom RadioGroup **/
-    <PreferenceCategory android:title="Select only one model type">
+    <PreferenceCategory android:title="@string/pref_select_model">
         <CheckBoxPreference
             android:key="id_flag_parametric"
             android:summary=""
             android:defaultValue="true"
-            android:title="Parametric model" />
+            android:title="@string/pref_parametric_model" />
 
         <CheckBoxPreference
             android:key="id_flag_nonparametric"
             android:summary=""
             android:defaultValue="false "
-            android:title="Nonparametric model" />
+            android:title="@string/pref_nonparametric_model" />
     </PreferenceCategory>
 
 
     /** Parametric models **/
-    <PreferenceCategory android:title="Parametric models"
+    <PreferenceCategory android:title="@string/pref_parametric_model"
         android:dependency="id_flag_parametric">
 
         <ListPreference
@@ -29,7 +29,7 @@
             android:entryValues="@array/idPlantListValues"
             android:key="id_par_siso_model"
             android:summary="\t%s"
-            android:title="SISO model type" />
+            android:title="@string/pref_siso_model" />
 
         <ListPreference
             android:defaultValue="ar"
@@ -37,22 +37,36 @@
             android:entryValues="@array/idTimeseriesListValues"
             android:key="id_par_timeseries_model"
             android:summary="\t%s"
-            android:title="Timeseries model type" />
+            android:title="@string/pref_timeseries_model" />
 
         <rafakob.sysidmath.prefs.ModelStructurePreference
             android:defaultValue="2,1,2,1"
             android:key="id_par_structure"
-            android:title="Structure"
+            android:title="@string/pref_model_structure"
+        />
+
+        <rafakob.sysidmath.prefs.SingleNumberPickerPreference
+            android:defaultValue="1"
+            android:key="id_par_forgetting_factor"
+            android:title="@string/pref_forgetting_factor"
+            speedreader:numericInput="decimal"
+            speedreader:label="@string/pref_forgetting_factor_label"
         />
 
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_data_parameters">
+        <rafakob.sysidmath.prefs.SingleNumberPickerPreference
+            android:defaultValue="1"
+            android:key="id_par_sample_time"
+            android:title="@string/pref_sample_time"
+            speedreader:numericInput="decimal"
+            speedreader:label="@string/pref_sample_time"
+            />
 
-    <!--/** Nonparametric models **/-->
-    <!--<PreferenceCategory android:title="Nonparametric models"-->
-        <!--android:dependency="id_flag_nonparametric">-->
-    <!--</PreferenceCategory>-->
+    </PreferenceCategory>
+
 
 
 

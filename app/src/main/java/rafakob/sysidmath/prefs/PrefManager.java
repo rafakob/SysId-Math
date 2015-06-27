@@ -58,7 +58,7 @@ public class PrefManager {
         if (getBoolean("pre_flag_filter_freq", false)) methodList.add(new FrequencyFilter());
         if (getBoolean("pre_flag_scaling", false)) {
             String[] params = getString("pre_scaling_values","").split(";");
-            methodList.add(new Scaling(Integer.parseInt(params[0]),Integer.parseInt(params[1])));
+            methodList.add(new Scaling(Double.parseDouble(params[0]),Double.parseDouble(params[1])));
         }
 
         if (getBoolean("pre_flag_avgremoval", false)) methodList.add(new AverageRemoval());
@@ -93,6 +93,7 @@ public class PrefManager {
                 return new IdMa();
             if (getString("id_par_timeseries_model","").equals("arma"))
                 return new IdArma();
+            // TODO: add forgetting factor and sample time
         }
 
         if (getBoolean("id_flag_nonparametric", false) && modelType.equals("siso")){

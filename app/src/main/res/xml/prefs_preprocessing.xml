@@ -15,6 +15,7 @@
             android:dependency="pre_flag_datarange"
             android:key="pre_datarange_range"
             android:title="@string/pref_datarange_select_title"
+            speedreader:numeric="integer"
             speedreader:labelFirst="@string/pref_start"
             speedreader:labelSecond="@string/pref_end" />
     </PreferenceCategory>
@@ -61,6 +62,7 @@
             android:dependency="pre_flag_scaling"
             android:key="pre_scaling_values"
             android:title="@string/pref_scaling_values_title"
+            speedreader:numeric="decimal"
             speedreader:labelFirst="@string/pref_multiplier_in"
             speedreader:labelSecond="@string/pref_multiplier_out" />
 

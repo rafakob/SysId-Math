@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import rafakob.sysidmath.sysid.Correlation;
+import rafakob.sysidmath.sysid.identification.Correlation;
 import rafakob.sysidmath.sysid.IdData;
-import rafakob.sysidmath.sysid.Psd;
+import rafakob.sysidmath.sysid.identification.Psd;
 
 
 public class PlotsActivity extends ActionBarActivity implements

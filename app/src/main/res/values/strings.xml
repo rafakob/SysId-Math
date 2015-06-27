@@ -44,6 +44,9 @@
     <string name="box_stat_source">STATISTICS - SOURCE</string>
     <string name="box_stat_processed">STATISTICS - PROCESSED</string>
 
+    <string name="activity_title_preprocessing">Preprocessing Settings</string>
+    <string name="activity_title_identification">Identification Settings</string>
+    <string name="loading_file">Loading file…</string>
 
     <!-- Preprocessing preferences -->
     <string name="pref_start">Start</string>
@@ -70,9 +73,17 @@
     <string name="pref_polyremoval_summary">Remove polynomial trend from signal</string>
     <string name="pref_polyremoval_order_title">\tSelect polynomial order</string>
 
-    <string name="activity_title_preprocessing">Preprocessing Settings</string>
-    <string name="activity_title_identification">Identification Settings</string>
-    <string name="loading_file">Loading file…</string>
+
+    <!-- Identification preferences -->
+    <string name="pref_select_model">Select only one model type</string>
+    <string name="pref_parametric_model">Parametric model</string>
+    <string name="pref_nonparametric_model">Nonparametric model</string>
+    <string name="pref_siso_model">SISO model type</string>
+    <string name="pref_timeseries_model">Timeseries model type</string>
+    <string name="pref_model_structure">Structure</string>
+    <string name="pref_forgetting_factor">Forgetting factor for RLS</string>
+
+
 
     <!-- Statistics -->
     <string name="stats_mean">Mean</string>
@@ -83,6 +94,9 @@
     <string name="stats_input_signal">INPUT SIGNAL</string>
     <string name="stats_output_signal">OUTPUT SIGNAL</string>
     <string name="pref_polyremoval_title">Polynomial trend removal</string>
+    <string name="pref_data_parameters">Data parameters</string>
+    <string name="pref_forgetting_factor_label">Select number from 0 to 1</string>
+    <string name="pref_sample_time">Sample time in seconds</string>
 
     <!-- Plots-->
     <string name="title_activity_plots">Plots</string>
@@ -112,6 +126,7 @@
     <string name="plot_saving_failed">Saving FAILED!</string>
     <string name="plot_info_provide_data">You need to provide data for the chart.</string>
     <string name="plot_info_no_chart">No chart data available.</string>
+
 
 
 </resources>

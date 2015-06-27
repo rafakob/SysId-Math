@@ -4,28 +4,37 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import rafakob.sysidmath.R;
 
 
-public class ModelStructurePreference extends DialogPreference {
+public class SingleNumberPickerPreference extends DialogPreference {
     private String mCurrentValue;
-    private EditText mEditTextParamK;
-    private EditText mEditTextParamDa;
-    private EditText mEditTextParamDb;
-    private EditText mEditTextParamDc;
+    private EditText mEditText1;
 
 
+    private TextView mLabel1;
 
-    public ModelStructurePreference(final Context context, final AttributeSet attrs) {
+
+    private String mStrLabel1;
+
+
+    private String mNumeric;
+
+    public SingleNumberPickerPreference(final Context context, final AttributeSet attrs) {
         super(context, attrs);
 
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DoubleNumberPicker);
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SingleNumberPicker);
+        mStrLabel1 = a.getString(R.styleable.SingleNumberPicker_label);
 
-        setDialogLayoutResource(R.layout.pref_model_structure);
+        mNumeric = a.getString(R.styleable.SingleNumberPicker_numericInput);
+
+        setDialogLayoutResource(R.layout.pref_single_number_picker);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
         setDialogIcon(null);
@@ -35,32 +44,31 @@ public class ModelStructurePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        mEditTextParamDa = (EditText) view.findViewById(R.id.param_da);
-        mEditTextParamDb = (EditText) view.findViewById(R.id.param_db);
-        mEditTextParamDc = (EditText) view.findViewById(R.id.param_dc);
-        mEditTextParamK = (EditText) view.findViewById(R.id.param_k);
+        mEditText1 = (EditText) view.findViewById(R.id.dnum_number1);
+
+        if(mNumeric.equals("decimal")){
+            mEditText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        }
+
+        mLabel1 = (TextView) view.findViewById(R.id.dnum_picker_label1);
     }
 
     @Override
     protected void onPrepareDialogBuilder(Builder builder) {
         super.onPrepareDialogBuilder(builder);
 
-        String[] values = mCurrentValue.split(",", -1);
+        //TODO: dodać zabezpieczenie przed nullem!
+        mEditText1.setText(mCurrentValue);
 
-        //TODO: dodać wyszarzanie na podstawie wybranego modelu
-        mEditTextParamDa.setText(values[0]);
-        mEditTextParamDb.setText(values[1]);
-        mEditTextParamDc.setText(values[2]);
-        mEditTextParamK.setText(values[3]);
-
-
+        mLabel1.setText(mStrLabel1 + ":");
     }
 
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         if (restorePersistedValue) {
             // Restore existing state
-            mCurrentValue = this.getPersistedString("1,1,1,1");
+//            mCurrentValue = this.getPersistedString("0;");
+            mCurrentValue = this.getPersistedString("1");
         } else {
             // Set default state from the XML attribute
             mCurrentValue = (String) defaultValue;
@@ -80,11 +88,7 @@ public class ModelStructurePreference extends DialogPreference {
     protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && this.shouldPersist()) {
 
-            mCurrentValue = mEditTextParamDa.getText().toString() +
-                    "," + mEditTextParamDb.getText().toString() +
-                    "," + mEditTextParamDc.getText().toString() +
-                    "," + mEditTextParamK.getText().toString();
-
+            mCurrentValue = mEditText1.getText().toString();
             this.persistString(mCurrentValue);
             this.updateSummary();
         }
