@@ -43,7 +43,7 @@ public class PolynomialTrendRemoval implements DataProcessingInterface {
         polyfit(samples, iddata.getOutput()); // compute coefs and polyval
 
         // detrend:
-        iddata.setOutput(MathDbl.subtract(iddata.getOutput(), poly));
+        iddata.setOutput(MathDbl.subtractVectors(iddata.getOutput(), poly));
         System.out.printf(MathDbl.getString(iddata.getOutput()));
         return iddata;
     }

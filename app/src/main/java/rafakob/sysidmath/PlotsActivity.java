@@ -29,6 +29,7 @@ import java.util.List;
 
 import rafakob.sysidmath.sysid.identification.Correlation;
 import rafakob.sysidmath.sysid.IdData;
+import rafakob.sysidmath.sysid.identification.Nyquist;
 import rafakob.sysidmath.sysid.identification.Psd;
 
 
@@ -175,18 +176,35 @@ public class PlotsActivity extends ActionBarActivity implements
     private void initPsd() {
         plotDataSets.clear();
         if (!gDataSource.isNull()) {
-            Correlation.auto(gDataSource.getOutput(), "biased");
-            Psd.periodogram(Correlation.auto);
+            Psd.periodogram(gDataSource.getOutput(), gDataSource.getTs());
             plotDataSets.put(ID_SOURCE, new PlotDataset(Psd.freq, Psd.vals, lblSource, COLOR_SOURCE));
         }
 
         if (!gDataProcessed.isNull()) {
-            Correlation.auto(gDataProcessed.getOutput(), "biased");
-            Psd.periodogram(Correlation.auto);
+            Psd.periodogram(gDataProcessed.getOutput(), gDataProcessed.getTs());
             plotDataSets.put(ID_PROCESSED, new PlotDataset(Psd.freq, Psd.vals, lblProcessed, COLOR_PROCESSED));
         }
     }
 
+    private void initNyquist() {
+        plotDataSets.clear();
+//        if (!gDataSource.isNull() && gDataSource.isSiso()) {
+//            Nyquist nyquist = new Nyquist();
+//            nyquist.execute(gDataSource.getInput(),gDataSource.getOutput());
+//
+//            plotDataSets.put(ID_SOURCE, new PlotDataset(nyquist.real, nyquist.imag , lblSource, COLOR_SOURCE));
+//        }
+
+        if (!gDataProcessed.isNull() && gDataProcessed.isSiso()) {
+            Nyquist nyquist = new Nyquist();
+            nyquist.execute(gDataProcessed.getInput(),gDataProcessed.getOutput());
+
+            plotDataSets.put(ID_PROCESSED, new PlotDataset(nyquist.xData, nyquist.yData , lblProcessed, COLOR_PROCESSED));
+        }
+
+
+
+    }
 
     private void updateChartData(boolean redraw, boolean leftAxisAtZero) {
         mLineData.clearValues();
@@ -311,6 +329,13 @@ public class PlotsActivity extends ActionBarActivity implements
         setTitle(mTitlePre + getString(R.string.plot_name_4));
         initPsd();
         updateChartData(true, true);
+        fabPlotMenu.close(true);
+    }
+
+    public void onPlotsMenu5Click(View v) {
+        setTitle(mTitlePre + getString(R.string.plot_name_5));
+        initNyquist();
+        updateChartData(true, false);
         fabPlotMenu.close(true);
     }
 

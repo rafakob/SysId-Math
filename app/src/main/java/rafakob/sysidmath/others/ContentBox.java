@@ -1,12 +1,15 @@
 package rafakob.sysidmath.others;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import rafakob.sysidmath.PlotsActivity;
 import rafakob.sysidmath.R;
 
 public class ContentBox {
@@ -70,6 +73,22 @@ public class ContentBox {
         addGrid(row, col, textView, text, mGravityDefault);
     }
 
+    public void addButtonToGrid(int row, int col, String text){
+        Button btn = new Button(mContext);
+        btn.setText(text);
+        btn.setTextColor(Color.BLACK);
+        btn.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(row), GridLayout.spec(col)));
+        btn.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent i;
+                i = new Intent(mContext, PlotsActivity.class);
+                mContext.startActivity(i);
+            }
+        });
+
+        mGrid.addView(btn);
+        ((GridLayout.LayoutParams)btn.getLayoutParams()).setGravity(mGravityDefault);
+    }
     /**
         With gravity
      */

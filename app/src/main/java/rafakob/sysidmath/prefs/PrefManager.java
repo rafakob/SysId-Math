@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 import java.util.ArrayList;
 import java.util.Map;
 
+import rafakob.sysidmath.GlobalApp;
+import rafakob.sysidmath.sysid.IdData;
 import rafakob.sysidmath.sysid.identification.IdAr;
 import rafakob.sysidmath.sysid.identification.IdArma;
 import rafakob.sysidmath.sysid.identification.IdArmax;
@@ -25,11 +27,13 @@ import rafakob.sysidmath.sysid.processing.Scaling;
 public class PrefManager {
     private Context mContext;
 
+
     public PrefManager() {
     }
 
     public PrefManager(Context mContext) {
         this.mContext = mContext;
+
     }
 
     public String getString(String key, String defValue) {
@@ -105,6 +109,10 @@ public class PrefManager {
         }
 
         return null;
+    }
+
+    public double getSampleTime(){
+        return Double.parseDouble(getString("id_par_sample_time",""));
     }
 
 }

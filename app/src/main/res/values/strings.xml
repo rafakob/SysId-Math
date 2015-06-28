@@ -122,6 +122,7 @@
     <string name="plot_name_2">Input signal</string>
     <string name="plot_name_3">Autocorr</string>
     <string name="plot_name_4">PSD</string>
+    <string name="plot_name_5">Nyquist</string>
     <string name="plot_saving_success">Saving SUCCESSFUL!</string>
     <string name="plot_saving_failed">Saving FAILED!</string>
     <string name="plot_info_provide_data">You need to provide data for the chart.</string>

@@ -46,6 +46,9 @@ public class ResultFragment extends Fragment {
     public void onEvent(IdentificationFinishedEvent event) {
         mResultBox.cleatGrid();
         mResultBox.addToGrid(0, 0, event.idModel.getResult());
+
+        if(event.idModel.getFunctionDescription().equals("Nonparametric model"))
+            mResultBox.addButtonToGrid(1, 0, "Plots");
     }
 
 }

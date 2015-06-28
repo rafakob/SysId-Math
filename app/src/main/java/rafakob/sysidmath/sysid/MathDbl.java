@@ -63,10 +63,40 @@ public class MathDbl {
         return v;
     }
 
+    public static double[] addScalar(double[] v, double scalar){
+        for (int i = 0; i < v.length; i++) {
+            v[i] = v[i]+scalar;
+        }
+        return v;
+    }
+
+    public static double[] vectorAbs(double[] v){
+        for (int i = 0; i < v.length; i++) {
+            v[i] = Math.abs(v[i]);
+        }
+        return v;
+    }
+
     public static double[] multiplyVectors(double[] v1, double[] v2) {
         double[] result = new double[v1.length];
         for (int i = 0; i < v1.length; i++) {
             result[i] = v1[i] * v2[i];
+        }
+        return result;
+    }
+
+    public static double[] addVectors(double[] v1, double[] v2) {
+        double[] result = new double[v1.length];
+        for (int i = 0; i < v1.length; i++) {
+            result[i] = v1[i] + v2[i];
+        }
+        return result;
+    }
+
+    public static double[] divideVectors(double[] v1, double[] v2) {
+        double[] result = new double[v1.length];
+        for (int i = 0; i < v1.length; i++) {
+            result[i] = v1[i] / v2[i];
         }
         return result;
     }
@@ -80,7 +110,7 @@ public class MathDbl {
         return sum;
     }
 
-    public static double[] subtract(double[] v1, double[] v2) {
+    public static double[] subtractVectors(double[] v1, double[] v2) {
         double[] y = new double[v1.length];
         for (int i = 0; i < v1.length; i++) {
             y[i] = v1[i] - v2[i];

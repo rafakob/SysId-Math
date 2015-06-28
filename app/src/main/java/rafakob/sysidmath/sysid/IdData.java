@@ -87,6 +87,7 @@ public class IdData {
 
     public void setTs(double ts) {
         this.ts = ts;
+        initSamples();
     }
 
     public int getLength() {

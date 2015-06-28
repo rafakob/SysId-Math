@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.base.Stopwatch;
 
@@ -159,10 +160,10 @@ public class DashboardFragment extends Fragment {
         updateTasksAndModels();
         updateSettingsBoxes();
 
-        txtInfo.setText(getString(R.string.lbl_filename));
-        txtInfo.setText(getString(R.string.lbl_path));
-        txtInfo.setText(getString(R.string.lbl_data_type));
-        txtInfo.setText(getString(R.string.lbl_length_source));
+//        txtFilename.setText(getString(R.string.lbl_filename));
+//        txtPath.setText(getString(R.string.lbl_path));
+//        txtDataType.setText(getString(R.string.lbl_data_type));
+//        txtLength.setText(getString(R.string.lbl_length_source));
 
         return view;
     }
@@ -242,22 +243,6 @@ public class DashboardFragment extends Fragment {
         updateTasksAndModels();
         updateSettingsBoxes();
 
-//        IdData iddata = new IdData(); // nowy obiekt
-//        // wczytaj dane do iddata z pliku lub ręcznie
-//
-//        // Wstępne przetwarzanie:
-//        DataProcessing dp = new DataProcessing();
-//        dp.process(iddata, Arrays.asList(
-//                            new DataRange(1,100),
-//                            new Normalization()
-//                            ) // wykonaj dwie metody
-//                    );
-//        // Identyfikacja:
-//        IdArx arx = new IdArx(2,1,1,0.99);
-//        arx.execute(iddata);
-//
-//        System.out.println( "Wynik identyfikacji: " + arx.getResult() );
-
     }
 
     /**
@@ -288,6 +273,7 @@ public class DashboardFragment extends Fragment {
 
             try{
                 DataProcessing dp = new DataProcessing();
+                iddata.setTs(mPrefManager.getSampleTime());
                 dataProcessed.cloneFromIddata(iddata);
                 dp.process(dataProcessed, mPreprocessingTasks); // perform preprocessing
                 mIdentificationModel.execute(dataProcessed); // perform identification
