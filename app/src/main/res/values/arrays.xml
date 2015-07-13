@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="filterList">
+        <item>Low-pass</item>
+        <item>High-pass</item>
+        <item>Band-pass</item>
+        <item>Band-stop</item>
+    </string-array>
+    <string-array name="filterListValues">
+        <item>lowpass</item>
+        <item>highpass</item>
+        <item>bandpass</item>
+        <item>bandstop</item>
+    </string-array>
+
+
+    <string-array name="idPlantList">
+        <item>ARX</item>
+        <!--<item>ARMAX</item>-->
+    </string-array>
+    <string-array name="idPlantListValues">
+        <item>arx</item>
+        <!--<item>armax</item>-->
+    </string-array>
+
+
+    <string-array name="idTimeseriesList">
+        <item>AR</item>
+        <!--<item>MA</item>-->
+        <!--<item>ARMA</item>-->
+    </string-array>
+    <string-array name="idTimeseriesListValues">
+        <item>ar</item>
+        <!--<item>ma</item>-->
+        <!--<item>arma</item>-->
+    </string-array>
+
+
+    <string-array name="polyOrderList">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="polyOrderListValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>

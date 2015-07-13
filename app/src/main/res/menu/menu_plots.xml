@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/actionToggleValues"
+        android:title="@string/plot_menu_toggle_values">
+    </item>
+    <item
+        android:id="@+id/actionToggleCircles"
+        android:title="@string/plot_menu_toggle_circles">
+    </item>
+    <item
+        android:id="@+id/actionToggleFilled"
+        android:title="@string/plot_menu_toggle_filled">
+    </item>
+    <item
+        android:id="@+id/actionToggleCubic"
+        android:title="@string/plot_menu_toggle_cubic">
+    </item>
+    <item
+        android:id="@+id/actionTogglePinch"
+        android:title="@string/plot_menu_toggle_pinchzoom">
+    </item>
+
+    <item
+        android:id="@+id/animateX"
+        android:title="@string/plot_menu_animate_x">
+    </item>
+    <item
+        android:id="@+id/animateY"
+        android:title="@string/plot_menu_animate_y">
+    </item>
+    <item
+        android:id="@+id/animateXY"
+        android:title="@string/plot_menu_animate_xy">
+    </item>
+
+    <item
+        android:id="@+id/actionSave"
+        android:title="@string/plot_menu_save_to_sdcard">
+    </item>
+
+</menu>

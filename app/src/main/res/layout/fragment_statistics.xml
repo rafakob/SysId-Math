@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background">
+
+    <ScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="rafakob.sysidmath.StatisticsFragment">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/box_statistics_source"
+                layout="@layout/box_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                android:id="@+id/box_statistics_processed"
+                layout="@layout/box_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="75dp"-->
+                <!--android:id="@+id/separator"></LinearLayout>-->
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+    <!--<com.github.clans.fab.FloatingActionButton-->
+        <!--android:id="@+id/fab_edit"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:onClick="onFloatingActionButtonClick"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:src="@drawable/ic_edit"-->
+        <!--fab:fab_size="normal"-->
+        <!--fab:fab_colorNormal="#F50057"-->
+        <!--fab:fab_colorPressed="#E8004A"-->
+        <!--fab:fab_colorRipple="#C20024"-->
+        <!--fab:fab_shadowColor="#000"-->
+        <!--fab:fab_elevationCompat="6dp"-->
+        <!--fab:fab_showAnimation="@anim/fab_scale_up"-->
+        <!--fab:fab_hideAnimation="@anim/fab_scale_down"/>-->
+
+</RelativeLayout>
+

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:speedreader="http://schemas.android.com/apk/res-auto">
+
+
+
+    <PreferenceCategory android:title="@string/pref_edit">
+        <CheckBoxPreference
+            android:key="pre_flag_datarange"
+            android:summary="@string/pref_datarange_summary"
+            android:title="@string/pref_datarange_title" />
+
+        <rafakob.sysidmath.prefs.DoubleNumberPickerPreference
+            android:defaultValue="1;1000"
+            android:dependency="pre_flag_datarange"
+            android:key="pre_datarange_range"
+            android:title="@string/pref_datarange_select_title"
+            speedreader:numeric="integer"
+            speedreader:labelFirst="@string/pref_start"
+            speedreader:labelSecond="@string/pref_end" />
+    </PreferenceCategory>
+
+
+
+    <PreferenceCategory android:title="@string/pref_filter">
+        <CheckBoxPreference
+            android:key="pre_flag_filter_freq"
+            android:summary="@string/pref_filter_freq_summary"
+            android:title="@string/pref_filter_freq_title" />
+
+        <ListPreference
+            android:defaultValue="lowpass"
+            android:dependency="pre_flag_filter_freq"
+            android:entries="@array/filterList"
+            android:entryValues="@array/filterListValues"
+            android:key="pre_filter_freq_type"
+            android:summary="\t%s"
+            android:title="@string/pref_filter_freq_type" />
+
+        <rafakob.sysidmath.prefs.DoubleNumberPickerPreference
+            android:defaultValue="0;1000"
+            android:dependency="pre_flag_filter_freq"
+            android:key="pre_filter_freq_values"
+            android:title="@string/pref_filter_freq_values"
+            speedreader:labelFirst="@string/pref_lower"
+            speedreader:labelSecond="@string/pref_upper" />
+    </PreferenceCategory>
+    <!--TODO: dodać filtr w dziedzinie czasu-->
+
+    <PreferenceCategory android:title="@string/pref_scaling_and_removing">
+        <CheckBoxPreference
+            android:key="pre_flag_normalization"
+            android:summary=""
+            android:title="@string/pref_normalization_title" />
+
+        <CheckBoxPreference
+            android:key="pre_flag_scaling"
+            android:summary=""
+            android:title="@string/pref_scaling_title" />
+        <rafakob.sysidmath.prefs.DoubleNumberPickerPreference
+            android:defaultValue="1;1000"
+            android:dependency="pre_flag_scaling"
+            android:key="pre_scaling_values"
+            android:title="@string/pref_scaling_values_title"
+            speedreader:numeric="decimal"
+            speedreader:labelFirst="@string/pref_multiplier_in"
+            speedreader:labelSecond="@string/pref_multiplier_out" />
+
+        <CheckBoxPreference
+            android:key="pre_flag_avgremoval"
+            android:summary="@string/pref_avremoval_summary"
+            android:title="@string/pref_avremoval_title" />
+
+
+        <CheckBoxPreference
+            android:key="pre_flag_polyremoval"
+            android:summary="@string/pref_polyremoval_summary"
+            android:title="@string/pref_polyremoval_title" />
+        <ListPreference
+            android:defaultValue="1"
+            android:dependency="pre_flag_polyremoval"
+            android:entries="@array/polyOrderList"
+            android:entryValues="@array/polyOrderListValues"
+            android:key="pre_polyremoval_order"
+            android:summary="\t%s"
+            android:title="@string/pref_polyremoval_order_title" />
+
+    </PreferenceCategory>
+
+
+
+    <!--<PreferenceCategory android:title="Filter">-->
+    <!--<CheckBoxPreference-->
+    <!--android:key="pre_chb_data_range"-->
+    <!--android:title="Data range"-->
+    <!--android:summary="Select only fragment of datasource"/>-->
+
+    <!--<rafakob.multiedip.prefs.DoubleNumberPickerPreference-->
+    <!--android:key="pre_txt_datarange"-->
+    <!--android:title="\tSet start and end"-->
+    <!--android:dependency="pre_chb_data_range"-->
+    <!--speedreader:labelFirst="@string/pref_start"-->
+    <!--speedreader:labelSecond="@string/pref_end"-->
+    <!--android:defaultValue="0-1000"/>-->
+    <!--</PreferenceCategory>-->
+
+
+    <!--<PreferenceCategory-->
+    <!--android:summary="Username and password information"-->
+    <!--android:title="Wybór przedziału" >-->
+    <!--<rafakob.multiedip.prefs.EditTextPreference-->
+    <!--android:key="username"-->
+    <!--android:summary="Please enter your login username"-->
+    <!--android:title="Dolny" />-->
+    <!--<rafakob.multiedip.prefs.EditTextPreference-->
+
+    <!--android:key="password"-->
+    <!--android:summary="Enter your password"-->
+    <!--android:title="Górny" />-->
+    <!--</PreferenceCategory>-->
+
+    <!--<PreferenceCategory-->
+    <!--android:summary="Username and password information"-->
+    <!--android:title="Settings" >-->
+    <!--<CheckBoxPreference-->
+    <!--android:key="checkBox"-->
+    <!--android:summary="On/Off"-->
+    <!--android:title="Keep me logged in" />-->
+
+
+    <!--</PreferenceCategory>-->
+
+
+</PreferenceScreen>

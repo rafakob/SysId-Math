@@ -1,9 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/window_background"
-    tools:context="rafakob.multiedip.DashboardFragment">
+    tools:context="rafakob.sysidmath.DashboardFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -12,15 +12,49 @@
 
         <include
             android:id="@+id/box_datasource"
-            layout="@layout/box_layout" />
+            layout="@layout/box_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Info"
+                android:id="@+id/lbl_info"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="@string/btn_run"
+                android:id="@+id/btn_run"
+                android:layout_gravity="top|center_horizontal"
+                android:singleLine="true"
+                android:background="@color/btn_run_enabled"
+                android:layout_marginBottom="15dp" />
+        </LinearLayout>
 
         <include
             android:id="@+id/box_preprocessing"
-            layout="@layout/box_layout" />
+            layout="@layout/box_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <include
             android:id="@+id/box_identification"
-            layout="@layout/box_layout" />
+            layout="@layout/box_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
     </LinearLayout>
 
 </ScrollView>
