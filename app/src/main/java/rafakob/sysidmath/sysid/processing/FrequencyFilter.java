@@ -15,7 +15,7 @@ public class FrequencyFilter implements DataProcessingInterface {
         //<<< Failed to pull data from GitHub server. Resolve conflicts!! todo
 
         return iddata;
-    }git commit
+    }
 
     @Override
     public String getFunctionDescription() {
